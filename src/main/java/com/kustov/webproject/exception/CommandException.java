@@ -1,4 +1,4 @@
-package com.kustov.tagexample.exception;
+package com.kustov.webproject.exception;
 
 public class CommandException extends Exception{
     public CommandException() {

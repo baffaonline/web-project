@@ -1,4 +1,4 @@
-package com.kustov.tagexample.entity;
+package com.kustov.webproject.entity;
 
 import java.io.Serializable;
 

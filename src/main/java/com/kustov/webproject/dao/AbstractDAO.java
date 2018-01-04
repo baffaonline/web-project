@@ -1,7 +1,7 @@
-package com.kustov.tagexample.dao;
+package com.kustov.webproject.dao;
 
-import com.kustov.tagexample.entity.Entity;
-import com.kustov.tagexample.exception.DAOException;
+import com.kustov.webproject.entity.Entity;
+import com.kustov.webproject.exception.DAOException;
 
 import java.util.List;
 

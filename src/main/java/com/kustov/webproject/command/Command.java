@@ -1,6 +1,6 @@
-package com.kustov.tagexample.command;
+package com.kustov.webproject.command;
 
-import com.kustov.tagexample.exception.CommandException;
+import com.kustov.webproject.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 

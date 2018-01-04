@@ -1,4 +1,4 @@
-package com.kustov.tagexample.validator;
+package com.kustov.webproject.validator;
 
 public class LoginCommandValidator {
     public static boolean checkLoginAndPassword(String login, String password){

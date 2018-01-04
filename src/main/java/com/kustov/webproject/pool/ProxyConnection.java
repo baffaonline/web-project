@@ -1,6 +1,6 @@
-package com.kustov.tagexample.pool;
+package com.kustov.webproject.pool;
 
-import com.kustov.tagexample.exception.ConnectionException;
+import com.kustov.webproject.exception.ConnectionException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

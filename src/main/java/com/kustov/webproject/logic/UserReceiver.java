@@ -1,8 +1,8 @@
-package com.kustov.tagexample.logic;
+package com.kustov.webproject.logic;
 
-import com.kustov.tagexample.dao.UserDAO;
-import com.kustov.tagexample.exception.DAOException;
-import com.kustov.tagexample.exception.ServiceException;
+import com.kustov.webproject.dao.UserDAO;
+import com.kustov.webproject.exception.DAOException;
+import com.kustov.webproject.exception.ServiceException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,9 +1,9 @@
-package com.kustov.tagexample.controller;
+package com.kustov.webproject.controller;
 
-import com.kustov.tagexample.command.Command;
-import com.kustov.tagexample.command.CommandFactory;
-import com.kustov.tagexample.command.EmptyCommand;
-import com.kustov.tagexample.exception.CommandException;
+import com.kustov.webproject.command.Command;
+import com.kustov.webproject.command.CommandFactory;
+import com.kustov.webproject.command.EmptyCommand;
+import com.kustov.webproject.exception.CommandException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;

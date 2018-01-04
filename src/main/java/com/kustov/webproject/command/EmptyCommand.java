@@ -1,4 +1,4 @@
-package com.kustov.tagexample.command;
+package com.kustov.webproject.command;
 
 import javax.servlet.http.HttpServletRequest;
 

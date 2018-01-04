@@ -1,9 +1,9 @@
-package com.kustov.tagexample.command;
+package com.kustov.webproject.command;
 
-import com.kustov.tagexample.exception.CommandException;
-import com.kustov.tagexample.exception.ServiceException;
-import com.kustov.tagexample.logic.UserReceiver;
-import com.kustov.tagexample.validator.LoginCommandValidator;
+import com.kustov.webproject.exception.CommandException;
+import com.kustov.webproject.exception.ServiceException;
+import com.kustov.webproject.logic.UserReceiver;
+import com.kustov.webproject.validator.LoginCommandValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ResourceBundle;

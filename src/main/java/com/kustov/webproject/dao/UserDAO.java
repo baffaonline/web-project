@@ -1,11 +1,11 @@
-package com.kustov.tagexample.dao;
+package com.kustov.webproject.dao;
 
-import com.kustov.tagexample.entity.User;
-import com.kustov.tagexample.entity.UserType;
-import com.kustov.tagexample.exception.ConnectionException;
-import com.kustov.tagexample.exception.DAOException;
-import com.kustov.tagexample.pool.DBConnectionPool;
-import com.kustov.tagexample.pool.ProxyConnection;
+import com.kustov.webproject.entity.User;
+import com.kustov.webproject.entity.UserType;
+import com.kustov.webproject.exception.ConnectionException;
+import com.kustov.webproject.exception.DAOException;
+import com.kustov.webproject.pool.DBConnectionPool;
+import com.kustov.webproject.pool.ProxyConnection;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

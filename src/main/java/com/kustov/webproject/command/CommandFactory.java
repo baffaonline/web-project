@@ -1,6 +1,6 @@
-package com.kustov.tagexample.command;
+package com.kustov.webproject.command;
 
-import com.kustov.tagexample.exception.CommandException;
+import com.kustov.webproject.exception.CommandException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

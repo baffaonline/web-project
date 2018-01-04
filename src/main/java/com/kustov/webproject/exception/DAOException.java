@@ -1,4 +1,4 @@
-package com.kustov.tagexample.exception;
+package com.kustov.webproject.exception;
 
 public class DAOException extends Exception {
     public DAOException() {
