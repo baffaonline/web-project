@@ -4,6 +4,7 @@ import com.kustov.webproject.command.Command;
 import com.kustov.webproject.command.CommandFactory;
 import com.kustov.webproject.command.EmptyCommand;
 import com.kustov.webproject.exception.CommandException;
+import com.kustov.webproject.pool.DBConnectionPool;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;

@@ -1,0 +1,12 @@
+body{
+    background: url(/img/spider-man.png) 50% 0 no-repeat #000;
+    background-size: cover;
+}
+header{
+    background-color: #005cbf;
+}
+/*#page-body{*/
+    /*background-size:contain;*/
+    /*background: url('../img/spider-man.png') no-repeat center;*/
+    /*b*/
+/*}*/

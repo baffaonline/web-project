@@ -6,5 +6,6 @@
 <body>
     <div>Successful authorization</div>
     <div>Hi, ${user}</div>
+    <a href="authorization.jsp">Return</a>
 </body>
 </html>
