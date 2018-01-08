@@ -23,6 +23,7 @@ public class DBConnectionPool {
 
     private DBConnectionPool() {
         try{
+            //Сделать ConfigurationManager
         ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
         String uri = resourceBundle.getString("db.uri");
         String user = resourceBundle.getString("db.user");

@@ -1,6 +1,6 @@
 package com.kustov.webproject.command;
 
-import com.kustov.tagexample.logic.UserReceiver;
+import com.kustov.webproject.logic.UserReceiver;
 
 public enum CommandType {
     LOGIN(new LoginCommand(new UserReceiver()));
