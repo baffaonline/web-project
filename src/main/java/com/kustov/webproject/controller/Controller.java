@@ -18,31 +18,51 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 @WebServlet("/jsp/MainController")
-public class Controller extends HttpServlet{
+public class Controller extends HttpServlet {
     private static String pathPageDefault;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("pages");
-        pathPageDefault = resourceBundle.getString("path_page_main");
+        pathPageDefault = resourceBundle.getString("path_page_default");
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
+        commandDefine(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        commandDefine(req, resp);
+    }
+
+    private void commandDefine(HttpServletRequest req, HttpServletResponse resp){
         try {
             Optional<Command> optionalCommand = CommandFactory.defineCommand(req.getParameter("command"));
             Command command = optionalCommand.orElse(new EmptyCommand());
             String page = command.execute(req);
-
             if (!page.isEmpty()) {
                 RequestDispatcher dispatcher = req.getRequestDispatcher(page);
                 dispatcher.forward(req, resp);
             } else {
                 resp.sendRedirect(pathPageDefault);
             }
-        }catch (CommandException exc){
+        } catch (CommandException exc) {
             req.getSession().setAttribute("error", "Wrong command");
-            resp.sendRedirect(pathPageDefault);
+            try {
+                resp.sendRedirect(pathPageDefault);
+            } catch (IOException exception) {
+                this.destroy();
+            }
+        } catch (IOException | ServletException exc) {
+            req.getSession().setAttribute("error", exc.getMessage());
+            try {
+                resp.sendRedirect(pathPageDefault);
+            } catch (IOException exception) {
+                this.destroy();
+            }
         }
     }
 

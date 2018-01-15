@@ -36,5 +36,6 @@
     <orderEntry type="library" name="mysql-connector-java-6.0.5-bin" level="project" />
     <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
     <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="library" name="javax.servlet.jsp.jstl-1.2.1" level="project" />
   </component>
 </module>

@@ -1,9 +1,39 @@
 body{
-    background: url(/img/spider-man.png) 50% 0 no-repeat #000;
+    background: url(/img/bg.jpg) no-repeat;
     background-size: cover;
+    text-align: center;
 }
+
 header{
-    background-color: #005cbf;
+    background-color: #314D68;
+    opacity: 0.5;
+}
+
+.navigation-bar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+}
+
+#navbarSupportedContent {
+    justify-content: flex-end;
+}
+
+#errorParagraph{
+    color:red;
+    font-family: 'Slabo 27px', serif;
+}
+
+.navigation-bar-item {
+    color: white !important;
+}
+
+.formDiv{
+    width: 40%;
+    margin: 2% auto;
+    background: rgba(123, 34, 45, 0.5);
+    color: white;
 }
 /*#page-body{*/
     /*background-size:contain;*/

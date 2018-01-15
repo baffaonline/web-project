@@ -18,7 +18,7 @@ public class LoginCommand implements Command {
     }
 
     public String execute(HttpServletRequest request) throws CommandException{
-        String page = null;
+        String page;
         String login = request.getParameter(PARAM_LOGIN);
         String password = request.getParameter(PARAM_PASSWORD);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("pages");
@@ -37,7 +37,8 @@ public class LoginCommand implements Command {
                 throw new CommandException(exc);
             }
         }else {
-            request.setAttribute("errorInLoginOrPasswordMessage", "Empty login or password");
+            request.setAttribute("errorInLoginOrPasswordMessage", "Login and password have to contain only letters, " +
+            "numbers and _");
             page = pageAuthorization;
         }
         return page;

@@ -4,15 +4,15 @@
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
-    <title>Time & Locale info</title>
+    <title>MovieRating</title>
 </head>
 <body>
 <div id="page-body">
     <header>
         <nav id="header-nav" class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <div>
-                    <a class="navbar-brand" href="#">MovieRating</a>
+                <div class="navigation-bar-container">
+                    <a class="navbar-brand navigation-bar-item" href="#">MovieRating</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent"
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +22,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link"
+                            <a class="nav-link navigation-bar-item"
                                href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                               href="${pageContext.request.contextPath}/jsp/registration.jsp">Register</a>
+                            <a class="nav-link navigation-bar-item"
+                               href="MainController?command=registration_setup">Register</a>
                         </li>
                     </ul>
                 </div>
@@ -35,7 +35,7 @@
         </nav>
     </header>
     <div>
-        <p>Loolz</p>
+        <p>${error}</p>
     </div>
 </div>
 <footer class="panel-footer">

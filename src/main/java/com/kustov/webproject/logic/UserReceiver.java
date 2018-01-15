@@ -7,7 +7,7 @@ import com.kustov.webproject.exception.ServiceException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class UserReceiver{
+public class UserReceiver extends DefaultReceiver{
     public boolean checkUser(String login, String password) throws ServiceException{
         UserDAO dao = new UserDAO();
         try {

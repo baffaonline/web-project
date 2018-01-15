@@ -11,8 +11,8 @@
     <header>
         <nav id="header-nav" class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <div>
-                    <a class="navbar-brand" href="#">MovieRating</a>
+                <div class="navigation-bar-container">
+                    <a class="navbar-brand navigation-bar-item" href="#">MovieRating</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent"
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,12 +22,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link"
+                            <a class="nav-link navigation-bar-item"
                                href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                               href="${pageContext.request.contextPath}/jsp/registration.jsp">Register</a>
+                            <a class="nav-link navigation-bar-item"
+                               href="MainController?command=registration_setup">Register</a>
                         </li>
                     </ul>
                 </div>
@@ -35,32 +35,12 @@
         </nav>
     </header>
     <div>
-        <p>Loolz</p>
+        <p>${error}</p>
     </div>
 </div>
 <footer class="panel-footer">
     <div class="container">
-        <div class="row">
-            <section id="hours" class="col-sm-4">
-                <span>Hours:</span><br>
-                Sun-Thurs: 11:15am - 10:00pm<br>
-                Fri: 11:15am - 2:30pm<br>
-                Saturday Closed
-                <hr class="visible-xs">
-            </section>
-            <section id="address" class="col-sm-4">
-                <span>Address:</span><br>
-                7105 Reisterstown Road<br>
-                Baltimore, MD 21215
-                <p>* Delivery area within 3-4 miles, with minimum order of $20 plus $3 charge for all deliveries.</p>
-                <hr class="visible-xs">
-            </section>
-            <section id="testimonials" class="col-sm-4">
-                <p>"The best Chinese restaurant I've been to! And that's saying a lot, since I've been to many!"</p>
-                <p>"Amazing food! Great service! Couldn't ask for more! I'll be back again and again!"</p>
-            </section>
-        </div>
-        <div class="text-center">&copy; Copyright David Chu's China Bistro 2016</div>
+        <div class="text-center">&copy; Copyright Kustov Ivan 2018</div>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

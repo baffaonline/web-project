@@ -1,4 +1,4 @@
 package com.kustov.webproject.logic;
 
-public class DefaultReceiver {
+public abstract class DefaultReceiver {
 }
