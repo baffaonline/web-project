@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Entity implements Serializable, Cloneable{
     private int id;
-    public Entity(){
+    Entity(){
     }
 
-    public Entity(int id){
+    Entity(int id){
         this.id = id;
     }
 

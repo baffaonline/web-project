@@ -13,12 +13,13 @@
     <div class="formDiv">
         <h2>Sign up</h2>
         <form action="${pageContext.request.contextPath}/jsp/MainController" id="regForm" method="post" role="form">
-            <input type="hidden" name="command" value="registration"/>
+            <input type="hidden" name="command" value="sign_up"/>
             <div class="form-group">
-                <label for="login" class="control-label">Login</label>
+                <label for="username" class="control-label">Username</label>
                 <div>
-                    <input type="text" name="login" class="form-control" id="login" placeholder="Enter login">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
                 </div>
+                <p>${errorUsername}</p>
             </div>
             <div class="form-group">
                 <label for="password" class="control-label">Password</label>
@@ -26,12 +27,14 @@
                     <input type="password" name="password" class="form-control" id="password"
                            placeholder="Password">
                 </div>
+                <p>${errorPassword}</p>
             </div>
             <div class="form-group">
-                <label for="email" class="control-label">Login</label>
+                <label for="email" class="control-label">Email</label>
                 <div>
                     <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
                 </div>
+                <p>${errorEmail}</p>
             </div>
             <div class="form-group">
                 <label for="firstName" class="control-label">First name</label>
@@ -46,6 +49,7 @@
                     <input type="text" name="secondName" class="form-control" id="secondName"
                            placeholder="Second name">
                 </div>
+                <p>${errorName}</p>
             </div>
             <div class="form-group">
                 <label for="birthday" class="control-label">Birthday</label>
@@ -53,11 +57,12 @@
                     <input type="date" name="birthday" class="form-control" id="birthday"
                            placeholder="Birthday">
                 </div>
+                <p>${errorBirthday}</p>
             </div>
             <div class="form-group">
                 <label for="country" class="control-label">Country</label>
                 <div>
-                    <select id="country" class="form-control">
+                    <select name="country" id="country" class="form-control">
                         <c:forEach var="elem" items="${countries}">
                             <option value="${elem}">${elem}</option>
                         </c:forEach>

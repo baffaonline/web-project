@@ -5,7 +5,8 @@ import com.kustov.webproject.logic.UserReceiver;
 
 public enum CommandType {
     LOGIN(new LoginCommand(new UserReceiver())),
-    REGISTRATION_SETUP(new RegistrationSetupCommand(new CountryReceiver()));
+    REGISTRATION_SETUP(new RegistrationSetupCommand(new CountryReceiver())),
+    SIGN_UP(new SignUpCommand(new UserReceiver()));
 
     private Command command;
 

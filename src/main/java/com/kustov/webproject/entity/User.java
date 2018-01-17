@@ -10,7 +10,7 @@ public class User extends Entity {
     private String name;
     private String lastname;
     private Date birthday;
-    private String country;
+    private Country country;
     private int rating;
     private boolean isBanned;
     private UserType type;
@@ -20,7 +20,7 @@ public class User extends Entity {
     }
 
     public User(int id, String username, String password, String email, String name, String lastname,
-                Date birthday, String country, int rating, boolean isBanned, UserType type) {
+                Date birthday, Country country, int rating, boolean isBanned, UserType type) {
         super(id);
         this.username = username;
         this.password = password;
@@ -90,11 +90,11 @@ public class User extends Entity {
         this.birthday = birthday;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

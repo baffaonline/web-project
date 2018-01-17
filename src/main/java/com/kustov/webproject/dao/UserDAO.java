@@ -1,5 +1,6 @@
 package com.kustov.webproject.dao;
 
+import com.kustov.webproject.entity.Country;
 import com.kustov.webproject.entity.User;
 import com.kustov.webproject.entity.UserType;
 import com.kustov.webproject.exception.ConnectionException;
@@ -24,9 +25,12 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id";
     private static final String SQL_SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, username, password, email, name, lastname, " +
-            "birthdate, country_name, user_rating, isAdmin, isBanned\n" +
+            "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id AND username = ? And password = ?";
+    private static final String SQL_INSERT_USER = "INSERT into `filmratingdb`.user (id, username, password, email, name, lastname, " +
+            "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
+            " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
 
     @Override
     public List<User> findAll() throws DAOException{
@@ -53,6 +57,31 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         return users;
     }
 
+    public void insert(User user) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = null;
+        try{
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_INSERT_USER);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getName());
+            statement.setString(5, user.getLastname());
+            java.sql.Date sqlDate = new java.sql.Date(user.getBirthday().getTime());
+            statement.setDate(6, sqlDate);
+            statement.setInt(7, user.getCountry().getId());
+            statement.executeUpdate();
+        }catch (SQLException | ConnectionException exc){
+            throw new DAOException(exc);
+        } finally {
+            close(statement, connectionPool, connection);
+        }
+        LOGGER.log(Level.INFO, "Add new user to database");
+    }
+
     public User findUserByUsernameAndPassword(String username, String password) throws DAOException{
         ProxyConnection connection = null;
         PreparedStatement statement = null;
@@ -77,22 +106,6 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         return user;
     }
 
-    private void close(Statement statement, DBConnectionPool connectionPool,
-                       ProxyConnection connection){
-        try {
-            if(statement != null) {
-                statement.close();
-            }
-            if (connectionPool != null && connection != null) {
-                connectionPool.releaseConnection(connection);
-            }
-        }catch (SQLException exc){
-            LOGGER.log(Level.WARN, exc.getMessage());
-        }catch (ConnectionException exc){
-            LOGGER.log(Level.ERROR, exc.getStackTrace());
-        }
-    }
-
     private void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
         user.setId(resultSet.getInt("id"));
         user.setUsername(resultSet.getString("username"));
@@ -101,7 +114,8 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         user.setName(resultSet.getString("name"));
         user.setLastname(resultSet.getString("lastname"));
         user.setBirthday(resultSet.getDate("birthdate"));
-        user.setCountry(resultSet.getString("country_name"));
+        user.setCountry(new Country(resultSet.getInt("country_id"),
+                resultSet.getString("country_name")));
         user.setRating(resultSet.getInt("user_rating"));
         if (resultSet.getBoolean("isAdmin")){
             user.setType(UserType.ADMIN);

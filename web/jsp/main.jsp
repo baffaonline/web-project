@@ -5,7 +5,7 @@
 </head>
 <body>
     <div>Successful authorization</div>
-    <div>Hi, ${user}</div>
-    <a href="authorization.jsp">Return</a>
+    <div>Hi, ${user.username}</div>
+    <a href="${pageContext.request.contextPath}/index.jsp">Return</a>
 </body>
 </html>
