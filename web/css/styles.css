@@ -9,6 +9,10 @@ header{
     opacity: 0.5;
 }
 
+footer{
+    color: white;
+}
+
 .navigation-bar-container {
     display: flex;
     flex-direction: row;
@@ -35,8 +39,109 @@ header{
     background: rgba(123, 34, 45, 0.5);
     color: white;
 }
-/*#page-body{*/
-    /*background-size:contain;*/
-    /*background: url('../img/spider-man.png') no-repeat center;*/
-    /*b*/
-/*}*/
+
+.mainContent{
+    width: 90%;
+    margin: 0 auto;
+    background: white;
+    opacity: 0.7;
+}
+
+.filmPanel{
+    width: 100%;
+    overflow: hidden;
+    padding: 2%;
+    display: flex;
+}
+
+.filmPanel .filmImage{
+    width: 30%;
+    padding-right: 1%;
+}
+
+.imgDimension1{
+    flex: 1;
+}
+
+.imgDimension2{
+    flex: 0.995;
+}
+
+.filmImage.lastImage{
+    padding-right: 0;
+}
+
+.filmImage img{
+    width: 100%;
+}
+
+.ratingPanel {
+    display: flex;
+    margin-bottom: 15px;
+    text-decoration: underline;
+    background-color: #314D68;
+    box-shadow: 0 1px 2px 1px #000;
+    width: 100%;
+}
+
+/*
+   Styles for container
+ */
+
+.mainContent_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content {
+    flex: 0.5;
+}
+
+.filter {
+    flex: 0.5;
+}
+
+/*
+    Styles for panel and inner items
+ */
+
+/*
+    Common styles
+ */
+
+.rating-panel-image,
+.rating-panel-content,
+.rating-panel-degree {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.rating-panel-image {
+    justify-content: flex-start;
+}
+
+.rating-panel-image img {
+    height: 100px;
+}
+
+.rating-panel-content {
+    justify-content: center;
+    background-color: transparent;
+    opacity: 0.7;
+}
+
+.rating-panel-content a {
+    color: white;
+    text-decoration: none;
+}
+
+.rating-panel-degree {
+    justify-content: center;
+}
+
+.rating-panel-degree strong {
+    color: white;
+    text-decoration: none;
+}

@@ -56,6 +56,8 @@ public class Controller extends HttpServlet {
             }
         } catch (CommandException | IOException | ServletException exc) {
             req.getSession().setAttribute("error", exc.getMessage());
+            LOGGER.log(Level.ERROR, exc.getMessage());
+            System.out.println(exc.getMessage());
             try {
                 resp.sendRedirect(pathPageDefault);
             } catch (IOException exception) {

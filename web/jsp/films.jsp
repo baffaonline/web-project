@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
-    <title>MovieRating</title>
+    <title>Films</title>
 </head>
 <body>
 <div id="page-body">
@@ -24,10 +24,6 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link navigation-bar-item"
-                               href="MainController?command=film">Films</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link navigation-bar-item"
                                href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
                         </li>
                         <li class="nav-item">
@@ -40,16 +36,34 @@
         </nav>
     </header>
     <div class="mainContent">
-        <div class="container">
-            <div class="filmPanel">
-                <div class="filmImage imgDimension1">
-                    <img src="img/spider-man.jpg">
+        <div class="container mainContent_container">
+            <div class="content">
+                <h1>Top Rated Movies</h1>
+                <hr>
+                <c:forEach var="elem" items="${films}">
+                    <div class="ratingPanel">
+                        <div class="rating-panel-image">
+                            <a href="#">
+                                <img src="${elem.posterPath}">
+                            </a>
+                        </div>
+                        <div class="rating-panel-content">
+                            <a href="#">${elem.title}</a>
+                        </div>
+                        <div class="rating-panel-degree">
+                            <strong>${elem.rating}</strong>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="filter">
+                <div>
+                    <h1>Films</h1>
+                    <input type="text">
                 </div>
-                <div class="filmImage imgDimension2">
-                    <img src="img/thor3.jpg">
-                </div>
-                <div class="filmImage lastImage imgDimension1">
-                    <img src="img/avenger_infinity_war.jpg">
+                <div>
+                    <h1>Rating</h1>
+                    <input type="text"/>
                 </div>
             </div>
         </div>
@@ -70,5 +84,7 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+</body>
+</html>
 </body>
 </html>

@@ -2,13 +2,13 @@ package com.kustov.webproject.entity;
 
 import java.util.Objects;
 
-public class Country extends Entity{
+public class Genre extends Entity {
     private String name;
 
-    public Country() {
+    public Genre() {
     }
 
-    public Country(int id, String name) {
+    public Genre(int id, String name) {
         super(id);
         this.name = name;
     }
@@ -25,8 +25,8 @@ public class Country extends Entity{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return super.equals(o) && Objects.equals(name, country.name);
+        Genre genre = (Genre) o;
+        return Objects.equals(name, genre.name);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class Country extends Entity{
 
     @Override
     public String toString() {
-        return name;
+        return "Genre " + name ;
     }
 }

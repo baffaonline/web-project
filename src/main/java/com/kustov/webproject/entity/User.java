@@ -1,5 +1,7 @@
 package com.kustov.webproject.entity;
 
+import com.kustov.webproject.exception.CommandException;
+
 import java.util.Date;
 import java.util.Objects;
 
