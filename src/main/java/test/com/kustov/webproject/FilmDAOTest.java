@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class FilmDAOTest {
@@ -35,6 +36,7 @@ public class FilmDAOTest {
 
     @Test
     public void findAll() throws DAOException{
+        GregorianCalendar date = new GregorianCalendar(1998, 10, 10);
         FilmDAO dao = new FilmDAO();
         List<Film> answer = dao.findAll();
         Assert.assertEquals(films, answer);

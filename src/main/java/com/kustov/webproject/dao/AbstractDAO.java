@@ -21,6 +21,10 @@ public abstract class AbstractDAO<K, T extends Entity> {
     public void insert(T entity) throws DAOException {
     }
 
+    public T findById(K id) throws DAOException{
+        return null;
+    }
+
     public void close(Statement statement, DBConnectionPool connectionPool,
                       ProxyConnection connection) {
         try {
@@ -33,7 +37,7 @@ public abstract class AbstractDAO<K, T extends Entity> {
         } catch (SQLException exc) {
             LOGGER.log(Level.WARN, exc.getMessage());
         } catch (ConnectionException exc) {
-            LOGGER.log(Level.ERROR, exc.getStackTrace());
+            LOGGER.log(Level.ERROR, exc.getMessage());
         }
     }
 }

@@ -8,6 +8,7 @@ public enum CommandType {
     LOGIN(new LoginCommand(new UserReceiver())),
     REGISTRATION_SETUP(new RegistrationSetupCommand(new CountryReceiver())),
     SIGN_UP(new SignUpCommand(new UserReceiver())),
+    FILM_TOP(new FilmTopCommand(new FilmReceiver())),
     FILM(new FilmCommand(new FilmReceiver()));
 
     private Command command;

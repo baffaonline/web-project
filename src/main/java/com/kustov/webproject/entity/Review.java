@@ -3,29 +3,28 @@ package com.kustov.webproject.entity;
 import java.util.Objects;
 
 public class Review {
-    private Film film;
+    private int filmId;
     private User user;
     private String text;
     private int userMark;
 
     public Review() {
-        film = new Film();
-        user = new User();
+        User user = new User();
     }
 
-    public Review(Film film, User user, String text, int userMark) {
-        this.film = film;
+    public Review(int filmId, User user, String text, int userMark) {
+        this.filmId = filmId;
         this.user = user;
         this.text = text;
         this.userMark = userMark;
     }
 
-    public Film getFilm() {
-        return film;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
     public User getUser() {
@@ -57,21 +56,22 @@ public class Review {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return userMark == review.userMark &&
-                Objects.equals(film, review.film) &&
+        return filmId == review.filmId &&
+                userMark == review.userMark &&
                 Objects.equals(user, review.user) &&
                 Objects.equals(text, review.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(film, user, text, userMark);
+
+        return Objects.hash(filmId, user, text, userMark);
     }
 
     @Override
     public String toString() {
-        return "Review to " + film +
-                " from " + user +
+        return "Review to film " + filmId +
+                " from user " + user.getUsername() +
                 " with mark " + userMark;
     }
 }

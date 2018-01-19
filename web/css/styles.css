@@ -64,7 +64,7 @@ footer{
 }
 
 .imgDimension2{
-    flex: 0.995;
+    flex: 0.994;
 }
 
 .filmImage.lastImage{
@@ -78,7 +78,6 @@ footer{
 .ratingPanel {
     display: flex;
     margin-bottom: 15px;
-    text-decoration: underline;
     background-color: #314D68;
     box-shadow: 0 1px 2px 1px #000;
     width: 100%;
@@ -144,4 +143,16 @@ footer{
 .rating-panel-degree strong {
     color: white;
     text-decoration: none;
+}
+
+/*
+    Styles for film.jsp
+ */
+
+.filmContent{
+    flex: 0.7;
+}
+
+.filmContent>.filter{
+    flex: 0.3;
 }

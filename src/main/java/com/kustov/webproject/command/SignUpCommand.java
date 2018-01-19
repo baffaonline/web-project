@@ -13,7 +13,6 @@ import com.kustov.webproject.validator.SignUpValidator;
 import javax.servlet.http.HttpServletRequest;
 import java.text.*;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 public class SignUpCommand implements Command{
     private UserReceiver receiver;

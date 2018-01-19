@@ -16,4 +16,13 @@ public class FilmReceiver extends DefaultReceiver{
             throw new ServiceException(exc);
         }
     }
+
+    public Film findFilmById(int id) throws ServiceException{
+        FilmDAO dao = new FilmDAO();
+        try{
+            return dao.findById(id);
+        }catch (DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
 }

@@ -28,6 +28,10 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id AND username = ? And password = ?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT id, username, password, email, name, lastname, " +
+            "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
+            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    WHERE user_country = country_id AND id = ?";
     private static final String SQL_INSERT_USER = "INSERT into `filmratingdb`.user (id, username, password, email, name, lastname, " +
             "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
             " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
@@ -124,6 +128,30 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             user.setType(UserType.USER);
         }
         user.setBanned(resultSet.getBoolean("isBanned"));
+    }
+
+    @Override
+    public User findById(Integer id) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = null;
+        User user = null;
+        try {
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_USER_BY_ID);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                setUserFromResultSet(resultSet, user);
+            }
+        } catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        } finally {
+            close(statement, connectionPool, connection);
+        }
+        return user;
     }
 }
 
