@@ -153,6 +153,19 @@ footer{
     flex: 0.7;
 }
 
-.filmContent>.filter{
+.filmContent>.filter {
     flex: 0.3;
+}
+
+.film-title-item{
+    display: flex;
+    flex-direction: row;
+}
+
+.film-title-image{
+    flex: 1;
+}
+
+.film-title{
+    flex: 1;
 }

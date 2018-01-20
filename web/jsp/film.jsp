@@ -1,3 +1,4 @@
+<jsp:useBean id="film" scope="request" type="com.kustov.webproject.entity.Film"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 <html>
@@ -45,6 +46,9 @@
                 <div class="film-title-item">
                     <div class="film-title-image">
                         <img src="${film.posterPath}">
+                    </div>
+                    <div class="film-title">
+                        <strong>${film.title}</strong>
                     </div>
                 </div>
             </div>
