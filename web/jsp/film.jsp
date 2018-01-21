@@ -1,6 +1,4 @@
-<jsp:useBean id="film" scope="request" type="com.kustov.webproject.entity.Film"/>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="ctg" uri="customtags" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
@@ -48,8 +46,14 @@
                         <img src="${film.posterPath}">
                     </div>
                     <div class="film-title">
-                        <strong>${film.title}</strong>
+                        <strong>${film.title}(${film.releaseDate.year})</strong>
                     </div>
+                </div>
+                <hr>
+                <div class="film-description">
+                    <p>
+                        <span class="description-span">Description.</span>
+                        ${film.description}</p>
                 </div>
             </div>
             <div class="filter">

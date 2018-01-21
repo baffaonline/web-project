@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id AND id = ?";
+    private static final String SQL_SELECT_ID_BY_USERNAME = "SELECT id, username" +
+            "    FROM `filmratingdb`.user" +
+            "    WHERE username = ?";
     private static final String SQL_INSERT_USER = "INSERT into `filmratingdb`.user (id, username, password, email, name, lastname, " +
             "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
             " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
@@ -61,7 +65,32 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         return users;
     }
 
-    public void insert(User user) throws DAOException{
+    @Override
+    public User findById(Integer id) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = null;
+        User user = null;
+        try {
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_USER_BY_ID);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                setUserFromResultSet(resultSet, user);
+            }
+        } catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        } finally {
+            close(statement, connectionPool, connection);
+        }
+        return user;
+    }
+
+    @Override
+    public Integer insert(User user) throws DAOException{
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         DBConnectionPool connectionPool = null;
@@ -74,16 +103,17 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getName());
             statement.setString(5, user.getLastname());
-            java.sql.Date sqlDate = new java.sql.Date(user.getBirthday().getTime());
+            java.sql.Date sqlDate = java.sql.Date.valueOf(user.getBirthday());
             statement.setDate(6, sqlDate);
             statement.setInt(7, user.getCountry().getId());
             statement.executeUpdate();
+            LOGGER.log(Level.INFO, "Add new user to database");
+            return findIdByUsername(connection, user);
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);
         } finally {
             close(statement, connectionPool, connection);
         }
-        LOGGER.log(Level.INFO, "Add new user to database");
     }
 
     public User findUserByUsernameAndPassword(String username, String password) throws DAOException{
@@ -117,7 +147,8 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         user.setEmail(resultSet.getString("email"));
         user.setName(resultSet.getString("name"));
         user.setLastname(resultSet.getString("lastname"));
-        user.setBirthday(resultSet.getDate("birthdate"));
+        LocalDate localDate = resultSet.getDate("birthdate").toLocalDate();
+        user.setBirthday(localDate);
         user.setCountry(new Country(resultSet.getInt("country_id"),
                 resultSet.getString("country_name")));
         user.setRating(resultSet.getInt("user_rating"));
@@ -130,28 +161,25 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         user.setBanned(resultSet.getBoolean("isBanned"));
     }
 
-    @Override
-    public User findById(Integer id) throws DAOException {
-        ProxyConnection connection = null;
-        PreparedStatement statement = null;
-        DBConnectionPool connectionPool = null;
-        User user = null;
-        try {
-            connectionPool = DBConnectionPool.getInstance();
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(SQL_SELECT_USER_BY_ID);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
-            }
-        } catch (ConnectionException | SQLException exc){
+    private int findIdByUsername(ProxyConnection connection, User user) throws DAOException{
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(SQL_SELECT_ID_BY_USERNAME);
+            preparedStatement.setString(1, user.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("id");
+        }catch (SQLException exc){
             throw new DAOException(exc);
-        } finally {
-            close(statement, connectionPool, connection);
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            }catch (SQLException exc){
+                LOGGER.log(Level.ERROR, exc.getMessage());
+            }
         }
-        return user;
     }
 }
 

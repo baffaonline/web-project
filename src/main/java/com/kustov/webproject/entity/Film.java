@@ -1,6 +1,6 @@
 package com.kustov.webproject.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class Film extends Entity{
     private Country country;
     private String description;
     private int ageRestriction;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String posterPath;
     private double rating;
     private List<Actor> actors;
@@ -17,14 +17,14 @@ public class Film extends Entity{
     private List<Review> reviews;
 
     public Film() {
-        releaseDate = new Date();
+        releaseDate = LocalDate.MIN;
         country = new Country();
         actors = null;
         genres = null;
         reviews = null;
     }
 
-    public Film(int id, String title, Country country, String description, int ageRestriction, Date releaseDate,
+    public Film(int id, String title, Country country, String description, int ageRestriction, LocalDate releaseDate,
                 String posterPath, double rating, List<Actor> actors, List<Genre> genres, List<Review> reviews) {
         super(id);
         this.title = title;
@@ -71,11 +71,11 @@ public class Film extends Entity{
         this.ageRestriction = ageRestriction;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getreleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setreleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

@@ -12,6 +12,8 @@ import com.kustov.webproject.validator.SignUpValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class SignUpCommand implements Command{
@@ -52,14 +54,16 @@ public class SignUpCommand implements Command{
         return page;
     }
 
-    private Date getDateFromString(String date){
-        Date answer = new Date();
+    private LocalDate getDateFromString(String date){
+        Date dateFromString;
+        LocalDate localDate = LocalDate.MIN;
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try{
-            answer = format.parse(date);
+            dateFromString = format.parse(date);
+            localDate = dateFromString.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }catch (ParseException ignored){
         }
-        return answer;
+        return localDate;
     }
 
     private boolean isAllValid(HttpServletRequest request, String username, String password, String email, String name,

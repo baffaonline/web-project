@@ -48,7 +48,8 @@
                             </a>
                         </div>
                         <div class="rating-panel-content">
-                            <a href="MainController?id=${elem.id}&command=film">${elem.title}</a>
+                            <a href="MainController?id=${elem.id}&command=film">
+                                    ${elem.title}(${elem.releaseDate.year})</a>
                         </div>
                         <div class="rating-panel-degree">
                             <strong>${elem.rating}</strong>
@@ -84,7 +85,5 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-</body>
-</html>
 </body>
 </html>

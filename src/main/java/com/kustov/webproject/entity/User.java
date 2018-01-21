@@ -1,8 +1,6 @@
 package com.kustov.webproject.entity;
 
-import com.kustov.webproject.exception.CommandException;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class User extends Entity {
@@ -11,18 +9,18 @@ public class User extends Entity {
     private String email;
     private String name;
     private String lastname;
-    private Date birthday;
+    private LocalDate birthday;
     private Country country;
     private int rating;
     private boolean isBanned;
     private UserType type;
 
     public User() {
-        birthday = new Date();
+        birthday = LocalDate.MIN;
     }
 
     public User(int id, String username, String password, String email, String name, String lastname,
-                Date birthday, Country country, int rating, boolean isBanned, UserType type) {
+                LocalDate birthday, Country country, int rating, boolean isBanned, UserType type) {
         super(id);
         this.username = username;
         this.password = password;
@@ -84,11 +82,11 @@ public class User extends Entity {
         this.lastname = lastname;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

@@ -18,7 +18,8 @@ public abstract class AbstractDAO<K, T extends Entity> {
 
     public abstract List<T> findAll() throws DAOException;
 
-    public void insert(T entity) throws DAOException {
+    public K insert(T entity) throws DAOException {
+        return null;
     }
 
     public T findById(K id) throws DAOException{

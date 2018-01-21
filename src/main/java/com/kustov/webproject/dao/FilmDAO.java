@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -100,9 +102,9 @@ public class FilmDAO extends AbstractDAO<Integer, Film>{
         Country country = new Country(countryId, countryName);
         String description = resultSet.getString("film_description");
         int ageRestriction = resultSet.getInt("film_age_restriction");
-        Date date = resultSet.getDate("film_date_of_release");
+        LocalDate localDate = resultSet.getDate("film_date_of_release").toLocalDate();
         String posterPath = resultSet.getString("film_poster_path");
-        film = new Film(id, title, country, description, ageRestriction, date, posterPath, 0,
+        film = new Film(id, title, country, description, ageRestriction, localDate, posterPath, 0,
                 null, null, null);
         return film;
     }

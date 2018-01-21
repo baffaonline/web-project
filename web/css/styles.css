@@ -151,6 +151,7 @@ footer{
 
 .filmContent{
     flex: 0.7;
+
 }
 
 .filmContent>.filter {
@@ -159,13 +160,27 @@ footer{
 
 .film-title-item{
     display: flex;
-    flex-direction: row;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 2px 1px #000;
+    /*width: 100%;*/
 }
 
-.film-title-image{
+.film-title-image {
+    display: flex;
     flex: 1;
+}
+
+.film-title-image img{
+    height: 40vh;
 }
 
 .film-title{
+    display: flex;
     flex: 1;
+    align-items: center;
+    font-size: 2vw;
+}
+
+.description-span{
+    font-weight: bold;
 }
