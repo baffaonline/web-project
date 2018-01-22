@@ -54,15 +54,16 @@ public class CountryDAO extends AbstractDAO<Integer, Country>{
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         DBConnectionPool connectionPool = DBConnectionPool.getInstance();
-        Country country;
+        Country country = null;
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_SELECT_COUNTRY_BY_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            String name = resultSet.getString("country_name");
-            country = new Country(id, name);
+            if (resultSet.next()) {
+                String name = resultSet.getString("country_name");
+                country = new Country(id, name);
+            }
             return country;
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);

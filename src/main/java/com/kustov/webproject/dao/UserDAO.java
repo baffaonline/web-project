@@ -25,17 +25,31 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             "birthdate, country_name, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id";
+
     private static final String SQL_SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id AND username = ? And password = ?";
+
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
             "    WHERE user_country = country_id AND id = ?";
+
+    private static final String SQL_SELECT_USER_BY_USERNAME = "SELECT id, username, password, email, name, lastname, " +
+            "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
+            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    WHERE user_country = country_id AND username = ?";
+
+    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, username, password, email, name, lastname, " +
+            "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
+            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    WHERE user_country = country_id AND email = ?";
+
     private static final String SQL_SELECT_ID_BY_USERNAME = "SELECT id, username" +
             "    FROM `filmratingdb`.user" +
             "    WHERE username = ?";
+
     private static final String SQL_INSERT_USER = "INSERT into `filmratingdb`.user (id, username, password, email, name, lastname, " +
             "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
             " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
@@ -136,6 +150,52 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             throw new DAOException(exc);
         } finally {
             close(statement, connectionPool, connection);
+        }
+        return user;
+    }
+
+    public User findUserByEmail(String email) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        DBConnectionPool connectionPool = null;
+        User user = null;
+        try{
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_USER_BY_EMAIL);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if  (resultSet.next()) {
+                user = new User();
+                setUserFromResultSet(resultSet, user);
+            }
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(preparedStatement, connectionPool, connection);
+        }
+        return user;
+    }
+
+    public User findUserByUsername(String username) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        DBConnectionPool connectionPool = null;
+        User user = null;
+        try{
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_USER_BY_USERNAME);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                setUserFromResultSet(resultSet, user);
+            }
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(preparedStatement, connectionPool, connection);
         }
         return user;
     }

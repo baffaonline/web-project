@@ -44,7 +44,7 @@
             <div class="filmContent">
                 <div class="film-title-item">
                     <div class="film-title-image">
-                        <img src="${film.posterPath}">
+                        <img src="${pageContext.request.contextPath}/${film.posterPath}">
                     </div>
                     <div class="film-title">
                         <strong>${film.title}(${film.releaseDate.year})</strong>
@@ -125,25 +125,27 @@
                     Film rating is ${film.rating}
                 </div>
                 <hr>
-                <div class="film-reviews">
-                    <h2>User reviews</h2>
-                    <c:forEach var="review" items="${film.reviews}">
-                        <div class="review-text-item">
-                            <div class="review-title">
-                                <strong>${review.title}</strong>
+                <c:if test="${not empty film.reviews}">
+                    <div class="film-reviews">
+                        <h2>User reviews</h2>
+                        <c:forEach var="review" items="${film.reviews}">
+                            <div class="review-text-item">
+                                <div class="review-title">
+                                    <strong>${review.title}</strong>
+                                </div>
+                                <div class="review-owner">
+                                    <div>by ${review.user.username}</div>
+                                </div>
+                                <div class="review-text">
+                                    <p>${review.text}</p>
+                                </div>
+                                <div class="review-mark">
+                                    <div>My mark is ${review.userMark} from 10</div>
+                                </div>
                             </div>
-                            <div class="review-owner">
-                                <div>by ${review.user.username}</div>
-                            </div>
-                            <div class="review-text">
-                                <p>${review.text}</p>
-                            </div>
-                            <div class="review-mark">
-                                <div>My mark is ${review.userMark} from 10</div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
             </div>
             <div class="filter">
             </div>

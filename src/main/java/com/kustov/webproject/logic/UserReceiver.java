@@ -19,13 +19,31 @@ public class UserReceiver extends DefaultReceiver{
         }
     }
 
-    public void addUser(User user) throws ServiceException{
+    public int addUser(User user) throws ServiceException{
         UserDAO dao = new UserDAO();
         try{
             Encryptor encryptor = new Encryptor();
             user.setPassword(encryptor.encryptPassword(user.getPassword()));
-            dao.insert(user);
+            return dao.insert(user);
         }catch (NoSuchAlgorithmException | DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
+
+    public User findUserByUsername(String username) throws ServiceException{
+        UserDAO dao = new UserDAO();
+        try{
+            return dao.findUserByUsername(username);
+        }catch (DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
+
+    public User findUserByEmail(String email) throws ServiceException{
+        UserDAO dao = new UserDAO();
+        try{
+            return dao.findUserByEmail(email);
+        }catch (DAOException exc){
             throw new ServiceException(exc);
         }
     }

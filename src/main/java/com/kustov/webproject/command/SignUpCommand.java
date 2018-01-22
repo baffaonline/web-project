@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class SignUpCommand implements Command{
+public class SignUpCommand implements Command {
     private UserReceiver receiver;
 
     SignUpCommand(UserReceiver receiver) {
@@ -36,57 +36,75 @@ public class SignUpCommand implements Command{
         String surname = request.getParameter("secondName");
         String birthday = request.getParameter("birthday");
         String countryName = request.getParameter("country");
-        if (isAllValid(request, username, password, email, name, surname, birthday)){
-            CountriesMap countriesMap = CountriesMap.getInstance();
-            Country country = countriesMap.getValue(countryName);
-            User user = new User(0, username, password, email, name, surname, getDateFromString(birthday),
-                    country, 0, false, UserType.USER);//ID-????
+        if (isAllValid(request, username, password, email, name, surname, birthday)) {
             try {
-                receiver.addUser(user);
+                if (!isNotDuplicatePasswordOrEmail(request, username, email)) {
+                    return thisPage;
+                }
+                CountriesMap countriesMap = CountriesMap.getInstance();
+                Country country = countriesMap.getValue(countryName);
+                User user = new User(0, username, password, email, name, surname, getDateFromString(birthday),
+                        country, 0, false, UserType.USER);
+                int id = receiver.addUser(user);
+                user.setId(id);
                 request.getSession().setAttribute("user", user);
-            }catch (ServiceException exc){
+            } catch (ServiceException exc) {
                 throw new CommandException();
             }
             page = pageMain;
-        }else {
+        } else {
             page = thisPage;
         }
         return page;
     }
 
-    private LocalDate getDateFromString(String date){
+    private LocalDate getDateFromString(String date) {
         Date dateFromString;
         LocalDate localDate = LocalDate.MIN;
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try{
+        try {
             dateFromString = format.parse(date);
             localDate = dateFromString.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }catch (ParseException ignored){
+        } catch (ParseException ignored) {
         }
         return localDate;
     }
 
+    private boolean isNotDuplicatePasswordOrEmail(HttpServletRequest request,
+                                                  String username, String email) throws ServiceException {
+        boolean isNotDuplicate = true;
+        if (receiver.findUserByUsername(username) != null) {
+            isNotDuplicate = false;
+            request.setAttribute("errorUsername", "This username is already taken");
+        }
+        if (receiver.findUserByEmail(email) != null) {
+            isNotDuplicate = false;
+            request.setAttribute("errorEmail", "This email is already taken");
+        }
+        return isNotDuplicate;
+    }
+
     private boolean isAllValid(HttpServletRequest request, String username, String password, String email, String name,
-                               String surname, String birthday){
+                               String surname, String birthday) {
         SignUpValidator validator = new SignUpValidator();
         boolean isValid = true;
         if (!validator.checkUsername(username)) {
             request.setAttribute("errorUsername", "Username contains only letters, numbers and _ and starts with letter");
             isValid = false;
         }
-        if (!validator.checkPassword(password)){
+        if (!validator.checkPassword(password)) {
             request.setAttribute("errorPassword", "Password contains only letters, numbers and _");
             isValid = false;
         }
-        if (!validator.checkEmail(email)){
+        if (!validator.checkEmail(email)) {
             request.setAttribute("errorEmail", "Wrong email");
             isValid = false;
         }
-        if (!validator.checkNameAndSurname(name, surname)){
+        if (!validator.checkNameAndSurname(name, surname)) {
             request.setAttribute("errorName", "Wrong name or surname");
             isValid = false;
         }
-        if (!validator.checkDate(birthday)){
+        if (!validator.checkDate(birthday)) {
             request.setAttribute("errorBirthday", "Date needed to be in format yyyy-mm-dd");
             isValid = false;
         }

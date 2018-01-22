@@ -42,24 +42,25 @@ public class FilmDAO extends AbstractDAO<Integer, Film>{
         ProxyConnection connection = null;
         PreparedStatement statement = null;
         DBConnectionPool connectionPool = DBConnectionPool.getInstance();
-        Film film;
+        Film film = null;
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SQL_SELECT_FILM_BY_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            film = createFilmFromResultSet(resultSet);
-            film.setRating(findFilmRatingById(film.getId(), connection));
-            ActorDAO actorDAO = new ActorDAO();
-            List<Actor> actors = actorDAO.findActorsByFilmId(film.getId());
-            film.setActors(actors);
-            GenreDAO genreDAO = new GenreDAO();
-            List<Genre> genres = genreDAO.findGenresByFilmId(film.getId());
-            film.setGenres(genres);
-            ReviewDAO reviewDAO = new ReviewDAO();
-            List<Review> reviews = reviewDAO.findReviewsByFilmId(film.getId());
-            film.setReviews(reviews);
+            if (resultSet.next()) {
+                film = createFilmFromResultSet(resultSet);
+                film.setRating(findFilmRatingById(film.getId(), connection));
+                ActorDAO actorDAO = new ActorDAO();
+                List<Actor> actors = actorDAO.findActorsByFilmId(film.getId());
+                film.setActors(actors);
+                GenreDAO genreDAO = new GenreDAO();
+                List<Genre> genres = genreDAO.findGenresByFilmId(film.getId());
+                film.setGenres(genres);
+                ReviewDAO reviewDAO = new ReviewDAO();
+                List<Review> reviews = reviewDAO.findReviewsByFilmId(film.getId());
+                film.setReviews(reviews);
+            }
             return film;
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);
