@@ -6,16 +6,18 @@ public class Review {
     private int filmId;
     private User user;
     private String text;
+    private String title;
     private int userMark;
 
     public Review() {
         User user = new User();
     }
 
-    public Review(int filmId, User user, String text, int userMark) {
+    public Review(int filmId, User user, String text, String title, int userMark) {
         this.filmId = filmId;
         this.user = user;
         this.text = text;
+        this.title = title;
         this.userMark = userMark;
     }
 
@@ -51,6 +53,14 @@ public class Review {
         this.userMark = userMark;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,13 +69,14 @@ public class Review {
         return filmId == review.filmId &&
                 userMark == review.userMark &&
                 Objects.equals(user, review.user) &&
-                Objects.equals(text, review.text);
+                Objects.equals(text, review.text) &&
+                Objects.equals(title, review.title);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(filmId, user, text, userMark);
+        return Objects.hash(filmId, user, text, title, userMark);
     }
 
     @Override

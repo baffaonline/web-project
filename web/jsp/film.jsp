@@ -120,6 +120,30 @@
                         </div>
                     </c:forEach>
                 </div>
+                <hr>
+                <div class="film-rating">
+                    Film rating is ${film.rating}
+                </div>
+                <hr>
+                <div class="film-reviews">
+                    <h2>User reviews</h2>
+                    <c:forEach var="review" items="${film.reviews}">
+                        <div class="review-text-item">
+                            <div class="review-title">
+                                <strong>${review.title}</strong>
+                            </div>
+                            <div class="review-owner">
+                                <div>by ${review.user.username}</div>
+                            </div>
+                            <div class="review-text">
+                                <p>${review.text}</p>
+                            </div>
+                            <div class="review-mark">
+                                <div>My mark is ${review.userMark} from 10</div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
             <div class="filter">
             </div>
