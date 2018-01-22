@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Actor extends Entity {
     private String name;
     private String surname;
+    private String imagePath;
     private Country country;
     private List<Film> films;
 
@@ -14,10 +15,11 @@ public class Actor extends Entity {
         country = new Country();
     }
 
-    public Actor(int id, String name, String surname, Country country, List<Film> films) {
+    public Actor(int id, String name, String surname, String imagePath, Country country, List<Film> films) {
         super(id);
         this.name = name;
         this.surname = surname;
+        this.imagePath = imagePath;
         this.country = country;
         this.films = films;
     }
@@ -54,6 +56,14 @@ public class Actor extends Entity {
         this.films = films;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,13 +71,14 @@ public class Actor extends Entity {
         Actor actor = (Actor) o;
         return Objects.equals(name, actor.name) &&
                 Objects.equals(surname, actor.surname) &&
+                Objects.equals(imagePath, actor.imagePath) &&
                 Objects.equals(country, actor.country) &&
                 Objects.equals(films, actor.films);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, country, films);
+        return Objects.hash(name, surname, imagePath, country, films);
     }
 
     @Override

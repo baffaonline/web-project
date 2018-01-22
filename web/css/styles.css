@@ -151,7 +151,8 @@ footer{
 
 .filmContent{
     flex: 0.7;
-
+    background-color: #314D68;
+    color: wheat;
 }
 
 .filmContent>.filter {
@@ -161,26 +162,83 @@ footer{
 .film-title-item{
     display: flex;
     margin-bottom: 15px;
-    box-shadow: 0 1px 2px 1px #000;
+    box-shadow: 0 1px 2px 0 #000;
     /*width: 100%;*/
 }
 
 .film-title-image {
     display: flex;
-    flex: 1;
+    flex: 0.5;
 }
 
 .film-title-image img{
-    height: 40vh;
+    height: 50vh;
 }
 
 .film-title{
     display: flex;
     flex: 1;
     align-items: center;
-    font-size: 2vw;
+    font-size: 3vw;
 }
 
 .description-span{
     font-weight: bold;
+}
+
+.film-information{
+    box-shadow: 0 1px 2px 1px #000;
+    padding-bottom: 1rem;
+    margin-bottom: 15px;
+}
+
+.film-information-item{
+    display: flex;
+}
+
+.film-information-item-name{
+    flex: 0.3;
+    display: flex;
+    font-weight: bold;
+}
+
+.film-information-item-content{
+    flex: 0.7;
+}
+
+.actor-squad{
+    box-shadow: 0 1px 2px 1px #000;
+    margin-bottom: 15px;
+}
+
+.actor-squad-item{
+    display: flex;
+    padding-bottom: 1rem;
+}
+
+.actor-squad-item a{
+    color: wheat;
+    text-decoration: none;
+}
+
+.actor-squad-image{
+    display: flex;
+    flex: 0.3;
+}
+
+.actor-squad-image img{
+    height: 50px;
+    width: 40px;
+}
+
+.actor-squad-name{
+    display: flex;
+    align-items: center;
+    flex: 0.4;
+}
+
+.actor-squad-country{
+    flex: 0.2;
+    display: flex;
+    align-items: center;
 }

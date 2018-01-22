@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
@@ -54,6 +55,70 @@
                     <p>
                         <span class="description-span">Description.</span>
                         ${film.description}</p>
+                </div>
+                <hr>
+                <div class="film-information">
+                    <h2>Information about film</h2>
+                    <div class="film-information-item">
+                        <div class="film-information-item-name">
+                            Country:
+                        </div>
+                        <div class="film-information-item-content">
+                            <c:if test="${film.country != null}">
+                                ${film.country.name}
+                            </c:if>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="film-information-item">
+                        <div class="film-information-item-name">
+                            Age restriction:
+                        </div>
+                        <div class="film-information-item-content">
+                            ${film.ageRestriction}+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="film-information-item">
+                        <div class="film-information-item-name">
+                            Date of release:
+                        </div>
+                        <div class="film-information-item-content">
+                            ${film.releaseDate}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="film-information-item">
+                        <div class="film-information-item-name">
+                            Genres:
+                        </div>
+                        <div class="film-information-item-content">
+                            <c:forEach var="genre" items="${film.genres}">
+                                <span> ${genre.name}</span>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+                <div class="actor-squad">
+                    <h2>Actor squad</h2>
+                    <c:forEach var="actor" items="${film.actors}">
+                        <hr>
+                        <div class="actor-squad-item">
+                            <div class="actor-squad-image">
+                                <a href="#">
+                                    <img src="${pageContext.request.contextPath}${actor.imagePath}">
+                                </a>
+                            </div>
+                            <div class="actor-squad-name">
+                                <a href="#">
+                                    <div>${actor.name} ${actor.surname}</div>
+                                </a>
+                            </div>
+                            <div class="actor-squad-country">
+                                <div>${actor.country.name}</div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="filter">
