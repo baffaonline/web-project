@@ -16,9 +16,9 @@ import java.util.List;
 
 public class ActorDAO extends AbstractDAO<Integer, Actor>{
     private final static String SQL_SELECT_ACTORS_BY_FILM_ID = "SELECT film_id, actor_id, actor_name, actor_surname, " +
-            "actor_country, actor_image_path \n" + " FROM `filmratingdb`.film JOIN (SELECT film_act_id, actor_id, actor_name, " +
+            "actor_country, actor_image_path \n" + " FROM film JOIN (SELECT film_act_id, actor_id, actor_name, " +
             "actor_surname, actor_country, actor_image_path\n" +
-            " FROM `filmratingdb`.actor JOIN `filmratingdb`.film_actor\n" +
+            " FROM actor JOIN film_actor\n" +
             " WHERE actor_id = actor_flm_id) AS actor_film\n" +
             "\tON film_id = film_act_id HAVING film_id = ?";
 

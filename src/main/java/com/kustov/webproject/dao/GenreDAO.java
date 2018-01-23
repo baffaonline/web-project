@@ -14,8 +14,8 @@ import java.util.List;
 
 public class GenreDAO extends AbstractDAO<Integer, Genre>{
     private final static String SQL_SELECT_GENRES_BY_FILM_ID = "SELECT film_id, genre_id, genre_name " +
-            " FROM `filmratingdb`.film JOIN (SELECT film_gnr_id, genre_id, genre_name " +
-            " FROM `filmratingdb`.genre JOIN `filmratingdb`.film_genre \n" +
+            " FROM film JOIN (SELECT film_gnr_id, genre_id, genre_name " +
+            " FROM genre JOIN film_genre \n" +
             " WHERE genre_id = genre_flm_id) AS genre_film\n" +
             " ON film_id = film_gnr_id HAVING film_id = ?";
 

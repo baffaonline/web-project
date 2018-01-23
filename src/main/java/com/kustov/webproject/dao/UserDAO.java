@@ -23,34 +23,34 @@ public class UserDAO extends AbstractDAO<Integer, User>{
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_USERS = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, user_rating, isAdmin, isBanned\n" +
-            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id";
 
     private static final String SQL_SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
-            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id AND username = ? And password = ?";
 
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
-            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id AND id = ?";
 
     private static final String SQL_SELECT_USER_BY_USERNAME = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
-            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id AND username = ?";
 
     private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
-            "    FROM `filmratingdb`.user JOIN `filmratingdb`.country\n" +
+            "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id AND email = ?";
 
     private static final String SQL_SELECT_ID_BY_USERNAME = "SELECT id, username" +
-            "    FROM `filmratingdb`.user" +
+            "    FROM user" +
             "    WHERE username = ?";
 
-    private static final String SQL_INSERT_USER = "INSERT into `filmratingdb`.user (id, username, password, email, name, lastname, " +
+    private static final String SQL_INSERT_USER = "INSERT into user (id, username, password, email, name, lastname, " +
             "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
             " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
 
@@ -200,7 +200,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         return user;
     }
 
-    private void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
+    void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
         user.setId(resultSet.getInt("id"));
         user.setUsername(resultSet.getString("username"));
         user.setPassword(resultSet.getString("password"));

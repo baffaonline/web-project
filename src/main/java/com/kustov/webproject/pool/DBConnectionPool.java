@@ -15,6 +15,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class DBConnectionPool {
     private final static Logger LOGGER = LogManager.getLogger();
     private static DBConnectionPool instance;
+    private String uri;
+    private String user;
+    private String password;
     private static ReentrantLock lock = new ReentrantLock();
 
     private BlockingQueue<ProxyConnection> pool;
@@ -22,15 +25,33 @@ public class DBConnectionPool {
     private DBConnectionPool() {
         try {
             PropertyManager databaseManager = new PropertyManager("database");
-            String uri = databaseManager.getProperty("db.uri");
-            String user = databaseManager.getProperty("db.user");
-            String password = databaseManager.getProperty("db.password");
+            uri = databaseManager.getProperty("db.uri");
+            user = databaseManager.getProperty("db.user");
+            password = databaseManager.getProperty("db.password");
             int poolSize = Integer.parseInt(databaseManager.getProperty("db.pool_size"));
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             pool = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 ProxyConnection connection =
                         new ProxyConnection(DriverManager.getConnection(uri, user, password));
+                pool.put(connection);
+            }
+        } catch (SQLException | InterruptedException exc) {
+            LOGGER.log(Level.FATAL, exc.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    private DBConnectionPool(String database, String user, String password, int poolSize){
+        try{
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            uri = database;
+            this.user = user;
+            this.password = password;
+            pool = new ArrayBlockingQueue<>(poolSize);
+            for (int i = 0; i < poolSize; i++) {
+                ProxyConnection connection =
+                        new ProxyConnection(DriverManager.getConnection(database, user, password));
                 pool.put(connection);
             }
         } catch (SQLException | InterruptedException exc) {
@@ -51,6 +72,18 @@ public class DBConnectionPool {
         return instance;
     }
 
+    public static DBConnectionPool getInstance(String database, String user, String password, int poolSize){
+        lock.lock();
+        try {
+            if (instance == null) {
+                instance = new DBConnectionPool(database, user, password, poolSize);
+            }
+        } finally {
+            lock.unlock();
+        }
+        return instance;
+    }
+
     public int poolSize() {
         return pool.size();
     }
@@ -59,7 +92,7 @@ public class DBConnectionPool {
         ProxyConnection connection;
         try {
             connection = pool.take();
-        } catch (InterruptedException exc) {
+        } catch ( InterruptedException exc) {
             throw new ConnectionException(exc);
         }
         return connection;

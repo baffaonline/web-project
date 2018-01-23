@@ -14,25 +14,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FilmDAO extends AbstractDAO<Integer, Film>{
     private final static String SQL_SELECT_FILMS = "SELECT film_id, film_title, film_country, " +
             "country_name, film_description, film_age_restriction, film_date_of_release, " +
-            "film_poster_path FROM `filmratingdb`.film JOIN `filmratingdb`.country " +
+            "film_poster_path FROM film JOIN country " +
             "WHERE film_country = country_id";
     private final static String SQL_SELECT_RATING = "SELECT film_id, flm.rating \n" +
-            "    FROM `filmratingdb`.film LEFT JOIN (SELECT review.film_rvw_id, AVG(review.user_mark) AS rating \n" +
-            "                                                FROM `filmratingdb`.review \n" +
+            "    FROM film LEFT JOIN (SELECT review.film_rvw_id, AVG(review.user_mark) AS rating \n" +
+            "                                                FROM review \n" +
             "                                                GROUP BY review.film_rvw_id) as flm\n" +
             "    ON film_id = flm.film_rvw_id HAVING film_id = ?";
 
     private final static String SQL_SELECT_FILM_BY_ID = "SELECT film_id, film_title, film_country, " +
             "country_name, film_description, film_age_restriction, film_date_of_release, " +
-            "film_poster_path FROM `filmratingdb`.film JOIN `filmratingdb`.country " +
+            "film_poster_path FROM film JOIN country " +
             "WHERE film_country = country_id and film_id = ?";
 
     private final static Logger LOGGER = LogManager.getLogger();

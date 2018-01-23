@@ -17,11 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDAO{
-    private final static String SQL_SELECT_REVIEWS_BY_FILM_ID = "SELECT film_id, id, review_text, review_title, " +
-            "user_mark \n" +" FROM `filmratingdb`.film JOIN (SELECT film_rvw_id, id, review_text, user_mark, review_title" +
-            " FROM `filmratingdb`.user JOIN `filmratingdb`.review\n" +
-            " WHERE id = user_rvw_id) AS film_review\n" +
-            "\tON film_id = film_rvw_id HAVING film_id = ?";
+    private final static String SQL_SELECT_REVIEWS_BY_FILM_ID = "SELECT film_id, review_title, review_text, user_mark,"
+            + "id, username, password, email,  name, lastname, birthdate, country_id, country_name,  \n" +
+            "user_rating, isAdmin, isBanned FROM film JOIN (SELECT id, username, password, email, name, lastname, " +
+            "birthdate, country_id, country_name,  user_rating, isAdmin, isBanned, film_rvw_id, review_text, " +
+            "review_title, user_mark FROM (SELECT id, username, password, email, name, lastname, birthdate, country_id, " +
+            "country_name, user_rating, isAdmin, isBanned FROM user JOIN country ON user.user_country = country_id) " +
+            "AS country_id JOIN review WHERE id = user_rvw_id) AS film_review ON film_id = film_rvw_id " +
+            "HAVING film_id = ?";
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     public List<Review> findReviewsByFilmId(int id) throws DAOException{
@@ -35,9 +39,9 @@ public class ReviewDAO{
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                int userId = resultSet.getInt("id");
                 UserDAO userDAO = new UserDAO();
-                User user = userDAO.findById(userId);
+                User user = new User();
+                userDAO.setUserFromResultSet(resultSet, user);
                 String reviewText = resultSet.getString("review_text");
                 String title = resultSet.getString("review_title");
                 int userMark = resultSet.getInt("user_mark");
