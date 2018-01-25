@@ -143,6 +143,6 @@ public class Film extends Entity{
 
     @Override
     public String toString() {
-        return "Film" + title  + " from " + country + " with rating " + rating;
+        return "Film " + title  + " from " + country + " with rating " + rating;
     }
 }

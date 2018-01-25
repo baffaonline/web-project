@@ -17,6 +17,7 @@ public class User extends Entity {
 
     public User() {
         birthday = LocalDate.MIN;
+        type = UserType.GUEST;
     }
 
     public User(int id, String username, String password, String email, String name, String lastname,

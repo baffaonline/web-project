@@ -32,11 +32,11 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.24" level="application_server_libraries" />
-    <orderEntry type="library" name="log4j-api-2.9.1" level="project" />
     <orderEntry type="library" name="mysql-connector-java-6.0.5-bin" level="project" />
     <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
     <orderEntry type="library" name="popper" level="application" />
     <orderEntry type="library" name="javax.servlet.jsp.jstl-1.2.1" level="project" />
     <orderEntry type="library" name="testng-6.11" level="project" />
+    <orderEntry type="library" name="log4j-api-2.9.1" level="project" />
   </component>
 </module>

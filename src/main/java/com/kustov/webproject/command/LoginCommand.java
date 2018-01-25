@@ -23,7 +23,7 @@ public class LoginCommand implements Command {
         String login = request.getParameter(PARAM_LOGIN);
         String password = request.getParameter(PARAM_PASSWORD);
         PropertyManager pageManager = new PropertyManager("pages");
-        String pageMain = pageManager.getProperty("path_page_main");
+        String pageMain = pageManager.getProperty("path_page_default");
         String pageAuthorization = pageManager.getProperty("path_page_authorization");
         if (LoginCommandValidator.checkLoginAndPassword(login, password)) {
             try {

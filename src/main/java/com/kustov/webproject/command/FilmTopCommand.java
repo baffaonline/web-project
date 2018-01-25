@@ -6,11 +6,15 @@ import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.FilmReceiver;
 import com.kustov.webproject.service.FilmRatingComparator;
 import com.kustov.webproject.service.PropertyManager;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class FilmTopCommand implements Command{
+    private final static Logger LOGGER = LogManager.getLogger();
     private FilmReceiver receiver;
 
     FilmTopCommand(FilmReceiver receiver) {
@@ -26,6 +30,7 @@ public class FilmTopCommand implements Command{
             List<Film> films = receiver.findFilms();
             films.sort(new FilmRatingComparator().reversed());
             request.getSession().setAttribute("films", films);
+            LOGGER.log(Level.INFO, "Ok");
             page = filmsPage;
         } catch (ServiceException exc){
             throw new CommandException(exc);

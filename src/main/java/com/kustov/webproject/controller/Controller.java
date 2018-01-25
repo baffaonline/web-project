@@ -31,6 +31,7 @@ public class Controller extends HttpServlet {
         super.init(config);
         PropertyManager pageManager = new PropertyManager("pages");
         pathPageDefault = pageManager.getProperty("path_page_default");
+        LOGGER.log(Level.INFO, "Ok");
     }
 
     @Override

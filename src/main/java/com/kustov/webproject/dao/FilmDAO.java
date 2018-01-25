@@ -22,6 +22,7 @@ public class FilmDAO extends AbstractDAO<Integer, Film>{
             "country_name, film_description, film_age_restriction, film_date_of_release, " +
             "film_poster_path FROM film JOIN country " +
             "WHERE film_country = country_id";
+
     private final static String SQL_SELECT_RATING = "SELECT film_id, flm.rating \n" +
             "    FROM film LEFT JOIN (SELECT review.film_rvw_id, AVG(review.user_mark) AS rating \n" +
             "                                                FROM review \n" +
@@ -49,15 +50,6 @@ public class FilmDAO extends AbstractDAO<Integer, Film>{
             if (resultSet.next()) {
                 film = createFilmFromResultSet(resultSet);
                 film.setRating(findFilmRatingById(film.getId(), connection));
-                ActorDAO actorDAO = new ActorDAO();
-                List<Actor> actors = actorDAO.findActorsByFilmId(film.getId());
-                film.setActors(actors);
-                GenreDAO genreDAO = new GenreDAO();
-                List<Genre> genres = genreDAO.findGenresByFilmId(film.getId());
-                film.setGenres(genres);
-                ReviewDAO reviewDAO = new ReviewDAO();
-                List<Review> reviews = reviewDAO.findReviewsByFilmId(film.getId());
-                film.setReviews(reviews);
             }
             return film;
         }catch (SQLException | ConnectionException exc){

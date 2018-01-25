@@ -44,7 +44,7 @@
                     <div class="ratingPanel">
                         <div class="rating-panel-image">
                             <a href="MainController?id=${elem.id}&command=film">
-                                <img src="${elem.posterPath}">
+                                <img src="${pageContext.request.contextPath}/${elem.posterPath}">
                             </a>
                         </div>
                         <div class="rating-panel-content">

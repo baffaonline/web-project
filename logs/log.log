@@ -1,2 +1,13 @@
-26.12.2017 08:54:26 [main] INFO  com.kustov.tagexample.dao.UserDAO findAll - Find some users in database
-26.12.2017 21:36:28 [main] INFO  com.kustov.tagexample.dao.UserDAO findAll - Find some users in database
+25.01.2018 15:24:27 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 15:24:40 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 15:26:30 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 15:30:55 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 15:31:21 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 15:32:57 [main] INFO  com.kustov.webproject.dao.CountryDAO findAll - Find countries in database
+25.01.2018 17:37:42 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 17:38:20 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 17:51:02 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 17:55:01 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 17:57:03 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 17:59:02 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database
+25.01.2018 18:01:43 [main] INFO  com.kustov.webproject.dao.UserDAO findAll - Find some users in database

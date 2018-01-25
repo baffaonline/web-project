@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
@@ -26,14 +27,38 @@
                             <a class="nav-link navigation-bar-item"
                                href="MainController?command=film_top">Films</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link navigation-bar-item"
-                               href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link navigation-bar-item"
-                               href="MainController?command=registration_setup">Register</a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${user.type.typeName == 'guest'}">
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="MainController?command=registration_setup">Register</a>
+                                </li>
+                            </c:when>
+                            <c:when test="${user.type.typeName == 'user'}">
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="#">${user.username}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="MainController?command=logout">Logout</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="#">${user.username}(admin)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="MainController?command=logout">Logout</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>
@@ -44,17 +69,17 @@
             <div class="filmPanel">
                 <div class="filmImage imgDimension1">
                     <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=2">
-                        <img src="img/spider-man.jpg">
+                        <img src="${pageContext.request.contextPath}/img/spider-man.jpg">
                     </a>
                 </div>
                 <div class="filmImage imgDimension2">
                     <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=1">
-                        <img src="img/thor3.jpg">
+                        <img src="${pageContext.request.contextPath}/img/thor3.jpg">
                     </a>
                 </div>
                 <div class="filmImage lastImage imgDimension1">
                     <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=7">
-                        <img src="img/avenger_infinity_war.jpg">
+                        <img src="${pageContext.request.contextPath}/img/avenger_infinity_war.jpg">
                     </a>
                 </div>
             </div>

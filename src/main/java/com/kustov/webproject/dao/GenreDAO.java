@@ -20,8 +20,8 @@ public class GenreDAO extends AbstractDAO<Integer, Genre>{
             " ON film_id = film_gnr_id HAVING film_id = ?";
 
     @Override
-    public List<Genre> findAll() throws DAOException {
-        return null;
+    public List<Genre> findAll() {
+        throw new UnsupportedOperationException();
     }
 
     public List<Genre> findGenresByFilmId(int id) throws DAOException{
@@ -40,7 +40,7 @@ public class GenreDAO extends AbstractDAO<Integer, Genre>{
                 Genre genre = new Genre(genreId, name);
                 genres.add(genre);
             }
-            return genres;
+            return (genres.isEmpty()) ? null : genres;
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);
         }finally {

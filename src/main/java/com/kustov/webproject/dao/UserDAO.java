@@ -22,7 +22,7 @@ import java.util.List;
 public class UserDAO extends AbstractDAO<Integer, User>{
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_USERS = "SELECT id, username, password, email, name, lastname, " +
-            "birthdate, country_name, user_rating, isAdmin, isBanned\n" +
+            "birthdate, country_id, country_name, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
             "    WHERE user_country = country_id";
 
@@ -155,49 +155,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
     }
 
     public User findUserByEmail(String email) throws DAOException{
-        ProxyConnection connection = null;
-        PreparedStatement preparedStatement = null;
-        DBConnectionPool connectionPool = null;
-        User user = null;
-        try{
-            connectionPool = DBConnectionPool.getInstance();
-            connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_SELECT_USER_BY_EMAIL);
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if  (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
-            }
-        }catch (ConnectionException | SQLException exc){
-            throw new DAOException(exc);
-        }finally {
-            close(preparedStatement, connectionPool, connection);
-        }
-        return user;
+        return findUserByProperty(email, SQL_SELECT_USER_BY_EMAIL);
     }
 
     public User findUserByUsername(String username) throws DAOException{
-        ProxyConnection connection = null;
-        PreparedStatement preparedStatement = null;
-        DBConnectionPool connectionPool = null;
-        User user = null;
-        try{
-            connectionPool = DBConnectionPool.getInstance();
-            connection = connectionPool.getConnection();
-            preparedStatement = connection.prepareStatement(SQL_SELECT_USER_BY_USERNAME);
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
-            }
-        }catch (ConnectionException | SQLException exc){
-            throw new DAOException(exc);
-        }finally {
-            close(preparedStatement, connectionPool, connection);
-        }
-        return user;
+        return findUserByProperty(username, SQL_SELECT_USER_BY_USERNAME);
     }
 
     void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
@@ -219,6 +181,29 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             user.setType(UserType.USER);
         }
         user.setBanned(resultSet.getBoolean("isBanned"));
+    }
+
+    private User findUserByProperty(String property, String query) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        DBConnectionPool connectionPool = null;
+        User user = null;
+        try{
+            connectionPool = DBConnectionPool.getInstance();
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, property);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                setUserFromResultSet(resultSet, user);
+            }
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(preparedStatement, connectionPool, connection);
+        }
+        return user;
     }
 
     private int findIdByUsername(ProxyConnection connection, User user) throws DAOException{

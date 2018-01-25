@@ -27,7 +27,7 @@ public class SignUpCommand implements Command {
     public String execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
-        String pageMain = pageManager.getProperty("path_page_main");
+        String pageMain = pageManager.getProperty("path_page_default");
         String thisPage = pageManager.getProperty("path_page_registration");
         String username = request.getParameter("username");
         String password = request.getParameter("password");

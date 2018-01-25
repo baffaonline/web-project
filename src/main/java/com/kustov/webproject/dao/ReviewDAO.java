@@ -48,7 +48,7 @@ public class ReviewDAO{
                 Review review = new Review(id, user, reviewText, title, userMark);
                 reviews.add(review);
             }
-            return reviews;
+            return (reviews.isEmpty()) ? null : reviews;
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);
         }finally {
