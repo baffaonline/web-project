@@ -19,32 +19,32 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractDAO<Integer, User>{
+public class UserDAO extends AbstractEntityDAO<Integer, User> {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String SQL_SELECT_ALL_USERS = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_id, country_name, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
-            "    WHERE user_country = country_id";
+            "    ON user_country = country_id";
 
     private static final String SQL_SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
-            "    WHERE user_country = country_id AND username = ? And password = ?";
+            "    ON user_country = country_id WHERE username = ? AND password = ?";
 
     private static final String SQL_SELECT_USER_BY_ID = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
-            "    WHERE user_country = country_id AND id = ?";
+            "    ON user_country = country_id WHERE id = ?";
 
     private static final String SQL_SELECT_USER_BY_USERNAME = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
-            "    WHERE user_country = country_id AND username = ?";
+            "    ON user_country = country_id WHERE username = ?";
 
     private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, username, password, email, name, lastname, " +
             "birthdate, country_name, country_id, user_rating, isAdmin, isBanned\n" +
             "    FROM user JOIN country\n" +
-            "    WHERE user_country = country_id AND email = ?";
+            "    ON user_country = country_id WHERE email = ?";
 
     private static final String SQL_SELECT_ID_BY_USERNAME = "SELECT id, username" +
             "    FROM user" +
@@ -116,7 +116,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getName());
-            statement.setString(5, user.getLastname());
+            statement.setString(5, user.getSurname());
             java.sql.Date sqlDate = java.sql.Date.valueOf(user.getBirthday());
             statement.setDate(6, sqlDate);
             statement.setInt(7, user.getCountry().getId());
@@ -168,7 +168,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         user.setPassword(resultSet.getString("password"));
         user.setEmail(resultSet.getString("email"));
         user.setName(resultSet.getString("name"));
-        user.setLastname(resultSet.getString("lastname"));
+        user.setSurname(resultSet.getString("lastname"));
         LocalDate localDate = resultSet.getDate("birthdate").toLocalDate();
         user.setBirthday(localDate);
         user.setCountry(new Country(resultSet.getInt("country_id"),

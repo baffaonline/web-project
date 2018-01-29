@@ -28,7 +28,7 @@ public class RegistrationSetupCommand implements Command {
             for (Country country : countries){
                 countriesMap.put(country.getName(), country);
             }
-            request.getSession().setAttribute("countries", countries);
+            request.getSession(true).setAttribute("countries", countries);
             page = registrationPage;
         } catch (ServiceException exc){
             throw new CommandException(exc);

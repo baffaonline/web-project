@@ -47,7 +47,7 @@ public class SignUpCommand implements Command {
                         country, 0, false, UserType.USER);
                 int id = receiver.addUser(user);
                 user.setId(id);
-                request.getSession().setAttribute("user", user);
+                request.getSession(true).setAttribute("user", user);
             } catch (ServiceException exc) {
                 throw new CommandException();
             }

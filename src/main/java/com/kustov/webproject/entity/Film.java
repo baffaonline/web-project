@@ -71,11 +71,11 @@ public class Film extends Entity{
         this.ageRestriction = ageRestriction;
     }
 
-    public LocalDate getreleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setreleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

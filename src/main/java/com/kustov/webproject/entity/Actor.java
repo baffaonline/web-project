@@ -12,7 +12,7 @@ public class Actor extends Entity {
 
     public Actor() {
         films = null;
-        country = new Country();
+        country = null;
     }
 
     public Actor(int id, String name, String surname, String imagePath, Country country, List<Film> films) {

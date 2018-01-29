@@ -25,37 +25,37 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link navigation-bar-item"
-                               href="MainController?command=film_top">Films</a>
+                               href="${pageContext.request.contextPath}/jsp/MainController?command=film_top">Films</a>
                         </li>
                         <c:choose>
-                            <c:when test="${user.type.typeName == 'guest'}">
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/authorization.jsp">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="MainController?command=registration_setup">Register</a>
-                                </li>
-                            </c:when>
                             <c:when test="${user.type.typeName == 'user'}">
                                 <li class="nav-item">
                                     <a class="nav-link navigation-bar-item"
-                                       href="#">${user.username}</a>
+                                       href="${pageContext.request.contextPath}/jsp/user/user.jsp">${user.username}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link navigation-bar-item"
-                                       href="MainController?command=logout">Logout</a>
+                                       href="${pageContext.request.contextPath}/jsp/MainController?command=logout">Logout</a>
                                 </li>
                             </c:when>
-                            <c:otherwise>
+                            <c:when test="${user.type.typeName == 'admin'}">
                                 <li class="nav-item">
                                     <a class="nav-link navigation-bar-item"
                                        href="#">${user.username}(admin)</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link navigation-bar-item"
-                                       href="MainController?command=logout">Logout</a>
+                                       href="${pageContext.request.contextPath}/jsp/MainController?command=logout">Logout</a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link navigation-bar-item"
+                                       href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">Register</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -68,17 +68,17 @@
         <div class="container">
             <div class="filmPanel">
                 <div class="filmImage imgDimension1">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=2">
+                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=2">
                         <img src="${pageContext.request.contextPath}/img/spider-man.jpg">
                     </a>
                 </div>
                 <div class="filmImage imgDimension2">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=1">
+                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=1">
                         <img src="${pageContext.request.contextPath}/img/thor3.jpg">
                     </a>
                 </div>
                 <div class="filmImage lastImage imgDimension1">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&id=7">
+                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=7">
                         <img src="${pageContext.request.contextPath}/img/avenger_infinity_war.jpg">
                     </a>
                 </div>

@@ -16,7 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDAO extends AbstractDAO<Integer, Country>{
+public class CountryDAO extends AbstractEntityDAO<Integer, Country> {
     private final static String SQL_SELECT_ALL_COUNTRIES = "SELECT country_name, country_id" +
             "    FROM country";
     private final static String SQL_SELECT_COUNTRY_BY_ID = "SELECT country_name, country_id " +

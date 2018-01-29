@@ -29,7 +29,7 @@ public class FilmTopCommand implements Command{
         try {
             List<Film> films = receiver.findFilms();
             films.sort(new FilmRatingComparator().reversed());
-            request.getSession().setAttribute("films", films);
+            request.setAttribute("films", films);
             LOGGER.log(Level.INFO, "Ok");
             page = filmsPage;
         } catch (ServiceException exc){

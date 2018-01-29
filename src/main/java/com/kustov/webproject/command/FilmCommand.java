@@ -21,7 +21,7 @@ public class FilmCommand implements Command{
         PropertyManager pageManager = new PropertyManager("pages");
         String filmPage = pageManager.getProperty("path_page_film");
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("film_id"));
             Film film = receiver.findFilmById(id);
             request.setAttribute("film", film);
             page = filmPage;

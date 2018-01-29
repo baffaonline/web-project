@@ -1,15 +1,17 @@
-body{
+@import url(fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.min.css);
+
+body {
     background: url(/img/bg.jpg) no-repeat;
     background-size: cover;
     text-align: center;
 }
 
-header{
+header {
     background-color: #314D68;
     opacity: 0.5;
 }
 
-footer{
+footer {
     color: white;
 }
 
@@ -24,8 +26,8 @@ footer{
     justify-content: flex-end;
 }
 
-#errorParagraph{
-    color:red;
+#errorParagraph {
+    color: red;
     font-family: 'Slabo 27px', serif;
 }
 
@@ -33,45 +35,54 @@ footer{
     color: white !important;
 }
 
-.formDiv{
+.login-container {
+    color: white;
+}
+
+.loginForm {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.formDiv {
     width: 40%;
     margin: 2% auto;
     background: rgba(123, 34, 45, 0.5);
     color: white;
 }
 
-.mainContent{
+.mainContent {
     width: 90%;
     margin: 0 auto;
     background: white;
     opacity: 0.7;
 }
 
-.filmPanel{
+.filmPanel {
     width: 100%;
     overflow: hidden;
     padding: 2%;
     display: flex;
 }
 
-.filmPanel .filmImage{
+.filmPanel .filmImage {
     width: 30%;
     padding-right: 1%;
 }
 
-.imgDimension1{
+.imgDimension1 {
     flex: 1;
 }
 
-.imgDimension2{
+.imgDimension2 {
     flex: 0.994;
 }
 
-.filmImage.lastImage{
+.filmImage.lastImage {
     padding-right: 0;
 }
 
-.filmImage img{
+.filmImage img {
     width: 100%;
 }
 
@@ -149,17 +160,17 @@ footer{
     Styles for film.jsp
  */
 
-.filmContent{
+.filmContent {
     flex: 0.7;
     background-color: #314D68;
     color: wheat;
 }
 
-.filmContent>.filter {
+.filmContent > .filter {
     flex: 0.3;
 }
 
-.film-title-item{
+.film-title-item {
     display: flex;
     margin-bottom: 15px;
     box-shadow: 0 1px 2px 0 #000;
@@ -171,92 +182,298 @@ footer{
     flex: 0.5;
 }
 
-.film-title-image img{
+.film-title-image img {
     height: 50vh;
 }
 
-.film-title{
+.film-title {
     display: flex;
     flex: 1;
     align-items: center;
+    justify-content: center;
     font-size: 3vw;
 }
 
-.description-span{
+.description-span {
     font-weight: bold;
 }
 
-.film-information{
+.film-information {
     box-shadow: 0 1px 2px 1px #000;
     padding-bottom: 1rem;
     margin-bottom: 15px;
 }
 
-.film-information-item{
+.film-information-item {
     display: flex;
 }
 
-.film-information-item-name{
+.film-information-item-name {
     flex: 0.3;
     display: flex;
     font-weight: bold;
 }
 
-.film-information-item-content{
+.film-information-item-content {
     flex: 0.7;
 }
 
-.actor-squad{
+.actor-squad {
     box-shadow: 0 1px 2px 1px #000;
     margin-bottom: 15px;
 }
 
-.actor-squad-item{
+.actor-squad-item {
     display: flex;
     padding-bottom: 1rem;
 }
 
-.actor-squad-item a{
+.actor-squad-item a {
     color: wheat;
     text-decoration: none;
 }
 
-.actor-squad-image{
+.actor-squad-image {
     display: flex;
     flex: 0.3;
 }
 
-.actor-squad-image img{
+.actor-squad-image img {
     height: 50px;
     width: 40px;
 }
 
-.actor-squad-name{
+.actor-squad-name {
     display: flex;
     align-items: center;
     flex: 0.4;
 }
 
-.actor-squad-country{
+.actor-squad-country {
     flex: 0.2;
     display: flex;
     align-items: center;
 }
 
-.film-rating{
+.film-rating {
     font-weight: bold;
     font-size: 2.5vw;
     box-shadow: 0 1px 2px 1px #000;
     margin-bottom: 15px;
 }
 
-.review-text-item{
+.review-text-item {
     margin-bottom: 1rem;
     box-shadow: 0 1px 2px 1px #000;
 }
 
-.review-text p{
+.review-text p {
     text-align: left;
     color: white;
 }
+
+.user-review-edit a {
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+/*
+    Styles for actor.jsp
+ */
+
+.actor-content {
+    flex: 0.7;
+    background-color: #314D68;
+    color: wheat;
+}
+
+.actor-content > .filter {
+    flex: 0.3;
+}
+
+.actor-title-item {
+    display: flex;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 2px 0 #000;
+}
+
+.actor-title-image {
+    display: flex;
+    flex: 0.5;
+}
+
+.actor-title-image img {
+    height: 50vh;
+}
+
+.actor-title {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+}
+
+.actor-country-span {
+    font-weight: bold;
+}
+
+.actor-films-panel {
+    box-shadow: 0 1px 2px 1px #000;
+    margin-bottom: 15px;
+}
+
+.actor-films-item {
+    display: flex;
+    padding-bottom: 1rem;
+}
+
+.actor-films-item a {
+    color: wheat;
+    text-decoration: none;
+}
+
+.actor-films-image {
+    display: flex;
+    flex: 0.2;
+}
+
+.actor-films-image img {
+    height: 50px;
+    width: 40px;
+}
+
+.actor-film-name {
+    display: flex;
+    align-items: center;
+    flex: 0.3;
+}
+
+.actor-film-country {
+    flex: 0.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actor-film-year {
+    flex: 0.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+    Styles for user.jsp
+ */
+
+.user-content {
+    flex: 0.7;
+    background-color: #314D68;
+    color: wheat;
+}
+
+.user-content > .filter {
+    flex: 0.3;
+}
+
+.user-information {
+    box-shadow: 0 1px 2px 1px #000;
+    padding-bottom: 1rem;
+    margin-bottom: 15px;
+}
+
+.user-information-item {
+    display: flex;
+    padding-bottom: 1rem;
+}
+
+.user-information-left {
+    flex: 0.3;
+}
+
+.user-information-right {
+    flex: 0.7;
+    display: flex;
+    justify-content: center;
+}
+
+.user-review-title-panel {
+    display: flex;
+}
+
+.user-review-image img {
+    height: 100px;
+}
+
+.user-review-title {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+}
+
+.user-review-rating {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.user-review-rating-title {
+    display: flex;
+    background-color: #2a344e;
+}
+
+.user-review-rating-panel {
+    margin: 5px 0;
+}
+
+.user-review-content-title {
+    display: flex;
+    background-color: #2a344e;
+}
+
+.user-review-content input{
+    margin: 10px 0;
+}
+
+.user-review-content textarea{
+    margin-bottom: 10px;
+}
+
+.user-review-rating > input {
+    display: none;
+}
+
+fieldset, label {
+    margin: 0;
+    padding: 2px;
+}
+
+.user-review-rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+}
+
+.user-review-rating > label {
+    color: #ddd;
+    float: right;
+}
+
+.user-review-rating > input:checked ~ label,
+.user-review-rating:not(:checked) > label:hover,
+.user-review-rating:not(:checked) > label:hover ~ label {
+    color: #FFD700;
+}
+
+.user-review-rating > input:checked + label:hover,
+.user-review-rating > input:checked ~ label:hover,
+.user-review-rating > label:hover ~ input:checked ~ label,
+.user-review-rating > input:checked ~ label:hover ~ label {
+    color: #FFED85;
+}
+
 

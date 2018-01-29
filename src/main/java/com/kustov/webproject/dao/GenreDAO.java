@@ -12,12 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDAO extends AbstractDAO<Integer, Genre>{
+public class GenreDAO extends AbstractEntityDAO<Integer, Genre> {
     private final static String SQL_SELECT_GENRES_BY_FILM_ID = "SELECT film_id, genre_id, genre_name " +
             " FROM film JOIN (SELECT film_gnr_id, genre_id, genre_name " +
             " FROM genre JOIN film_genre \n" +
             " WHERE genre_id = genre_flm_id) AS genre_film\n" +
-            " ON film_id = film_gnr_id HAVING film_id = ?";
+            " ON film_id = film_gnr_id WHERE film_id = ?";
 
     @Override
     public List<Genre> findAll() {

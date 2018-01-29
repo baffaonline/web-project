@@ -8,7 +8,7 @@ public class User extends Entity {
     private String password;
     private String email;
     private String name;
-    private String lastname;
+    private String surname;
     private LocalDate birthday;
     private Country country;
     private int rating;
@@ -20,14 +20,14 @@ public class User extends Entity {
         type = UserType.GUEST;
     }
 
-    public User(int id, String username, String password, String email, String name, String lastname,
+    public User(int id, String username, String password, String email, String name, String surname,
                 LocalDate birthday, Country country, int rating, boolean isBanned, UserType type) {
         super(id);
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
-        this.lastname = lastname;
+        this.surname = surname;
         this.birthday = birthday;
         this.country = country;
         this.rating = rating;
@@ -75,12 +75,12 @@ public class User extends Entity {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public LocalDate getBirthday() {
@@ -126,7 +126,7 @@ public class User extends Entity {
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(name, user.name) &&
-                Objects.equals(lastname, user.lastname) &&
+                Objects.equals(surname, user.surname) &&
                 Objects.equals(birthday, user.birthday) &&
                 Objects.equals(country, user.country) &&
                 type == user.type;
@@ -135,7 +135,7 @@ public class User extends Entity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(username, password, email, name, lastname, birthday, country, rating, isBanned, type);
+        return Objects.hash(username, password, email, name, surname, birthday, country, rating, isBanned, type);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class User extends Entity {
                 ", password : " + password +
                 ", email : " + email +
                 ", name : " + name +
-                ", lastname : " + lastname +
+                ", surname : " + surname +
                 ", birthday : " + birthday +
                 ", country : " + country +
                 ", rating : " + rating +

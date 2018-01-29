@@ -29,7 +29,7 @@ public class LoginCommand implements Command {
             try {
                 User user = receiver.checkUser(login, password);
                 if (user != null) {
-                    request.getSession().setAttribute("user", user);
+                    request.getSession(true).setAttribute("user", user);
                     page = pageMain;
                 } else {
                     request.setAttribute("errorInLoginOrPasswordMessage", "Wrong login or password");

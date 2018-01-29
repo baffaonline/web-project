@@ -13,7 +13,8 @@ public class LogoutCommand implements Command{
     public String execute(HttpServletRequest request){
         PropertyManager propertyManager = new PropertyManager("pages");
         String mainPage = propertyManager.getProperty("path_page_default");
-        request.getSession().setAttribute("user", new User());
+        request.getSession().removeAttribute("user");
+        request.getSession(true).setAttribute("user", new User());
         return mainPage;
     }
 }

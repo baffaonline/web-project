@@ -20,13 +20,9 @@ public class InitialFilter implements Filter {
         if (user == null){
             user = new User();
             session.setAttribute("user", user);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
         }
-        else {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
-        }
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
