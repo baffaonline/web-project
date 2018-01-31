@@ -44,14 +44,15 @@
                 <label for="firstName" class="control-label">First name</label>
                 <div>
                     <input type="text" name="firstName" class="form-control" id="firstName"
-                           placeholder="First name" required>
+                           placeholder="First name" pattern= "[a-zA-Zа-яА-Я]{3,45}" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="secondName" class="control-label">Second name</label>
                 <div>
-                    <input type="text" name="secondName" class="form-control" id="secondName"
-                           placeholder="First name" required>
+                    <input type="text"  name="secondName" pattern="[a-zA-Zа-яА-Я]{3,45}"
+                           class="form-control" id="secondName"
+                           placeholder="Second name" required>
                 </div>
                 <p>${errorName}</p>
             </div>
@@ -59,7 +60,7 @@
                 <label for="birthday" class="control-label">Birthday</label>
                 <div>
                     <input type="date" name="birthday" class="form-control" id="birthday"
-                           placeholder="Birthday" pattern="\d{4}-\d{2}-\d{2}"
+                           placeholder="Birthday"
                            oninvalid="this.setCustomValidity('Format yyyy-mm-dd')" required>
                 </div>
                 <p>${errorBirthday}</p>

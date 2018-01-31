@@ -76,7 +76,7 @@
             <hr>
             <div class="actor-country">
                 <c:choose>
-                    <c:when test="${actor.county != null}">
+                    <c:when test="${actor.country != null}">
                         <p>
                             <span class="actor-country-span">Country : </span>
                                 ${actor.country.name}

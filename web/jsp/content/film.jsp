@@ -176,7 +176,7 @@
                 <hr>
                 <c:if test="${not empty film.reviews}">
                     <div class="film-reviews">
-                        <h2>User reviews</h2>
+                        <h2>User reviews<span class="spoiler-span">(can contain spoilers!)</span></h2>
                         <c:forEach var="review" items="${film.reviews}">
                             <c:if test="${review.user.username == user.username}">
                                 <c:set var="isUserReviewed" value="true" scope="page"/>
@@ -215,6 +215,47 @@
                                         <div>My mark is ${review.userMark} from 10</div>
                                     </div>
                                 </div>
+                                <div class="review-users-rating">
+                                    <c:set var="good_rating" value="0"/>
+                                    <c:set var="bad_rating" value="0"/>
+                                    <c:forEach var="user_rate" items="${review.reviewUserRatings}">
+                                        <c:if test="${user_rate.rating < 0}">
+                                            <c:set var="bad_rating" value="${bad_rating + 1}"/>
+                                        </c:if>
+                                        <c:if test="${user_rate.rating > 0}">
+                                            <c:set var="good_rating" value="${good_rating + 1}"/>
+                                        </c:if>
+                                        <c:if test="${user_rate.userId == user.id}">
+                                            <c:set var="isUserRatedReview" value="true"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    Review was helpful for ${good_rating} from
+                                    <c:out value="${good_rating + bad_rating}"/>
+                                </div>
+                                <c:if test="${user.type.typeName != 'guest' and isUserRatedReview != 'true'}">
+                                    <div class="review-user-rating">
+                                        <span class="review-user-rating-span">Was this review helpful to you?</span>
+                                        <div class="review-user-rating-bar">
+                                            <form action="${pageContext.request.contextPath}/jsp/MainController"
+                                                  method="post">
+                                                <input type="hidden" name="command" value="review_rating">
+                                                <input type="hidden" name="film_id" value="${film.id}">
+                                                <input type="hidden" name="user_id" value="${review.user.id}">
+                                                <button type="submit" name="rating" class="btn btn-success" value="Yes">
+                                                    Yes
+                                                </button>
+                                                <button type="submit" name="rating" class="btn btn-danger" value="No">No
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${isUserRatedReview == 'true'}">
+                                    <div>
+                                        You rated this review
+                                    </div>
+                                    <c:set var="isUserRatedReview" value="false"/>
+                                </c:if>
                             </c:if>
                         </c:forEach>
                     </div>
@@ -270,11 +311,17 @@
                                 <input type="text" name="title" placeholder="Write title to your review"
                                        maxlength="80" class="form-control" required>
                                 <textarea type="text" name="reviewText" placeholder="Write your review here"
-                                       maxlength="10000" class="form-control" required></textarea>
+                                          maxlength="10000" class="form-control" required></textarea>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </form>
+                </c:if>
+                <c:if test="${user.type.typeName == 'guest'}">
+                    <div><a href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">Login</a>
+                        or <a href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">
+                            register</a> for opportunity to add a review
+                    </div>
                 </c:if>
             </div>
             <div class="filter">

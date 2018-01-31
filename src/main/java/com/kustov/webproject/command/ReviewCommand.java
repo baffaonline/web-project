@@ -24,11 +24,11 @@ public class ReviewCommand implements Command {
         String title = request.getParameter("title");
         String text = request.getParameter("reviewText");
         int filmId = Integer.parseInt(request.getParameter("filmId"));
-        String thisPage = "/jsp/MainController?command=film&film_id=" + filmId;
+        String thisPage = request.getContextPath() + "/jsp/MainController?command=film&film_id=" + filmId;
         User user = (User) request.getSession().getAttribute("user");
         try {
             int mark = Integer.parseInt(markString);
-            Review review = new Review(filmId, user, text, title, mark);
+            Review review = new Review(filmId, user, text, title, mark, null);
             if (receiver.insertReview(review)) {
                 page = thisPage;
             } else {

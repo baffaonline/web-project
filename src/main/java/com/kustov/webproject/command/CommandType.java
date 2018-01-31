@@ -10,7 +10,8 @@ public enum CommandType {
     FILM_TOP(new FilmTopCommand(new FilmReceiver())),
     FILM(new FilmCommand(new FilmReceiver())),
     ACTOR(new ActorCommand(new ActorReceiver())),
-    REVIEW(new ReviewCommand(new ReviewReceiver()));
+    REVIEW(new ReviewCommand(new ReviewReceiver())),
+    REVIEW_RATING(new ReviewRatingCommand(new ReviewReceiver()));
 
     private Command command;
 

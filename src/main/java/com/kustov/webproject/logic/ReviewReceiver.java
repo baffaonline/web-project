@@ -14,4 +14,13 @@ public class ReviewReceiver {
             throw new ServiceException(exc);
         }
     }
+
+    public boolean insertReviewRating(int filmId, int userReviewId, int userId, int rating) throws ServiceException{
+        ReviewDAO reviewDAO = new ReviewDAO();
+        try {
+            return reviewDAO.insertUserRating(filmId, userReviewId, userId, rating);
+        }catch (DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
 }

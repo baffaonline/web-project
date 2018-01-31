@@ -16,14 +16,12 @@
     <div class="form-group">
         <label for="exampleInputLogin">Login</label>
         <input type="text" name="login" class="form-control" id="exampleInputLogin" aria-describedby="loginHelp"
-               placeholder="Enter login" pattern="[a-zA-Z]\w+"
-               oninvalid="this.setCustomValidity('Login starts with letter, contains only letters, numbers and _')"
-               required>
+               placeholder="Enter login" pattern="[a-ZA-Z\d]+" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword">Password</label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password"
-               pattern="\w+" oninvalid="this.setCustomValidity('Password contains only letters, numbers or _')" required>
+               pattern="[a-ZA-Z\d]+" required>
     </div>
     <div>
         <p id="errorParagraph">${errorInLoginOrPasswordMessage}</p>

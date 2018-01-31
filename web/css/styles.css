@@ -262,6 +262,19 @@ footer {
     margin-bottom: 15px;
 }
 
+.spoiler-span{
+    font-size: 0.9rem;
+    color: gray;
+}
+
+.review-user-rating{
+    margin-bottom: 1rem;
+}
+
+.review-user-rating-bar{
+    display: inline-block;
+}
+
 .review-text-item {
     margin-bottom: 1rem;
     box-shadow: 0 1px 2px 1px #000;
@@ -277,6 +290,84 @@ footer {
     display: flex;
     justify-content: center;
 }
+
+.user-review-title-panel {
+    display: flex;
+}
+
+.user-review-image img {
+    height: 100px;
+}
+
+.user-review-title {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+}
+
+.user-review-rating {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.user-review-rating-title {
+    display: flex;
+    background-color: #2a344e;
+}
+
+.user-review-rating-panel {
+    margin: 5px 0;
+}
+
+.user-review-content-title {
+    display: flex;
+    background-color: #2a344e;
+}
+
+.user-review-content input{
+    margin: 10px 0;
+}
+
+.user-review-content textarea{
+    margin-bottom: 10px;
+}
+
+.user-review-rating > input {
+    display: none;
+}
+
+fieldset, label {
+    margin: 0;
+    padding: 2px;
+}
+
+.user-review-rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    display: inline-block;
+}
+
+.user-review-rating > label {
+    color: #ddd;
+    float: right;
+}
+
+.user-review-rating > input:checked ~ label,
+.user-review-rating:not(:checked) > label:hover,
+.user-review-rating:not(:checked) > label:hover ~ label {
+    color: #FFD700;
+}
+
+.user-review-rating > input:checked + label:hover,
+.user-review-rating > input:checked ~ label:hover,
+.user-review-rating > label:hover ~ input:checked ~ label,
+.user-review-rating > input:checked ~ label:hover ~ label {
+    color: #FFED85;
+}
+
 
 /*
     Styles for actor.jsp
@@ -398,82 +489,3 @@ footer {
     display: flex;
     justify-content: center;
 }
-
-.user-review-title-panel {
-    display: flex;
-}
-
-.user-review-image img {
-    height: 100px;
-}
-
-.user-review-title {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    font-size: 3vw;
-}
-
-.user-review-rating {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    display: inline-block;
-}
-
-.user-review-rating-title {
-    display: flex;
-    background-color: #2a344e;
-}
-
-.user-review-rating-panel {
-    margin: 5px 0;
-}
-
-.user-review-content-title {
-    display: flex;
-    background-color: #2a344e;
-}
-
-.user-review-content input{
-    margin: 10px 0;
-}
-
-.user-review-content textarea{
-    margin-bottom: 10px;
-}
-
-.user-review-rating > input {
-    display: none;
-}
-
-fieldset, label {
-    margin: 0;
-    padding: 2px;
-}
-
-.user-review-rating > label:before {
-    margin: 5px;
-    font-size: 1.25em;
-    display: inline-block;
-}
-
-.user-review-rating > label {
-    color: #ddd;
-    float: right;
-}
-
-.user-review-rating > input:checked ~ label,
-.user-review-rating:not(:checked) > label:hover,
-.user-review-rating:not(:checked) > label:hover ~ label {
-    color: #FFD700;
-}
-
-.user-review-rating > input:checked + label:hover,
-.user-review-rating > input:checked ~ label:hover,
-.user-review-rating > label:hover ~ input:checked ~ label,
-.user-review-rating > input:checked ~ label:hover ~ label {
-    color: #FFED85;
-}
-
-
