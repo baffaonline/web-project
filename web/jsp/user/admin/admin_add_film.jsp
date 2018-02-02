@@ -16,25 +16,25 @@
 <div class="admin-content">
     <div class="container">
         <form method="post" enctype="multipart/form-data"
-              action="${pageContext.request.contextPath}/jsp/MainController?command=addFilm">
+              action="${pageContext.request.contextPath}/jsp/MainController?command=add_film">
             <div class="add-film-part">
                 <label class="col-form-label" for="title"><fmt:message key="admin.add.film.title"/></label>
-                <input type="text" name="filmTitle" id="title" class="input-group" placeholder="<fmt:message
+                <input type="text" name="filmTitle" id="title" class="input-group form-control" placeholder="<fmt:message
             key="admin.add.film.title.input"/>" required>
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="image"><fmt:message key="admin.add.film.image"/></label>
-                <input type="file" accept="image/*" class="input-group" name="filmImage" id="image"
+                <input type="file" accept="image/*" class="input-group form-control" name="filmImage" id="image"
                        placeholder="<fmt:message key="admin.add.film.image.input"/>" required>
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="description"><fmt:message key="admin.add.film.description"/></label>
-                <textarea name="filmDescription" id="description"
+                <textarea class="form-control" name="filmDescription" id="description"
                           placeholder="<fmt:message key="admin.add.film.description.textarea"/>" required></textarea>
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="date"><fmt:message key="admin.add.film.date"/></label>
-                <input type="text" class="input-group" name="filmDate" id="date"
+                <input type="text" class="input-group form-control" name="filmDate" id="date"
                        placeholder="<fmt:message key="admin.add.film.date.input"/>" required>
             </div>
             <div class="add-film-part">
@@ -47,8 +47,24 @@
             </div>
             <div class="add-film-part">
                 <label for="age" class="col-form-label"><fmt:message key="admin.add.film.age"/></label>
-                <input type="text" class="input-group" id="age" name="ageRestriction"
-                       placeholder="">
+                <input type="text" class="input-group form-control" id="age" name="ageRestriction"
+                       placeholder="<fmt:message key="admin.add.film.age.input"/>">
+            </div>
+            <div class="add-film-part">
+                <label for="genres" class="col-form-label"><fmt:message key="admin.add.film.genres"/></label>
+                <select class="form-control" name="genres[]" id="genres" multiple>
+                    <c:forEach var="elem" items="${genres}">
+                        <option value="${elem}">${elem}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="add-film-part">
+                <label for="actors" class="col-form-label"><fmt:message key="admin.add.film.actors"/></label>
+                <select class="form-control" name="actors[]" id="actors" multiple>
+                    <c:forEach var="elem" items="${actors}">
+                        <option value="${elem}">${elem}</option>
+                    </c:forEach>
+                </select>
             </div>
             <button class="btn btn-primary add-button" type="submit"><fmt:message key="admin.add.film.button"/></button>
         </form>

@@ -9,6 +9,7 @@ import com.kustov.webproject.pool.ProxyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,28 @@ public class GenreDAO extends AbstractEntityDAO<Integer, Genre> {
             " WHERE genre_id = genre_flm_id) AS genre_film\n" +
             " ON film_id = film_gnr_id WHERE film_id = ?";
 
+    private final static String SQL_SELECT_ALL_GENRES = "SELECT genre_id, genre_name FROM genre";
+
     @Override
-    public List<Genre> findAll() {
-        throw new UnsupportedOperationException();
+    public List<Genre> findAll() throws DAOException{
+        ProxyConnection connection = null;
+        Statement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        List<Genre> genres = new ArrayList<>();
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_GENRES);
+            while (resultSet.next()) {
+                Genre genre = createGenreFromResultSet(resultSet);
+                genres.add(genre);
+            }
+            return (genres.isEmpty()) ? null : genres;
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
     }
 
     public List<Genre> findGenresByFilmId(int id) throws DAOException{
@@ -35,9 +55,7 @@ public class GenreDAO extends AbstractEntityDAO<Integer, Genre> {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                int genreId = resultSet.getInt("genre_id");
-                String name = resultSet.getString("genre_name");
-                Genre genre = new Genre(genreId, name);
+                Genre genre = createGenreFromResultSet(resultSet);
                 genres.add(genre);
             }
             return (genres.isEmpty()) ? null : genres;
@@ -46,5 +64,11 @@ public class GenreDAO extends AbstractEntityDAO<Integer, Genre> {
         }finally {
             close(statement, connectionPool, connection);
         }
+    }
+
+    private Genre createGenreFromResultSet(ResultSet resultSet) throws SQLException{
+        int genreId = resultSet.getInt("genre_id");
+        String name = resultSet.getString("genre_name");
+        return new Genre(genreId, name);
     }
 }

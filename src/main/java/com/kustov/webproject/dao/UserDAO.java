@@ -70,8 +70,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_USERS);
             while (resultSet.next()){
-                User user = new User();
-                setUserFromResultSet(resultSet, user);
+                User user = createUserFromResultSet(resultSet);
                 users.add(user);
             }
         } catch (SQLException | ConnectionException exc){
@@ -96,8 +95,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
+                user = createUserFromResultSet(resultSet);
             }
         } catch (ConnectionException | SQLException exc){
             throw new DAOException(exc);
@@ -147,8 +145,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
+                user = createUserFromResultSet(resultSet);
             }
         } catch (ConnectionException | SQLException exc){
             throw new DAOException(exc);
@@ -201,7 +198,8 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
         }
     }
 
-    void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{
+    User createUserFromResultSet(ResultSet resultSet) throws SQLException{
+        User user = new User();
         user.setId(resultSet.getInt("id"));
         user.setUsername(resultSet.getString("username"));
         user.setPassword(resultSet.getString("password"));
@@ -220,6 +218,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             user.setType(UserType.USER);
         }
         user.setBanned(resultSet.getBoolean("isBanned"));
+        return user;
     }
 
     private User findUserByProperty(String property, String query) throws DAOException{
@@ -234,8 +233,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             preparedStatement.setString(1, property);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user = new User();
-                setUserFromResultSet(resultSet, user);
+                user = createUserFromResultSet(resultSet);
             }
         }catch (ConnectionException | SQLException exc){
             throw new DAOException(exc);

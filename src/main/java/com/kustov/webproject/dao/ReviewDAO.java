@@ -90,8 +90,7 @@ public class ReviewDAO extends AbstractReviewDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 UserDAO userDAO = new UserDAO();
-                User user = new User();
-                userDAO.setUserFromResultSet(resultSet, user);
+                User user = userDAO.createUserFromResultSet(resultSet);
                 String reviewText = resultSet.getString("review_text");
                 String title = resultSet.getString("review_title");
                 int userMark = resultSet.getInt("user_mark");

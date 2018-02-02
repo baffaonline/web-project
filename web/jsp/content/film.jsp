@@ -155,7 +155,7 @@
                                     </div>
                                     <div>
                                         <a href="${pageContext.request.contextPath}/jsp/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
-                                            Delete this review
+
                                         </a>
                                     </div>
                                 </div>

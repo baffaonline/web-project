@@ -22,7 +22,6 @@ public class CountrySetupCommand implements Command {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String registrationPage = pageManager.getProperty("path_page_registration");
-        String adminPage = pageManager.getProperty("path_page_admin_add_film");
         try {
             List<Country> countries = receiver.findCountries();
             CountriesMap countriesMap = CountriesMap.getInstance();
@@ -30,12 +29,7 @@ public class CountrySetupCommand implements Command {
                 countriesMap.put(country.getName(), country);
             }
             request.getSession(true).setAttribute("countries", countries);
-            String option = request.getParameter("page");
-            if ("registration".equals(option)) {
-                page = registrationPage;
-            } else {
-                page = adminPage;
-            }
+            page = registrationPage;
         } catch (ServiceException exc) {
             throw new CommandException(exc);
         }

@@ -1,15 +1,10 @@
 package com.kustov.webproject.logic;
 
-import com.kustov.webproject.dao.ActorDAO;
-import com.kustov.webproject.dao.FilmDAO;
-import com.kustov.webproject.dao.GenreDAO;
-import com.kustov.webproject.dao.ReviewDAO;
-import com.kustov.webproject.entity.Actor;
-import com.kustov.webproject.entity.Film;
-import com.kustov.webproject.entity.Genre;
-import com.kustov.webproject.entity.Review;
+import com.kustov.webproject.dao.*;
+import com.kustov.webproject.entity.*;
 import com.kustov.webproject.exception.DAOException;
 import com.kustov.webproject.exception.ServiceException;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -40,6 +35,21 @@ public class FilmReceiver{
             List<Review> reviews = reviewDAO.findReviewsByFilmId(film.getId());
             film.setReviews(reviews);
             return film;
+        }catch (DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
+
+    public Pair<Film, List<Country>> findInformationForFilm() throws ServiceException{
+        GenreDAO genreDAO = new GenreDAO();
+        ActorDAO actorDAO = new ActorDAO();
+        CountryDAO countryDAO = new CountryDAO();
+        try{
+            Film film = new Film();
+            film.setGenres(genreDAO.findAll());
+            film.setActors(actorDAO.findAll());
+            List<Country> countries = countryDAO.findAll();
+            return new Pair<>(film, countries);
         }catch (DAOException exc){
             throw new ServiceException(exc);
         }

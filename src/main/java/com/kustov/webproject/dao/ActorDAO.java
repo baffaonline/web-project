@@ -10,6 +10,7 @@ import com.kustov.webproject.pool.ProxyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,32 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
             "AS actor_film ON film_id = film_act_id WHERE film_id = ?";
 
     private final static String SQL_SELECT_ACTOR_BY_ID = "SELECT actor_id, actor_name, actor_surname, country_id, " +
-            "country_name, actor_image_path FROM actor LEFT JOIN country ON actor_country = country_id WHERE actor_id = ?";
+            "country_name, actor_image_path FROM actor LEFT JOIN country ON actor_country = country_id " +
+            "WHERE actor_id = ?";
+
+    private final static String SQL_SELECT_ALL_ACTORS = "SELECT actor_id, actor_name, actor_surname, country_id, " +
+            "country_name, actor_image_path FROM actor LEFT JOIN country ON actor_country = country_id";
 
     @Override
-    public List<Actor> findAll() {
-        throw new UnsupportedOperationException();
+    public List<Actor> findAll() throws DAOException{
+        ProxyConnection connection = null;
+        Statement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        List<Actor> actors = new ArrayList<>();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_ACTORS);
+            while (resultSet.next()){
+                Actor actor = createActorFromResultSet(resultSet);
+                actors.add(actor);
+            }
+            return (actors.isEmpty()) ? null : actors;
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
     }
 
     public List<Actor> findActorsByFilmId(int id) throws DAOException{
@@ -40,8 +62,7 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                Actor actor = new Actor();
-                setActorFromResultSet(resultSet, actor);
+                Actor actor = createActorFromResultSet(resultSet);
                 actors.add(actor);
             }
             return (actors.isEmpty()) ? null : actors;
@@ -64,8 +85,7 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                actor = new Actor();
-                setActorFromResultSet(resultSet, actor);
+                actor = createActorFromResultSet(resultSet);
             }
             return actor;
         }catch (ConnectionException | SQLException exc){
@@ -75,7 +95,8 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
         }
     }
 
-    private void setActorFromResultSet(ResultSet resultSet, Actor actor) throws SQLException{
+    private Actor createActorFromResultSet(ResultSet resultSet) throws SQLException{
+        Actor actor = new Actor();
         actor.setId(resultSet.getInt("actor_id"));
         actor.setName(resultSet.getString("actor_name"));
         actor.setSurname(resultSet.getString("actor_surname"));
@@ -85,5 +106,6 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
         if (countryId != 0){
             actor.setCountry(new Country(countryId, countryName));
         }
+        return actor;
     }
 }

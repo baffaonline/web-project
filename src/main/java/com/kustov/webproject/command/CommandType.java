@@ -16,7 +16,9 @@ public enum CommandType {
     USER_LIST(new UserListCommand(new UserReceiver())),
     USER_INFORMATION(new UserInformationCommand(new UserReceiver())),
     REVIEW_DELETE(new ReviewDeleteCommand(new ReviewReceiver())),
-    BAN(new BanCommand(new UserReceiver()));
+    BAN(new BanCommand(new UserReceiver())),
+    FILM_SETUP(new FilmSetupCommand(new FilmReceiver())),
+    ADD_FILM(new AddFilmCommand(new FilmReceiver()));
 
     private Command command;
 

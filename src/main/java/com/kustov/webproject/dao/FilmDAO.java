@@ -43,6 +43,10 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             "ON film_country = country_id) AS film_count LEFT JOIN film_actor ON film_id = film_act_id) \n" +
             "AS film_act ON actor_id = actor_flm_id WHERE actor_id = ?";
 
+    private final static String SQL_INSERT_FILM = "INSERT into film (film_id, film_title, film_country," +
+            "film_description, film_age_restriction, film_date_of_release, " +
+            "film_poster_path) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -62,6 +66,30 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             }
             return film;
         }catch (SQLException | ConnectionException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
+    }
+
+    @Override
+    public Integer insert(Film entity) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_INSERT_FILM);
+            statement.setString(1, entity.getTitle());
+            statement.setInt(2, entity.getCountry().getId());
+            statement.setString(3, entity.getDescription());
+            statement.setInt(4, entity.getAgeRestriction());
+            statement.setDate(5, java.sql.Date.valueOf(entity.getReleaseDate()));
+            statement.setString(6, entity.getPosterPath());
+            statement.executeUpdate();
+            LOGGER.log(Level.INFO, "Add new film to database");
+            return 0;
+        }catch (ConnectionException | SQLException exc){
             throw new DAOException(exc);
         }finally {
             close(statement, connectionPool, connection);
@@ -154,4 +182,8 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             }
         }
     }
+
+//    private int findIdByFilm(Film film){
+//
+//    }
 }

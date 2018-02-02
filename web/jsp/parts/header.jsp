@@ -57,7 +57,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/MainController?command=country_setup&page=registration">
+                                   href="${pageContext.request.contextPath}/jsp/MainController?command=country_setup">
                                     <fmt:message key="header.register"/>
                                 </a>
                             </li>
