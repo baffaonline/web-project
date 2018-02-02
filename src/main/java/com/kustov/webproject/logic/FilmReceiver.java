@@ -13,7 +13,7 @@ import com.kustov.webproject.exception.ServiceException;
 
 import java.util.List;
 
-public class FilmReceiver extends DefaultReceiver{
+public class FilmReceiver{
     public List<Film> findFilms() throws ServiceException{
         FilmDAO dao = new FilmDAO();
         try{

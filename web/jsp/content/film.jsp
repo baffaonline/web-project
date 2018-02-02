@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${locale}" scope="page"/>
+<fmt:setBundle basename="message" scope="session"/>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
@@ -10,67 +13,20 @@
 </head>
 <body>
 <div id="page-body">
-    <header>
-        <nav id="header-nav" class="navbar navbar-expand-sm navbar-light">
-            <div class="container">
-                <div class="navigation-bar-container">
-                    <a class="navbar-brand navigation-bar-item"
-                       href="${pageContext.request.contextPath}/index.jsp">MovieRating</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link navigation-bar-item"
-                               href="${pageContext.request.contextPath}/jsp/MainController?command=film_top">Films</a>
-                        </li>
-                        <c:choose>
-                            <c:when test="${user.type.typeName == 'user'}">
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/user/user.jsp">${user.username}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/MainController?command=logout">Logout</a>
-                                </li>
-                            </c:when>
-                            <c:when test="${user.type.typeName == 'admin'}">
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="#">${user.username}(admin)</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/MainController?command=logout">Logout</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link navigation-bar-item"
-                                       href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">Register</a>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <c:import url="${pageContext.request.contextPath}/jsp/parts/header.jsp">
+        <c:param name="user" value="${user}"/>
+    </c:import>
     <div class="mainContent">
         <div class="mainContent_container">
             <div class="filmContent">
                 <div class="film-title-item">
                     <div class="film-title-image">
-                        <img src="${pageContext.request.contextPath}/${film.posterPath}">
+                        <c:if test="${film.posterPath != null}">
+                            <img src="${pageContext.request.contextPath}/${film.posterPath}">
+                        </c:if>
+                        <c:if test="${film.posterPath == null}">
+                            <img src="${pageContext.request.contextPath}/img/default.png">
+                        </c:if>
                     </div>
                     <div class="film-title">
                         <strong>${film.title}(${film.releaseDate.year})</strong>
@@ -79,15 +35,15 @@
                 <hr>
                 <div class="film-description">
                     <p>
-                        <span class="description-span">Description.</span>
+                        <span class="description-span"><fmt:message key="film.content.description"/></span>
                         ${film.description}</p>
                 </div>
                 <hr>
                 <div class="film-information">
-                    <h2>Information about film</h2>
+                    <h2><fmt:message key="film.information.header"/></h2>
                     <div class="film-information-item">
                         <div class="film-information-item-name">
-                            Country:
+                            <fmt:message key="film.information.country"/>
                         </div>
                         <div class="film-information-item-content">
                             <c:choose>
@@ -95,7 +51,7 @@
                                     ${film.country.name}
                                 </c:when>
                                 <c:otherwise>
-                                    No information
+                                    <fmt:message key="film.information.country.warning"/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -103,7 +59,7 @@
                     <hr>
                     <div class="film-information-item">
                         <div class="film-information-item-name">
-                            Age restriction:
+                            <fmt:message key="film.information.ageRestriction"/>
                         </div>
                         <div class="film-information-item-content">
                             ${film.ageRestriction}+
@@ -112,7 +68,7 @@
                     <hr>
                     <div class="film-information-item">
                         <div class="film-information-item-name">
-                            Date of release:
+                            <fmt:message key="film.information.releaseDate"/>
                         </div>
                         <div class="film-information-item-content">
                             ${film.releaseDate}
@@ -121,7 +77,7 @@
                     <hr>
                     <div class="film-information-item">
                         <div class="film-information-item-name">
-                            Genres:
+                            <fmt:message key="film.information.genres"/>
                         </div>
                         <c:choose>
                             <c:when test="${film.genres != null}">
@@ -133,7 +89,7 @@
                             </c:when>
                             <c:otherwise>
                                 <div>
-                                    No information about genres
+                                    <fmt:message key="film.information.genres.warning"/>
                                 </div>
                             </c:otherwise>
                         </c:choose>
@@ -141,7 +97,7 @@
                 </div>
                 <c:if test="${film.actors != null}">
                     <div class="actor-squad">
-                        <h2>Actor squad</h2>
+                        <h2><fmt:message key="film.actorSquad.header"/></h2>
                         <c:forEach var="actor" items="${film.actors}">
                             <hr>
                             <div class="actor-squad-item">
@@ -161,7 +117,7 @@
                                             <div>${actor.country.name}</div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div>No information</div>
+                                            <div><fmt:message key="film.information.country.warning"/></div>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -171,12 +127,13 @@
                 </c:if>
                 <hr>
                 <div class="film-rating">
-                    Film rating is ${film.rating}
+                    <fmt:message key="film.rating"/> ${film.rating}
                 </div>
                 <hr>
                 <c:if test="${not empty film.reviews}">
                     <div class="film-reviews">
-                        <h2>User reviews<span class="spoiler-span">(can contain spoilers!)</span></h2>
+                        <h2><fmt:message key="film.review.header"/>
+                            <span class="spoiler-span"><fmt:message key="film.review.spoiler"/></span></h2>
                         <c:forEach var="review" items="${film.reviews}">
                             <c:if test="${review.user.username == user.username}">
                                 <c:set var="isUserReviewed" value="true" scope="page"/>
@@ -191,10 +148,15 @@
                                         <p>${review.text}</p>
                                     </div>
                                     <div class="review-mark">
-                                        <div>My mark is ${review.userMark} from 10</div>
+                                        <div>
+                                            <fmt:message key="film.review.mark.first"/> ${review.userMark} <fmt:message
+                                                key="film.review.mark.second"/> 10
+                                        </div>
                                     </div>
-                                    <div class="user-review-edit">
-                                        <a href="#">Edit review</a>
+                                    <div>
+                                        <a href="${pageContext.request.contextPath}/jsp/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
+                                            Delete this review
+                                        </a>
                                     </div>
                                 </div>
                             </c:if>
@@ -206,13 +168,16 @@
                                         <strong>${review.title}</strong>
                                     </div>
                                     <div class="review-owner">
-                                        <div>by ${review.user.username}</div>
+                                        <div><fmt:message key="film.review.user"/> ${review.user.username}</div>
                                     </div>
                                     <div class="review-text">
                                         <p>${review.text}</p>
                                     </div>
                                     <div class="review-mark">
-                                        <div>My mark is ${review.userMark} from 10</div>
+                                        <div>
+                                            <fmt:message key="film.review.mark.first"/> ${review.userMark} <fmt:message
+                                                key="film.review.mark.second"/> 10
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="review-users-rating">
@@ -229,12 +194,13 @@
                                             <c:set var="isUserRatedReview" value="true"/>
                                         </c:if>
                                     </c:forEach>
-                                    Review was helpful for ${good_rating} from
-                                    <c:out value="${good_rating + bad_rating}"/>
+                                    <fmt:message key="film.review.rating.first"/> ${good_rating} <fmt:message
+                                        key="film.review.rating.second"/> <c:out value="${good_rating + bad_rating}"/>
                                 </div>
                                 <c:if test="${user.type.typeName != 'guest' and isUserRatedReview != 'true'}">
                                     <div class="review-user-rating">
-                                        <span class="review-user-rating-span">Was this review helpful to you?</span>
+                                        <span class="review-user-rating-span"><fmt:message
+                                                key="film.review.rating.question"/></span>
                                         <div class="review-user-rating-bar">
                                             <form action="${pageContext.request.contextPath}/jsp/MainController"
                                                   method="post">
@@ -242,9 +208,10 @@
                                                 <input type="hidden" name="film_id" value="${film.id}">
                                                 <input type="hidden" name="user_id" value="${review.user.id}">
                                                 <button type="submit" name="rating" class="btn btn-success" value="Yes">
-                                                    Yes
+                                                    <fmt:message key="film.review.rating.yes"/>
                                                 </button>
-                                                <button type="submit" name="rating" class="btn btn-danger" value="No">No
+                                                <button type="submit" name="rating" class="btn btn-danger" value="No">
+                                                    <fmt:message key="film.review.rating.no"/>
                                                 </button>
                                             </form>
                                         </div>
@@ -252,7 +219,7 @@
                                 </c:if>
                                 <c:if test="${isUserRatedReview == 'true'}">
                                     <div>
-                                        You rated this review
+                                        <fmt:message key="film.review.rating.duplicate"/>
                                     </div>
                                     <c:set var="isUserRatedReview" value="false"/>
                                 </c:if>
@@ -278,7 +245,7 @@
                             </div>
                             <hr>
                             <div class="user-review-rating-title">
-                                <h3>Your rating</h3>
+                                <h3><fmt:message key="film.user.review.rating"/></h3>
                             </div>
                             <div class="user-review-rating-panel">
                                 <fieldset class="user-review-rating">
@@ -306,21 +273,27 @@
                             </div>
                             <div class="user-review-content">
                                 <div class="user-review-content-title">
-                                    <h3>Your review</h3>
+                                    <h3><fmt:message key="film.user.review.review"/></h3>
                                 </div>
-                                <input type="text" name="title" placeholder="Write title to your review"
+                                <input type="text" name="title" placeholder="<fmt:message
+                                key="film.user.review.placeholder.title"/>"
                                        maxlength="80" class="form-control" required>
-                                <textarea type="text" name="reviewText" placeholder="Write your review here"
+                                <textarea type="text" name="reviewText" placeholder="<fmt:message
+                                key="film.user.review.placeholder.text"/>"
                                           maxlength="10000" class="form-control" required></textarea>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <fmt:message key="film.user.review.button"/>
+                                </button>
                             </div>
                         </div>
                     </form>
                 </c:if>
                 <c:if test="${user.type.typeName == 'guest'}">
-                    <div><a href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">Login</a>
-                        or <a href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">
-                            register</a> for opportunity to add a review
+                    <div><a href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">
+                        <fmt:message key="film.guest.first"/></a>
+                        <fmt:message key="film.guest.second"/> <a
+                                href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">
+                            <fmt:message key="film.guest.third"/></a> <fmt:message key="film.guest.fourth"/>
                     </div>
                 </c:if>
             </div>
@@ -329,11 +302,7 @@
         </div>
     </div>
 </div>
-<footer class="panel-footer">
-    <div class="container">
-        <div class="text-center">&copy; Copyright Kustov Ivan 2018</div>
-    </div>
-</footer>
+<c:import url="${pageContext.request.contextPath}/jsp/parts/footer.jsp"/>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

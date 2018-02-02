@@ -54,6 +54,10 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             "birthdate, user_country, user_rating, isAdmin, isBanned)\n" +
             " VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)";
 
+    private static final String SQL_UPDATE_RATING = "UPDATE user SET user_rating = user_rating + ? WHERE id = ?";
+
+    private static final String SQL_UPDATE_BAN="UPDATE user SET isBanned = ? WHERE id = ?";
+
     @Override
     public List<User> findAll() throws DAOException{
         List<User> users = new ArrayList<>();
@@ -158,8 +162,43 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
         return findUserByProperty(email, SQL_SELECT_USER_BY_EMAIL);
     }
 
-    public User findUserByUsername(String username) throws DAOException{
+    public User findUserByUsername(String username) throws DAOException {
         return findUserByProperty(username, SQL_SELECT_USER_BY_USERNAME);
+    }
+
+    public boolean updateRating(int id, int rating) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE_RATING);
+            statement.setInt(1, rating);
+            statement.setInt(2, id);
+            return statement.executeUpdate() != 0;
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
+    }
+
+    public boolean updateBan(int id, boolean isBanned) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE_BAN);
+            statement.setInt(2, id);
+            int ban = isBanned ? 1 : 0;
+            statement.setInt(1, ban);
+            return statement.executeUpdate() != 0;
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
     }
 
     void setUserFromResultSet(ResultSet resultSet, User user) throws SQLException{

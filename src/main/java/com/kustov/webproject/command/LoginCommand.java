@@ -28,10 +28,15 @@ public class LoginCommand implements Command {
         if (LoginCommandValidator.checkLoginAndPassword(login, password)) {
             try {
                 User user = receiver.checkUser(login, password);
-                if (user != null) {
+                if (user != null && !user.isBanned()) {
                     request.getSession(true).setAttribute("user", user);
                     page = pageMain;
-                } else {
+                }else if (user != null && user.isBanned()){
+                    request.setAttribute("errorInLoginOrPasswordMessage", "You are banned.Сontact the administrator" +
+                            " to get more information");
+                    page = pageAuthorization;
+                }
+                else {
                     request.setAttribute("errorInLoginOrPasswordMessage", "Wrong login or password");
                     page = pageAuthorization;
                 }

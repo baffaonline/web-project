@@ -10,10 +10,10 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class RegistrationSetupCommand implements Command {
+public class CountrySetupCommand implements Command {
     private CountryReceiver receiver;
 
-    RegistrationSetupCommand(CountryReceiver receiver) {
+    CountrySetupCommand(CountryReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -22,15 +22,21 @@ public class RegistrationSetupCommand implements Command {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String registrationPage = pageManager.getProperty("path_page_registration");
+        String adminPage = pageManager.getProperty("path_page_admin_add_film");
         try {
             List<Country> countries = receiver.findCountries();
             CountriesMap countriesMap = CountriesMap.getInstance();
-            for (Country country : countries){
+            for (Country country : countries) {
                 countriesMap.put(country.getName(), country);
             }
             request.getSession(true).setAttribute("countries", countries);
-            page = registrationPage;
-        } catch (ServiceException exc){
+            String option = request.getParameter("page");
+            if ("registration".equals(option)) {
+                page = registrationPage;
+            } else {
+                page = adminPage;
+            }
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
         return page;

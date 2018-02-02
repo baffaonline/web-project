@@ -459,6 +459,14 @@ fieldset, label {
     Styles for user.jsp
  */
 
+.user-container{
+    width: 50%;
+    margin: 0 auto;
+    background-color: #314D68;
+    color: wheat;
+    opacity: 0.7;
+}
+
 .user-content {
     flex: 0.7;
     background-color: #314D68;
@@ -488,4 +496,74 @@ fieldset, label {
     flex: 0.7;
     display: flex;
     justify-content: center;
+}
+
+/*
+    Styles for admin.jsp
+ */
+.admin-menu{
+    margin-bottom: 1rem;
+}
+
+/*
+    Styles for admin_user.jsp
+ */
+.admin-content{
+    width: 50%;
+    margin: 0 auto;
+    background-color: #314D68;
+    color: wheat;
+    opacity: 0.7;
+}
+
+.users-list{
+    box-shadow: 0 1px 2px 1px #000;
+    padding-bottom: 1rem;
+    margin-bottom: 15px;
+}
+
+.users-list-item{
+    display: flex;
+    padding: 1rem 0;
+}
+
+.users-list-username{
+    flex: 0.3;
+}
+
+.users-list-rating{
+    flex: 0.4;
+}
+
+.users-list-ban{
+    flex: 0.3;
+}
+
+/*
+    Styles for admin_add_film.jsp
+ */
+
+.add-film-content{
+    width: 60%;
+    margin: 0 auto;
+    background-color: #314D68;
+    color: wheat;
+    opacity: 0.7;
+}
+
+.add-film-part{
+    padding-top: 1rem;
+    display: flex;
+}
+
+.add-film-part label{
+    flex: 0.3;
+}
+
+.add-film-part input,textarea,select{
+    flex: 0.7;
+}
+
+.add-button{
+    padding-top: 1rem;
 }

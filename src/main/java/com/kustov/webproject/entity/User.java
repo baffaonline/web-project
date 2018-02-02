@@ -1,6 +1,8 @@
 package com.kustov.webproject.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User extends Entity {
@@ -14,14 +16,16 @@ public class User extends Entity {
     private int rating;
     private boolean isBanned;
     private UserType type;
+    private List<Review> reviews;
 
     public User() {
         birthday = LocalDate.MIN;
         type = UserType.GUEST;
+        reviews = new ArrayList<>();
     }
 
-    public User(int id, String username, String password, String email, String name, String surname,
-                LocalDate birthday, Country country, int rating, boolean isBanned, UserType type) {
+    public User(int id, String username, String password, String email, String name, String surname, LocalDate birthday,
+                Country country, int rating, boolean isBanned, UserType type, List<Review> reviews) {
         super(id);
         this.username = username;
         this.password = password;
@@ -33,6 +37,7 @@ public class User extends Entity {
         this.rating = rating;
         this.isBanned = isBanned;
         this.type = type;
+        this.reviews = reviews;
     }
 
     public UserType getType() {
@@ -115,10 +120,19 @@ public class User extends Entity {
         isBanned = banned;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         User user = (User) o;
         return rating == user.rating &&
                 isBanned == user.isBanned &&
@@ -129,13 +143,14 @@ public class User extends Entity {
                 Objects.equals(surname, user.surname) &&
                 Objects.equals(birthday, user.birthday) &&
                 Objects.equals(country, user.country) &&
-                type == user.type;
+                type == user.type &&
+                Objects.equals(reviews, user.reviews);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(username, password, email, name, surname, birthday, country, rating, isBanned, type);
+        return Objects.hash(super.hashCode(), username, password, email, name, surname, birthday, country, rating, isBanned, type, reviews);
     }
 
     @Override

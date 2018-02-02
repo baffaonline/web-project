@@ -34,14 +34,14 @@ public class UserDAOTest {
         allUsers.add(new User(1, "kurty", "5f4dcc3b5aa765d61d8327deb882cf99",
                 "kurty872@gmail.com", "Kurt", "Cobein", LocalDate.of(1967, 2,
                 19),
-                new Country(2, "USA"), 0, false, UserType.USER));
+                new Country(2, "USA"), 0, false, UserType.USER, null));
         allUsers.add(new User(2, "coolman", "25d55ad283aa400af464c76d713c07ad",
                 "goodmail@gmail.com", "Jack", "Smith", LocalDate.of(1988, 3,
                 30),
-                new Country(1, "England"), 0, false, UserType.USER));
+                new Country(1, "England"), 0, false, UserType.USER, null));
         allUsers.add(new User(3, "baffa", "f6cae8770df084aa2de88b5ae642ba9f", "baffalo98@gmail.com", "Ivan",
                 "Kustov", LocalDate.of(1998, 6, 8), new Country(3, "Belarus"),
-                0, false, UserType.ADMIN));
+                0, false, UserType.ADMIN, null));
     }
 
     @Test

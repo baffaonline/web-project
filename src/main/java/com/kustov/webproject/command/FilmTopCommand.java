@@ -4,13 +4,13 @@ import com.kustov.webproject.entity.Film;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.FilmReceiver;
-import com.kustov.webproject.service.FilmRatingComparator;
 import com.kustov.webproject.service.PropertyManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.List;
 
 public class FilmTopCommand implements Command{
@@ -28,7 +28,7 @@ public class FilmTopCommand implements Command{
         String filmsPage = pageManager.getProperty("path_page_filmTop");
         try {
             List<Film> films = receiver.findFilms();
-            films.sort(new FilmRatingComparator().reversed());
+            films.sort(Comparator.comparing(Film::getRating).reversed());
             request.setAttribute("films", films);
             LOGGER.log(Level.INFO, "Ok");
             page = filmsPage;

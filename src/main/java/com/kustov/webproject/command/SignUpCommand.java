@@ -44,7 +44,7 @@ public class SignUpCommand implements Command {
                 CountriesMap countriesMap = CountriesMap.getInstance();
                 Country country = countriesMap.getValue(countryName);
                 User user = new User(0, username, password, email, name, surname, getDateFromString(birthday),
-                        country, 0, false, UserType.USER);
+                        country, 0, false, UserType.USER, null);
                 int id = receiver.addUser(user);
                 user.setId(id);
                 request.getSession(true).setAttribute("user", user);
