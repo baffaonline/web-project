@@ -106,7 +106,12 @@ public class DBConnectionPool {
         }
     }
 
-    public void closeConnection(ProxyConnection connection) {
+    public void closeConnection(ProxyConnection connection) throws ConnectionException{
         pool.offer(connection);
+        try {
+            connection.closeConnection();
+        }catch (SQLException exc){
+            throw new ConnectionException(exc);
+        }
     }
 }

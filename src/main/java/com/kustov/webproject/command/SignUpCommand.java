@@ -8,6 +8,7 @@ import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.UserReceiver;
 import com.kustov.webproject.service.PropertyManager;
+import com.kustov.webproject.service.StringDateFormatter;
 import com.kustov.webproject.validator.SignUpValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class SignUpCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String pageMain = pageManager.getProperty("path_page_default");
@@ -39,35 +40,26 @@ public class SignUpCommand implements Command {
         if (isAllValid(request, username, password, email, name, surname, birthday)) {
             try {
                 if (!isNotDuplicatePasswordOrEmail(request, username, email)) {
-                    return thisPage;
+                    return new CommandPair(CommandPair.DispatchType.FORWARD,thisPage);
                 }
                 CountriesMap countriesMap = CountriesMap.getInstance();
                 Country country = countriesMap.getValue(countryName);
-                User user = new User(0, username, password, email, name, surname, getDateFromString(birthday),
-                        country, 0, false, UserType.USER, null);
+                User user = new User(0, username, password, email, name, surname,
+                        StringDateFormatter.getDateFromString(birthday), country, 0, false,
+                        UserType.USER, null);
                 int id = receiver.addUser(user);
                 user.setId(id);
                 request.getSession(true).setAttribute("user", user);
+                request.getSession().removeAttribute("countries");
             } catch (ServiceException exc) {
                 throw new CommandException();
             }
             page = pageMain;
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } else {
             page = thisPage;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         }
-        return page;
-    }
-
-    private LocalDate getDateFromString(String date) {
-        Date dateFromString;
-        LocalDate localDate = LocalDate.MIN;
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            dateFromString = format.parse(date);
-            localDate = dateFromString.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        } catch (ParseException ignored) {
-        }
-        return localDate;
     }
 
     private boolean isNotDuplicatePasswordOrEmail(HttpServletRequest request,

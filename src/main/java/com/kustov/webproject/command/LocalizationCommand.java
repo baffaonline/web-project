@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public class LocalizationCommand implements Command{
     @Override
-    public String execute(HttpServletRequest request) {
+    public CommandPair execute(HttpServletRequest request) {
         String page;
         page = request.getHeader("referer").substring(21);
         if ("/".equals(page)){
@@ -18,6 +18,6 @@ public class LocalizationCommand implements Command{
         String locale = request.getParameter("newLocale");
         MessageManager.setLocale(new Locale(locale));
         request.getSession().setAttribute("locale", locale);
-        return page;
+        return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }

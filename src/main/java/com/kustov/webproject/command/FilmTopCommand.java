@@ -22,7 +22,7 @@ public class FilmTopCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String filmsPage = pageManager.getProperty("path_page_filmTop");
@@ -35,6 +35,6 @@ public class FilmTopCommand implements Command{
         } catch (ServiceException exc){
             throw new CommandException(exc);
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.FORWARD, page);
     }
 }

@@ -16,12 +16,12 @@ public class ReviewRatingCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         String mainPage = propertyManager.getProperty("path_page_default");
         int filmId = Integer.parseInt(request.getParameter("film_id"));
-        String thisPage = "/jsp/MainController?command=film&film_id=" + filmId;
+        String thisPage = "/MainController?command=film&film_id=" + filmId;
         int userReviewId = Integer.parseInt(request.getParameter("user_id"));
         int userId = ((User)request.getSession().getAttribute("user")).getId();
         String ratingString = request.getParameter("rating");
@@ -42,6 +42,6 @@ public class ReviewRatingCommand implements Command{
         } catch (ServiceException exc){
             throw new CommandException(exc);
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }

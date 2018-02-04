@@ -14,7 +14,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
-        <url-pattern>/MainController</url-pattern>
+        <url-pattern>/jsp/MainController</url-pattern>
     </servlet-mapping>
     <jsp-config>
         <taglib>

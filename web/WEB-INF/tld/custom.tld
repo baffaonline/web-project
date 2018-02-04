@@ -9,38 +9,20 @@
     <short-name>ctg</short-name>
     <uri>customtags</uri>
 
-    <!-- Invoke 'Generate' action to add tags or functions -->
     <tag>
-        <name>info-time</name>
-        <tag-class>com.kustov.tagexample.example.InfoTimeTag</tag-class>
+        <name>user-list</name>
+        <tag-class>com.kustov.webproject.customtag.HeaderTag</tag-class>
         <body-content>empty</body-content>
+        <attribute>
+            <name>user</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>contextPath</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
-    <!--<tag>-->
-        <!--<name>hello</name>-->
-        <!--<tag-class>by.levchenko.tag.custom.HelloTag</tag-class>-->
-        <!--<body-content>empty</body-content>-->
-        <!--<attribute>-->
-            <!--<name>role</name>-->
-            <!--<required>true</required>-->
-            <!--<rtexprvalue>true</rtexprvalue>-->
-        <!--</attribute>-->
-    <!--</tag>-->
-    <!--<tag>-->
-        <!--<name>table-revenue</name>-->
-        <!--<tag-class>by.levchenko.tag.custom.RevenueTableTag</tag-class>-->
-        <!--<body-content>scriptless</body-content>-->
-        <!--<attribute>-->
-            <!--<name>rows</name>-->
-            <!--<required>false</required>-->
-            <!--<rtexprvalue>true</rtexprvalue>-->
-        <!--</attribute>-->
-        <!--<attribute>-->
-            <!--<name>head</name>-->
-            <!--<required>false</required>-->
-            <!--<rtexprvalue>true</rtexprvalue>-->
-        <!--</attribute>-->
-    <!--</tag>-->
-
-    <!-- Invoke 'Generate' action to add tags or functions -->
 
 </taglib>

@@ -32,12 +32,16 @@ public class ReviewDAO extends AbstractReviewDAO {
     private final static String SQL_SELECT_USER_RATINGS_BY_REVIEW = "SELECT film_id, user_rvw_id, user_id, user_rating" +
             " FROM review_user_rating WHERE film_id = ? AND user_rvw_id = ?";
 
-    private final static String SQL_SELECT_REVIEWS_BY_USER_ID = "SELECT id, username, password, email, name, lastname, " +
-            " birthdate, country_id, country_name,  user_rating, isAdmin, isBanned, film_rvw_id, review_text, " +
-            " review_title, user_mark FROM (SELECT id, username, " +
+    private final static String SQL_SELECT_REVIEWS_BY_USER_ID = "SELECT film_id, review_title, review_text, user_mark,"
+            + " id, username, password, email,  name, lastname, " +
+            "birthdate, country_id, country_name,  \n" +
+            "user_rating, isAdmin, isBanned FROM film JOIN (SELECT id, username, password, email, name, lastname, " +
+            "birthdate, country_id, country_name,  user_rating, isAdmin, isBanned, film_rvw_id, review_text, " +
+            "review_title, user_mark FROM (SELECT id, username," +
             " password, email, name, lastname, birthdate, country_id, " +
-            " country_name, user_rating, isAdmin, isBanned FROM user JOIN country ON user.user_country = country_id) " +
-            " AS country_user JOIN review ON id = user_rvw_id WHERE id = ?";
+            "country_name, user_rating, isAdmin, isBanned FROM user JOIN country ON user.user_country = country_id) " +
+            "AS country_user JOIN review WHERE id = user_rvw_id) AS film_review ON film_id = film_rvw_id " +
+            "WHERE id = ?";
 
     private final static String SQL_INSERT_REVIEW = "INSERT INTO review (film_rvw_id, user_rvw_id, review_text, " +
             "user_mark, review_title) VALUES (?, ?, ?, ?, ?)";
@@ -91,10 +95,11 @@ public class ReviewDAO extends AbstractReviewDAO {
             while (resultSet.next()) {
                 UserDAO userDAO = new UserDAO();
                 User user = userDAO.createUserFromResultSet(resultSet);
+                int filmId = resultSet.getInt("film_id");
                 String reviewText = resultSet.getString("review_text");
                 String title = resultSet.getString("review_title");
                 int userMark = resultSet.getInt("user_mark");
-                Review review = new Review(id, user, reviewText, title, userMark, null);
+                Review review = new Review(filmId, user, reviewText, title, userMark, null);
                 reviews.add(review);
             }
             for (Review review : reviews) {

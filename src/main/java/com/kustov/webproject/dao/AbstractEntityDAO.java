@@ -18,13 +18,12 @@ public abstract class AbstractEntityDAO<K, T extends Entity> implements Abstract
 
     public abstract List<T> findAll() throws DAOException;
 
+    //NADO SDELAT VSE
     public K insert(T entity) throws DAOException {
         return null;
     }
 
-    public T findById(K id) throws DAOException{
-        return null;
-    }
+    public abstract T findById(K id) throws DAOException;
 
     public void close(Statement statement, DBConnectionPool connectionPool,
                       ProxyConnection connection) {

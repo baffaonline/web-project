@@ -36,6 +36,6 @@ public class Genre extends Entity {
 
     @Override
     public String toString() {
-        return "Genre " + name ;
+        return name ;
     }
 }

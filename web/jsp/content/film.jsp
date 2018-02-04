@@ -22,7 +22,7 @@
                 <div class="film-title-item">
                     <div class="film-title-image">
                         <c:if test="${film.posterPath != null}">
-                            <img src="${pageContext.request.contextPath}/${film.posterPath}">
+                            <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
                         </c:if>
                         <c:if test="${film.posterPath == null}">
                             <img src="${pageContext.request.contextPath}/img/default.png">
@@ -102,12 +102,12 @@
                             <hr>
                             <div class="actor-squad-item">
                                 <div class="actor-squad-image">
-                                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=actor&actor_id=${actor.id}">
+                                    <a href="${pageContext.request.contextPath}/MainController?command=actor&actor_id=${actor.id}">
                                         <img src="${pageContext.request.contextPath}/${actor.imagePath}">
                                     </a>
                                 </div>
                                 <div class="actor-squad-name">
-                                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=actor&actor_id=${actor.id}">
+                                    <a href="${pageContext.request.contextPath}/MainController?command=actor&actor_id=${actor.id}">
                                         <div>${actor.name} ${actor.surname}</div>
                                     </a>
                                 </div>
@@ -154,8 +154,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="${pageContext.request.contextPath}/jsp/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
-
+                                        <a href="${pageContext.request.contextPath}/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
+                                            <fmt:message key="film.review.delete"/>
                                         </a>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                         <span class="review-user-rating-span"><fmt:message
                                                 key="film.review.rating.question"/></span>
                                         <div class="review-user-rating-bar">
-                                            <form action="${pageContext.request.contextPath}/jsp/MainController"
+                                            <form action="${pageContext.request.contextPath}/MainController"
                                                   method="post">
                                                 <input type="hidden" name="command" value="review_rating">
                                                 <input type="hidden" name="film_id" value="${film.id}">
@@ -228,14 +228,19 @@
                     </div>
                 </c:if>
                 <c:if test="${isUserReviewed != 'true' and user.type.typeName != 'guest'}">
-                    <form class="reviewForm" action="${pageContext.request.contextPath}/jsp/MainController"
+                    <form class="reviewForm" action="${pageContext.request.contextPath}/MainController"
                           method="post">
                         <input type="hidden" name="command" value="review"/>
                         <input type="hidden" name="filmId" value="${film.id}"/>
                         <div class="user-review">
                             <div class="user-review-title-panel">
                                 <div class="user-review-image">
-                                    <img src="${pageContext.request.contextPath}/${film.posterPath}"/>
+                                    <c:if test="${film.posterPath != null}">
+                                        <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
+                                    </c:if>
+                                    <c:if test="${film.posterPath == null}">
+                                        <img src="${pageContext.request.contextPath}/img/default.png">
+                                    </c:if>
                                 </div>
                                 <div class="user-review-title">
                                     <div>
@@ -292,7 +297,7 @@
                     <div><a href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">
                         <fmt:message key="film.guest.first"/></a>
                         <fmt:message key="film.guest.second"/> <a
-                                href="${pageContext.request.contextPath}/jsp/MainController?command=registration_setup">
+                                href="${pageContext.request.contextPath}/MainController?command=registration_setup">
                             <fmt:message key="film.guest.third"/></a> <fmt:message key="film.guest.fourth"/>
                     </div>
                 </c:if>

@@ -18,21 +18,22 @@ public class LoginCommand implements Command {
         this.receiver = receiver;
     }
 
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         String login = request.getParameter(PARAM_LOGIN);
         String password = request.getParameter(PARAM_PASSWORD);
         PropertyManager pageManager = new PropertyManager("pages");
-        String pageMain = pageManager.getProperty("path_page_default");
         String pageAuthorization = pageManager.getProperty("path_page_authorization");
         if (LoginCommandValidator.checkLoginAndPassword(login, password)) {
             try {
                 User user = receiver.checkUser(login, password);
                 if (user != null && !user.isBanned()) {
                     request.getSession(true).setAttribute("user", user);
-                    page = pageMain;
+                    page = (String)request.getSession().getAttribute("page");
+                    request.getSession().removeAttribute("page");
+                    return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
                 }else if (user != null && user.isBanned()){
-                    request.setAttribute("errorInLoginOrPasswordMessage", "You are banned.Сontact the administrator" +
+                    request.setAttribute("errorInLoginOrPasswordMessage", "You are banned. Сontact the administrator" +
                             " to get more information");
                     page = pageAuthorization;
                 }
@@ -48,6 +49,6 @@ public class LoginCommand implements Command {
                     "numbers and _");
             page = pageAuthorization;
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.FORWARD, page);
     }
 }

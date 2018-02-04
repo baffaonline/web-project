@@ -18,7 +18,7 @@ public class CountrySetupCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String registrationPage = pageManager.getProperty("path_page_registration");
@@ -33,6 +33,6 @@ public class CountrySetupCommand implements Command {
         } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.FORWARD, page);
     }
 }

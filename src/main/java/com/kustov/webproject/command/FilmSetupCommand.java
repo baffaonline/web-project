@@ -19,7 +19,7 @@ public class FilmSetupCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         page = propertyManager.getProperty("path_page_admin_add_film");
@@ -29,7 +29,7 @@ public class FilmSetupCommand implements Command{
             request.getSession().setAttribute("countries", filmListPair.getValue());
             request.getSession().setAttribute("genres", film.getGenres());
             request.getSession().setAttribute("actors", film.getActors());
-            return page;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         }catch (ServiceException exc){
             throw new CommandException(exc);
         }

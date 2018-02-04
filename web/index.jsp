@@ -19,17 +19,17 @@
         <div class="container">
             <div class="filmPanel">
                 <div class="filmImage imgDimension1">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=2">
+                    <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=2">
                         <img src="${pageContext.request.contextPath}/img/spider-man.jpg">
                     </a>
                 </div>
                 <div class="filmImage imgDimension2">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=1">
+                    <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=1">
                         <img src="${pageContext.request.contextPath}/img/thor3.jpg">
                     </a>
                 </div>
                 <div class="filmImage lastImage imgDimension1">
-                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=7">
+                    <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=7">
                         <img src="${pageContext.request.contextPath}/img/avenger_infinity_war.jpg">
                     </a>
                 </div>

@@ -22,9 +22,9 @@
                 <c:forEach var="elem" items="${films}">
                     <div class="ratingPanel">
                         <div class="rating-panel-image">
-                            <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=${elem.id}">
+                            <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${elem.id}">
                                 <c:if test="${elem.posterPath != null}">
-                                    <img src="${pageContext.request.contextPath}/${elem.posterPath}">
+                                    <img src="${pageContext.request.contextPath}/img/${elem.posterPath}">
                                 </c:if>
                                 <c:if test="${elem.posterPath == null}">
                                     <img src="${pageContext.request.contextPath}/img/default.png">
@@ -32,7 +32,7 @@
                             </a>
                         </div>
                         <div class="rating-panel-content">
-                            <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=${elem.id}">
+                            <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${elem.id}">
                                     ${elem.title}(${elem.releaseDate.year})</a>
                         </div>
                         <div class="rating-panel-degree">

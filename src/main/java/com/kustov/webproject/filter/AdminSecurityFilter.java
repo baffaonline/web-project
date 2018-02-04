@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = "/jsp/user/admin/*")
-public class AdminFilter implements Filter {
+public class AdminSecurityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

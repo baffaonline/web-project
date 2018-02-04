@@ -18,7 +18,7 @@ public class UserInformationCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         String option = request.getParameter("page");
@@ -38,6 +38,6 @@ public class UserInformationCommand implements Command{
         }catch (ServiceException exc){
             throw new CommandException(exc);
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.FORWARD,page);
     }
 }

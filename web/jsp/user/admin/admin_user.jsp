@@ -69,7 +69,7 @@
     </div>
     <c:if test="${!neededUser.isBanned()}">
         <form method="get"
-              action="${pageContext.request.contextPath}/jsp/MainController">
+              action="${pageContext.request.contextPath}/MainController">
             <input type="hidden" name="command" value="ban">
             <input type="hidden" name="userId" value="${neededUser.id}">
             <button class="btn btn-light" type="submit"><fmt:message key="admin.user.button.ban"/></button>
@@ -77,7 +77,7 @@
     </c:if>
     <c:if test="${neededUser.isBanned()}">
         <form method="get"
-              action="${pageContext.request.contextPath}/jsp/MainController">
+              action="${pageContext.request.contextPath}/MainController">
             <input type="hidden" name="command" value="ban">
             <input type="hidden" name="userId" value="${neededUser.id}">
             <button class="btn btn-light" type="submit"><fmt:message key="admin.user.button.unban"/></button>
@@ -118,7 +118,7 @@
                     key="film.review.rating.second"/> <c:out value="${good_rating + bad_rating}"/>
             </div>
             <div>
-                <a href="${pageContext.request.contextPath}/jsp/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
+                <a href="${pageContext.request.contextPath}/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
                     <fmt:message key="admin.user.review.delete"/>
                 </a>
             </div>

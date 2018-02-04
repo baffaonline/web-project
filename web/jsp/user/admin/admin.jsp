@@ -18,9 +18,9 @@
         <h2><fmt:message key="admin.menu.header"/></h2>
         <div class="admin-menu">
             <div class="list-group">
-                <a href="${pageContext.request.contextPath}/jsp/MainController?command=user_list"
+                <a href="${pageContext.request.contextPath}/MainController?command=user_list"
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.users.list"/></a>
-                <a href="${pageContext.request.contextPath}/jsp/MainController?command=film_setup"
+                <a href="${pageContext.request.contextPath}/MainController?command=film_setup"
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.add"/></a>
                 <a href="#" class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.edit"/></a>
             </div>

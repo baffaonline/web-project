@@ -102,12 +102,12 @@
                     key="film.review.rating.second"/> <c:out value="${good_rating + bad_rating}"/>
             </div>
             <div>
-                <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=${review.filmId}">
+                <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${review.filmId}">
                     <fmt:message key="user.reviews.film.link"/>
                 </a>
             </div>
             <div>
-                <a href="${pageContext.request.contextPath}/jsp/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
+                <a href="${pageContext.request.contextPath}/MainController?command=review_delete&filmId=${review.filmId}&userId=${review.user.id}">
                     <fmt:message key="user.reviews.delete"/>
                 </a>
             </div>

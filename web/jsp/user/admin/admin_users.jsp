@@ -21,7 +21,7 @@
                 <c:if test="${tempUser.username != user.username}">
                     <div class="users-list-item">
                         <div class="users-list-username">
-                            <a href="${pageContext.request.contextPath}/jsp/MainController?command=user_information&page=admin&user_id=${tempUser.id}">
+                            <a href="${pageContext.request.contextPath}/MainController?command=user_information&page=admin&user_id=${tempUser.id}">
                                     ${tempUser.username}
                             </a>
                         </div>

@@ -18,7 +18,7 @@ public class UserListCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         page = propertyManager.getProperty("path_page_userList");
@@ -26,7 +26,7 @@ public class UserListCommand implements Command{
             List<User> users = receiver.findAllUsers();
             users.sort(Comparator.comparing(User::getUsername));
             request.setAttribute("users", users);
-            return page;
+            return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         }catch (ServiceException exc){
             throw new CommandException(exc);
         }

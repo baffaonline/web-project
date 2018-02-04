@@ -23,6 +23,11 @@ public class GenreDAO extends AbstractEntityDAO<Integer, Genre> {
     private final static String SQL_SELECT_ALL_GENRES = "SELECT genre_id, genre_name FROM genre";
 
     @Override
+    public Genre findById(Integer id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<Genre> findAll() throws DAOException{
         ProxyConnection connection = null;
         Statement statement = null;

@@ -4,10 +4,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MessageManager {
-    private static Locale locale = new Locale("en_EN");
+    private static Locale locale;
 
     public String getString(String key){
-        ResourceBundle bundle = ResourceBundle.getBundle("message", locale);
+        ResourceBundle bundle = ResourceBundle.getBundle("message", locale,
+                ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_DEFAULT));
         return bundle.getString(key);
     }
 

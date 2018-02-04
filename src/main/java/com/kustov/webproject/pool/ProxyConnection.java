@@ -78,6 +78,10 @@ public class ProxyConnection implements Connection {
         }
     }
 
+    void closeConnection() throws SQLException{
+        connection.close();
+    }
+
     @Override
     public boolean isClosed() throws SQLException {
         return connection.isClosed();

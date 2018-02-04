@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <header>
     <nav id="header-nav" class="navbar navbar-expand-sm navbar-light">
         <div class="container">
@@ -16,62 +17,20 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/jsp/MainController?command=film_top">
+                           href="${pageContext.request.contextPath}/MainController?command=film_top">
                             <fmt:message key="header.films"/>
                         </a>
                     </li>
-                    <c:choose>
-                        <c:when test="${user.type.typeName == 'user'}">
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/MainController?command=user_information&page=user">
-                                        ${user.username}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/MainController?command=logout">
-                                    <fmt:message key="header.logout"/>
-                                </a>
-                            </li>
-                        </c:when>
-                        <c:when test="${user.type.typeName == 'admin'}">
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/user/admin/admin.jsp">
-                                        ${user.username}(<fmt:message key="header.admin"/>)
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/MainController?command=logout">
-                                    <fmt:message key="header.logout"/>
-                                </a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">
-                                    <fmt:message key="header.login"/>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link navigation-bar-item"
-                                   href="${pageContext.request.contextPath}/jsp/MainController?command=country_setup">
-                                    <fmt:message key="header.register"/>
-                                </a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
+                    <ctg:user-list user="${user}" contextPath="${pageContext.request.contextPath}"/>
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/jsp/MainController?command=localization&newLocale=ru_RU">
+                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=ru_RU">
                             <fmt:message key="header.russian"/>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/jsp/MainController?command=localization&newLocale=en_EN">
+                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=en_EN">
                             English
                         </a>
                     </li>

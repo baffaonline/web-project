@@ -3,6 +3,7 @@ package com.kustov.webproject.command;
 import com.kustov.webproject.logic.*;
 
 public enum CommandType {
+    PREPARE_LOGIN(new PrepareLoginCommand()),
     LOGIN(new LoginCommand(new UserReceiver())),
     COUNTRY_SETUP(new CountrySetupCommand(new CountryReceiver())),
     SIGN_UP(new SignUpCommand(new UserReceiver())),

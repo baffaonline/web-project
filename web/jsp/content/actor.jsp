@@ -50,12 +50,12 @@
                             <hr>
                             <div class="actor-films-item">
                                 <div class="actor-films-image">
-                                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=${film.id}">
-                                        <img src="${pageContext.request.contextPath}/${film.posterPath}">
+                                    <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${film.id}">
+                                        <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
                                     </a>
                                 </div>
                                 <div class="actor-film-name">
-                                    <a href="${pageContext.request.contextPath}/jsp/MainController?command=film&film_id=${film.id}">
+                                    <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${film.id}">
                                         <div>${film.title}</div>
                                     </a>
                                 </div>

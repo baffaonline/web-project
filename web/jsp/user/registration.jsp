@@ -18,7 +18,7 @@
 <div class="container">
     <div class="formDiv">
         <h2><fmt:message key="registration.sign_up.header"/></h2>
-        <form action="${pageContext.request.contextPath}/jsp/MainController" id="regForm" method="post" role="form">
+        <form action="${pageContext.request.contextPath}/MainController" id="regForm" method="post" role="form">
             <input type="hidden" name="command" value="sign_up"/>
             <div class="form-group">
                 <label for="username" class="control-label"><fmt:message key="registration.label.username"/></label>

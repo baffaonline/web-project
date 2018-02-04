@@ -16,7 +16,7 @@ public class ReviewDeleteCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         page = request.getHeader("referer").substring(21);
         if ("/".equals(page)) {
@@ -26,14 +26,12 @@ public class ReviewDeleteCommand implements Command {
         try{
             int filmId = Integer.parseInt(request.getParameter("filmId"));
             int userId = Integer.parseInt(request.getParameter("userId"));
-            if (receiver.deleteReview(filmId, userId)){
-                return page;
-            }
-            else{
+            if (!receiver.deleteReview(filmId, userId)) {
                 MessageManager messageManager = new MessageManager();
                 request.setAttribute("errorInDelete", messageManager.getString("command.review.delete.error"));
-                return page;
             }
+            request.getSession().setAttribute("isUpdated", true);
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         }catch (ServiceException exc){
             throw new CommandException(exc);
         }

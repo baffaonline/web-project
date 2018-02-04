@@ -17,7 +17,7 @@ public class BanCommand implements Command{
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         int id = Integer.parseInt(request.getParameter("userId"));
@@ -28,7 +28,7 @@ public class BanCommand implements Command{
                 MessageManager messageManager = new MessageManager();
                 request.setAttribute("errorBan", messageManager.getString("command.user.ban.error"));
             }
-            return page;
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         }catch (ServiceException exc){
             throw new CommandException(exc);
         }

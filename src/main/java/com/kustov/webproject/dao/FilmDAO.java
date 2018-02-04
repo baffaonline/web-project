@@ -43,9 +43,18 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             "ON film_country = country_id) AS film_count LEFT JOIN film_actor ON film_id = film_act_id) \n" +
             "AS film_act ON actor_id = actor_flm_id WHERE actor_id = ?";
 
+    private final static String SQL_SELECT_ID_BY_FILM = "SELECT film_id, film_title," +
+            " film_description FROM film WHERE film_title = ? AND film_description = ?";
+
     private final static String SQL_INSERT_FILM = "INSERT into film (film_id, film_title, film_country," +
             "film_description, film_age_restriction, film_date_of_release, " +
             "film_poster_path) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+
+    private final static String SQL_INSERT_ACTORS_TO_FILM = "INSERT into film_actor (film_act_id, actor_flm_id) " +
+            "VALUES (?, ?)";
+
+    private final static String SQL_INSERT_GENRES_TO_FILM = "INSERT into film_genre (film_gnr_id, genre_flm_id) " +
+            "VALUES (?, ?)";
 
     private final static Logger LOGGER = LogManager.getLogger();
 
@@ -88,7 +97,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             statement.setString(6, entity.getPosterPath());
             statement.executeUpdate();
             LOGGER.log(Level.INFO, "Add new film to database");
-            return 0;
+            return findIdByFilm(entity, connection);
         }catch (ConnectionException | SQLException exc){
             throw new DAOException(exc);
         }finally {
@@ -114,6 +123,37 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
                 film.setRating(findFilmRatingById(film.getId(), connection));
             }
             return films;
+        }catch (SQLException | ConnectionException exc){
+            throw new DAOException(exc);
+        } finally {
+            close(statement, connectionPool, connection);
+        }
+    }
+
+    public boolean insertActorsToFilm(int filmId, int actorsId[]) throws DAOException{
+        return insertInformationToFilm(filmId, actorsId, SQL_INSERT_ACTORS_TO_FILM);
+    }
+
+    public boolean insertGenresToFilm(int filmId, int genresId[]) throws DAOException{
+        return insertInformationToFilm(filmId, genresId, SQL_INSERT_GENRES_TO_FILM);
+    }
+
+    private boolean insertInformationToFilm(int filmId, int infoId[], String sql) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            boolean isAllInserted = true;
+            for (int id : infoId) {
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, filmId);
+                statement.setInt(2, id);
+                if (statement.executeUpdate() == 0) {
+                    isAllInserted = false;
+                }
+            }
+            return isAllInserted;
         }catch (SQLException | ConnectionException exc){
             throw new DAOException(exc);
         } finally {
@@ -183,7 +223,27 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
         }
     }
 
-//    private int findIdByFilm(Film film){
-//
-//    }
+    private int findIdByFilm(Film film, ProxyConnection connection) throws DAOException{
+        PreparedStatement statement = null;
+        try{
+            statement = connection.prepareStatement(SQL_SELECT_ID_BY_FILM);
+            statement.setString(1, film.getTitle());
+            statement.setString(2, film.getDescription());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("film_id");
+            }
+            return 0;
+        }catch (SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            }catch (SQLException exc){
+                LOGGER.log(Level.ERROR, exc.getMessage());
+            }
+        }
+    }
 }

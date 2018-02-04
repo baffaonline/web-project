@@ -83,6 +83,6 @@ public class Actor extends Entity {
 
     @Override
     public String toString() {
-        return "Actor " + name + " " + surname + " from " + country;
+        return name + " " + surname + " from " + country;
     }
 }

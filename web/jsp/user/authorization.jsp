@@ -17,7 +17,7 @@
 </c:import>
 <div class="login-container container">
 <h3><fmt:message key="authorization.login.header"/></h3>
-<form class="loginForm" action="${pageContext.request.contextPath}/jsp/MainController" method="post">
+<form class="loginForm" action="${pageContext.request.contextPath}/MainController" method="post">
     <input type="hidden" name="command" value="login"/>
     <div class="form-group">
         <label for="exampleInputLogin"><fmt:message key="authorization.label.login"/></label>

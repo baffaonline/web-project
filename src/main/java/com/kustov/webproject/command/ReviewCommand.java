@@ -5,6 +5,7 @@ import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.ReviewReceiver;
 import com.kustov.webproject.service.PropertyManager;
+import com.sun.org.apache.regexp.internal.RE;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +17,7 @@ public class ReviewCommand implements Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws CommandException {
+    public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String pageMain = pageManager.getProperty("path_page_default");
@@ -24,7 +25,8 @@ public class ReviewCommand implements Command {
         String title = request.getParameter("title");
         String text = request.getParameter("reviewText");
         int filmId = Integer.parseInt(request.getParameter("filmId"));
-        String thisPage = request.getContextPath() + "/jsp/MainController?command=film&film_id=" + filmId;
+        String filmPage = pageManager.getProperty("path_page_film_command");
+        String thisPage = request.getContextPath() + filmPage + filmId;
         User user = (User) request.getSession().getAttribute("user");
         try {
             int mark = Integer.parseInt(markString);
@@ -37,6 +39,6 @@ public class ReviewCommand implements Command {
         } catch (ServiceException exc) {
             throw new CommandException();
         }
-        return page;
+        return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
     }
 }

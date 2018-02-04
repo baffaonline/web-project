@@ -20,12 +20,12 @@
             <div class="add-film-part">
                 <label class="col-form-label" for="title"><fmt:message key="admin.add.film.title"/></label>
                 <input type="text" name="filmTitle" id="title" class="input-group form-control" placeholder="<fmt:message
-            key="admin.add.film.title.input"/>" required>
+            key="admin.add.film.title.input"/>" value="${film.title}" required>
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="image"><fmt:message key="admin.add.film.image"/></label>
                 <input type="file" accept="image/*" class="input-group form-control" name="filmImage" id="image"
-                       placeholder="<fmt:message key="admin.add.film.image.input"/>" required>
+                       placeholder="<fmt:message key="admin.add.film.image.input"/>" value="" required>
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="description"><fmt:message key="admin.add.film.description"/></label>
@@ -78,5 +78,14 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+</body>
+</html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
 </body>
 </html>
