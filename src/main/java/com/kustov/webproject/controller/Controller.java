@@ -48,6 +48,7 @@ public class Controller extends HttpServlet {
 
     private void commandDefine(HttpServletRequest req, HttpServletResponse resp) {
         try {
+            req.setCharacterEncoding("UTF8");
             boolean isUpdated = (boolean) req.getSession().getAttribute("isUpdated");
             if (!isUpdated) {
                 Optional<Command> optionalCommand = CommandFactory.defineCommand(req.getParameter("command"));

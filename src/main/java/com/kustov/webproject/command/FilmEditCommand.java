@@ -16,12 +16,11 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.Locale;
 
-public class AddFilmCommand implements Command{
+public class FilmEditCommand implements Command{
     private FilmReceiver receiver;
 
-    AddFilmCommand(FilmReceiver receiver){
+    FilmEditCommand(FilmReceiver receiver){
         this.receiver = receiver;
     }
 
@@ -29,45 +28,56 @@ public class AddFilmCommand implements Command{
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");
         String filmPage = propertyManager.getProperty("path_page_film_command");
-        String addFilmPage = propertyManager.getProperty("path_page_admin_add_film");
+        String editFilmPage = propertyManager.getProperty("path_page_admin_edit_film");
 
+        int filmId = ((Film)request.getSession().getAttribute("film")).getId();
         String filmTitle = request.getParameter("filmTitle");
         String description = request.getParameter("filmDescription");
         String dateString = request.getParameter("filmDate");
         String country = request.getParameter("country");
         String ageRestrictionString = request.getParameter("ageRestriction");
-        String genres[] = request.getParameterValues("genres[]");
-        String actors[] = request.getParameterValues("actors[]");
+        String oldGenres[] = request.getParameterValues("oldGenres[]");
+        String oldActors[] = request.getParameterValues("oldActors[]");
+        String newGenres[] = request.getParameterValues("newGenres[]");
+        String newActors[] = request.getParameterValues("newActors[]");
+
         try {
             if (isAllValid(request, dateString, ageRestrictionString)) {
+
                 Part filePart = request.getPart("filmImage");
                 String filePath = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 LocalDate localDate = StringDateFormatter.getDateFromString(dateString);
                 int ageRestriction = Integer.parseInt(ageRestrictionString);
                 int countryId = Integer.parseInt(country);
-                int genresId[], actorsId[];
-                genresId = ArrayConverter.makeIntArrayFromString(genres);
-                actorsId = ArrayConverter.makeIntArrayFromString(actors);
-                Film film = receiver.addFilm(filmTitle, filePath, description, localDate, countryId, ageRestriction,
-                        genresId, actorsId);
+                int oldGenresId[], oldActorsId[], newGenresId[], newActorsId[];
+                oldGenresId = ArrayConverter.makeIntArrayFromString(oldGenres);
+                oldActorsId = ArrayConverter.makeIntArrayFromString(oldActors);
+                newGenresId = ArrayConverter.makeIntArrayFromString(newGenres);
+                newActorsId = ArrayConverter.makeIntArrayFromString(newActors);
+
+                if (!receiver.editFilm(filmId, filmTitle, filePath, description, localDate, countryId,
+                        ageRestriction, oldGenresId, oldActorsId, newGenresId, newActorsId)) {
+                    MessageManager messageManager = new MessageManager();
+                    request.setAttribute("warningEdit", messageManager.getString("command.edit.film.warning"));
+                }
+
                 request.getSession().removeAttribute("countries");
                 request.getSession().removeAttribute("genres");
                 request.getSession().removeAttribute("actors");
-                return new CommandPair(CommandPair.DispatchType.REDIRECT,filmPage + film.getId());
+                request.getSession().removeAttribute("film");
+
+                return new CommandPair(CommandPair.DispatchType.REDIRECT, filmPage + filmId);
             }
-            else {
-                return new CommandPair(CommandPair.DispatchType.FORWARD, addFilmPage);
-            }
+            return new CommandPair(CommandPair.DispatchType.FORWARD, editFilmPage);
         }catch (ServletException | IOException | ServiceException exc){
             throw new CommandException(exc);
         }
     }
-    
+
     private boolean isAllValid(HttpServletRequest request, String dateString, String ageRestrictionString){
         AddFilmValidator validator = new AddFilmValidator();
         boolean isValid = true;
         MessageManager messageManager = new MessageManager();
-            MessageManager.setLocale(new Locale((String)request.getSession().getAttribute("locale")));
         if (!validator.checkDate(dateString)) {
             request.setAttribute("errorDate", messageManager.getString("command.add.film.date.error"));
             isValid = false;

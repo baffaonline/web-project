@@ -29,6 +29,7 @@ public class CountrySetupCommand implements Command {
                 countriesMap.put(country.getName(), country);
             }
             request.getSession(true).setAttribute("countries", countries);
+            request.setAttribute("isWrongInput", false);
             page = registrationPage;
         } catch (ServiceException exc) {
             throw new CommandException(exc);

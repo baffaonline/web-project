@@ -26,8 +26,10 @@ public class RedirectSecurityFilter implements Filter{
         //21-const
         String page = request.getRequestURI();
         PropertyManager propertyManager = new PropertyManager("pages");
+        //Убрать админ изменить
         if (!propertyManager.getProperty("path_page_authorization").equals(page)
-                && !propertyManager.getProperty("path_page_admin").equals(page)) {
+                && !propertyManager.getProperty("path_page_admin").equals(page)
+                && !propertyManager.getProperty("path_page_admin_edit_film").equals(page)) {
             response.sendRedirect(request.getContextPath() + indexPage);
         }
         filterChain.doFilter(request, response);

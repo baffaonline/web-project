@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
@@ -25,6 +26,11 @@ public class DBConnectionPool {
     private DBConnectionPool() {
         try {
             PropertyManager databaseManager = new PropertyManager("database");
+            Properties properties=new Properties();
+            properties.setProperty("user", databaseManager.getProperty("db.user"));
+            properties.setProperty("password",databaseManager.getProperty("db.password"));
+            properties.setProperty("useUnicode","true");
+            properties.setProperty("characterEncoding", databaseManager.getProperty("db.characterEncoding"));
             uri = databaseManager.getProperty("db.uri");
             user = databaseManager.getProperty("db.user");
             password = databaseManager.getProperty("db.password");
@@ -33,7 +39,8 @@ public class DBConnectionPool {
             pool = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 ProxyConnection connection =
-                        new ProxyConnection(DriverManager.getConnection(uri, user, password));
+                        new ProxyConnection(DriverManager.getConnection(
+                                databaseManager.getProperty("db.uri"), properties));
                 pool.put(connection);
             }
         } catch (SQLException | InterruptedException exc) {

@@ -25,7 +25,7 @@
             <div class="add-film-part">
                 <label class="col-form-label" for="image"><fmt:message key="admin.add.film.image"/></label>
                 <input type="file" accept="image/*" class="input-group form-control" name="filmImage" id="image"
-                       placeholder="<fmt:message key="admin.add.film.image.input"/>" required>
+                       placeholder="<fmt:message key="admin.add.film.image.input"/>">
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="description"><fmt:message key="admin.add.film.description"/></label>

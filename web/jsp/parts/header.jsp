@@ -17,7 +17,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/MainController?command=film_top">
+                           href="${pageContext.request.contextPath}/MainController?command=film_top&page=user">
                             <fmt:message key="header.films"/>
                         </a>
                     </li>

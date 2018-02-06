@@ -15,7 +15,7 @@
     <c:import url="${pageContext.request.contextPath}/jsp/parts/header.jsp">
         <c:param name="user" value="${user}"/>
     </c:import>
-    <div class="mainContent">
+    <div class="indexContent">
         <div class="container">
             <div class="filmPanel">
                 <div class="filmImage imgDimension1">

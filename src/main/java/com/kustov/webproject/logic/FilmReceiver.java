@@ -55,11 +55,50 @@ public class FilmReceiver {
                 GenreDAO genreDAO = new GenreDAO();
                 film.setGenres(genreDAO.findGenresByFilmId(id));
             }
-            if (actorsId != null && filmDAO.insertGenresToFilm(id, actorsId)) {
+            if (actorsId != null && filmDAO.insertActorsToFilm(id, actorsId)) {
                 ActorDAO actorDAO = new ActorDAO();
                 film.setActors(actorDAO.findActorsByFilmId(id));
             }
             return film;
+        } catch (DAOException exc) {
+            throw new ServiceException(exc);
+        }
+    }
+
+    public boolean editFilm(int filmId, String filmTitle, String filePath, String description, LocalDate date, int countryId,
+                            int ageRestriction, int oldGenresId[], int oldActorsId[], int newGenresId[],
+                            int newActorsId[]) throws ServiceException {
+        FilmDAO filmDAO = new FilmDAO();
+        CountryDAO countryDAO = new CountryDAO();
+        ReviewDAO reviewDAO = new ReviewDAO();
+        try {
+            Country country = countryDAO.findById(countryId);
+            Film oldFilm = findFilmById(filmId);
+            Film film;
+            if (!filePath.isEmpty()) {
+                film = new Film(filmId, filmTitle, country, description, ageRestriction, date, filePath, 0,
+                        null, null, null);
+            }else{
+                film = new Film(filmId, filmTitle, country, description, ageRestriction, date,
+                        oldFilm.getPosterPath(), 0, null, null, null);
+            }
+            filmDAO.updateFilm(filmId, filmTitle, countryId, description, ageRestriction, date, film.getPosterPath());
+            if (oldGenresId != null) {
+                filmDAO.deleteGenresFromFilm(filmId, oldGenresId);
+            }
+            if (oldActorsId != null) {
+                filmDAO.deleteActorsFromFilm(filmId, oldActorsId);
+            }
+            if (newGenresId != null && filmDAO.insertGenresToFilm(filmId, newGenresId)) {
+                GenreDAO genreDAO = new GenreDAO();
+                film.setGenres(genreDAO.findGenresByFilmId(filmId));
+            }
+            if (newActorsId != null && filmDAO.insertActorsToFilm(filmId, newActorsId)) {
+                ActorDAO actorDAO = new ActorDAO();
+                film.setActors(actorDAO.findActorsByFilmId(filmId));
+            }
+            film.setReviews(reviewDAO.findReviewsByFilmId(filmId));
+            return !film.equals(oldFilm);
         } catch (DAOException exc) {
             throw new ServiceException(exc);
         }

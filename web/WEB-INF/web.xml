@@ -16,6 +16,7 @@
         <servlet-name>MainController</servlet-name>
         <url-pattern>/jsp/MainController</url-pattern>
     </servlet-mapping>
+
     <jsp-config>
         <taglib>
             <taglib-uri>customtags</taglib-uri>

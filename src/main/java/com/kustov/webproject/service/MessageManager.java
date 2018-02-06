@@ -7,8 +7,7 @@ public class MessageManager {
     private static Locale locale;
 
     public String getString(String key){
-        ResourceBundle bundle = ResourceBundle.getBundle("message", locale,
-                ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_DEFAULT));
+        ResourceBundle bundle = ResourceBundle.getBundle("message", locale);
         return bundle.getString(key);
     }
 

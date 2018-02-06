@@ -22,12 +22,12 @@
     <div class="form-group">
         <label for="exampleInputLogin"><fmt:message key="authorization.label.login"/></label>
         <input type="text" name="login" class="form-control" id="exampleInputLogin" aria-describedby="loginHelp"
-               placeholder="<fmt:message key="authorization.placeholder.login"/> " pattern="[a-ZA-Z\d]+" required>
+               placeholder="<fmt:message key="authorization.placeholder.login"/> " pattern="[а-яА-Яa-ZA-Z\d]+" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword"><fmt:message key="authorization.label.password"/></label>
         <input type="password" name="password" class="form-control" id="exampleInputPassword"
-               placeholder="<fmt:message key="authorization.placeholder.password"/>" pattern="[a-ZA-Z\d]+" required>
+               placeholder="<fmt:message key="authorization.placeholder.password"/>" pattern="[а-яА-Яa-ZA-Z\d]+" required>
     </div>
     <div>
         <p id="errorParagraph">${errorInLoginOrPasswordMessage}</p>

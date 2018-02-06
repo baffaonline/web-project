@@ -3,9 +3,9 @@ package com.kustov.webproject.validator;
 import java.util.regex.Pattern;
 
 public class SignUpValidator {
-    private final static String USERNAME_REGEX = "[a-zA-Z]\\w+";
-    private final static String PASSWORD_REGEX = "\\w+";
-    private final static String NAME_SURNAME_REGEX = "[A-Z][a-zA-Z]+";
+    private final static String USERNAME_REGEX = "[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я\\d]+";
+    private final static String PASSWORD_REGEX = "[a-zA-Zа-яА-Я\\d]+";
+    private final static String NAME_SURNAME_REGEX = "[А-ЯA-Z][а-яА-Яa-zA-Z]+";
     private final static String EMAIL_REGEX = "\\w+@[a-zA-Z]+[.][a-zA-Z]+";
     private final static String DATE_REGEX = "(19|20)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])";
 

@@ -56,6 +56,16 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
     private final static String SQL_INSERT_GENRES_TO_FILM = "INSERT into film_genre (film_gnr_id, genre_flm_id) " +
             "VALUES (?, ?)";
 
+    private final static String SQL_UPDATE_FILM = "UPDATE film SET film_title = ?, film_country = ?, " +
+            "film_description = ?, film_age_restriction = ?, film_date_of_release = ?, " +
+            "film_poster_path = ? WHERE film_id = ?";
+
+    private final static String SQL_DELETE_GENRES_FROM_FILM = "DELETE FROM film_genre WHERE film_gnr_id = ? " +
+            "AND genre_flm_id = ?";
+
+    private final static String SQL_DELETE_ACTORS_FROM_FILM = "DELETE FROM film_actor WHERE film_act_id = ? " +
+            "AND actor_flm_id = ?";
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -131,34 +141,11 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
     }
 
     public boolean insertActorsToFilm(int filmId, int actorsId[]) throws DAOException{
-        return insertInformationToFilm(filmId, actorsId, SQL_INSERT_ACTORS_TO_FILM);
+        return insertOrDeleteInformationFromFilm(filmId, actorsId, SQL_INSERT_ACTORS_TO_FILM);
     }
 
     public boolean insertGenresToFilm(int filmId, int genresId[]) throws DAOException{
-        return insertInformationToFilm(filmId, genresId, SQL_INSERT_GENRES_TO_FILM);
-    }
-
-    private boolean insertInformationToFilm(int filmId, int infoId[], String sql) throws DAOException{
-        ProxyConnection connection = null;
-        PreparedStatement statement = null;
-        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
-        try{
-            connection = connectionPool.getConnection();
-            boolean isAllInserted = true;
-            for (int id : infoId) {
-                statement = connection.prepareStatement(sql);
-                statement.setInt(1, filmId);
-                statement.setInt(2, id);
-                if (statement.executeUpdate() == 0) {
-                    isAllInserted = false;
-                }
-            }
-            return isAllInserted;
-        }catch (SQLException | ConnectionException exc){
-            throw new DAOException(exc);
-        } finally {
-            close(statement, connectionPool, connection);
-        }
+        return insertOrDeleteInformationFromFilm(filmId, genresId, SQL_INSERT_GENRES_TO_FILM);
     }
 
     public List<Film> findFilmsByActorId(int id) throws DAOException{
@@ -185,6 +172,68 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             close(statement, connectionPool, connection);
         }
     }
+
+    public boolean updateFilm(int filmId, String filmTitle, int countryId, String filmDescription,
+                              int filmAgeRestriction, LocalDate filmReleaseDate, String filmPosterPath)
+            throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SQL_UPDATE_FILM);
+            statement.setString(1, filmTitle);
+            statement.setInt(2, countryId);
+            statement.setString(3, filmDescription);
+            statement.setInt(4, filmAgeRestriction);
+            statement.setDate(5, java.sql.Date.valueOf(filmReleaseDate));
+            statement.setString(6, filmPosterPath);
+            statement.setInt(7, filmId);
+            if (statement.executeUpdate() != 0) {
+                LOGGER.log(Level.INFO, "Update film " + filmId);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(statement, connectionPool, connection);
+        }
+    }
+
+    public boolean deleteGenresFromFilm(int filmId, int genresId[]) throws DAOException{
+        return insertOrDeleteInformationFromFilm(filmId, genresId, SQL_DELETE_GENRES_FROM_FILM);
+    }
+
+    public boolean deleteActorsFromFilm(int filmId, int actorsId[]) throws DAOException{
+        return insertOrDeleteInformationFromFilm(filmId, actorsId, SQL_DELETE_ACTORS_FROM_FILM);
+    }
+
+    private boolean insertOrDeleteInformationFromFilm(int filmId, int infoId[], String sql) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement statement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            boolean isAllInserted = true;
+            for (int id : infoId) {
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, filmId);
+                statement.setInt(2, id);
+                if (statement.executeUpdate() == 0) {
+                    isAllInserted = false;
+                }
+            }
+            return isAllInserted;
+        }catch (SQLException | ConnectionException exc){
+            throw new DAOException(exc);
+        } finally {
+            close(statement, connectionPool, connection);
+        }
+    }
+
 
     private Film createFilmFromResultSet(ResultSet resultSet) throws SQLException{
         Film film;

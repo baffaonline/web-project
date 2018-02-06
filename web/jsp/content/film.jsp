@@ -19,6 +19,9 @@
     <div class="mainContent">
         <div class="mainContent_container">
             <div class="filmContent">
+                <div>
+                    ${warningEdit}
+                </div>
                 <div class="film-title-item">
                     <div class="film-title-image">
                         <c:if test="${film.posterPath != null}">
@@ -103,7 +106,12 @@
                             <div class="actor-squad-item">
                                 <div class="actor-squad-image">
                                     <a href="${pageContext.request.contextPath}/MainController?command=actor&actor_id=${actor.id}">
-                                        <img src="${pageContext.request.contextPath}/${actor.imagePath}">
+                                        <c:if test="${actor.imagePath != null}">
+                                            <img src="${pageContext.request.contextPath}/img/actors/${actor.imagePath}">
+                                        </c:if>
+                                        <c:if test="${actor.imagePath == null}">
+                                            <img src="${pageContext.request.contextPath}/img/default.png">
+                                        </c:if>
                                     </a>
                                 </div>
                                 <div class="actor-squad-name">
@@ -256,23 +264,23 @@
                                 <fieldset class="user-review-rating">
                                     <input type="radio" id="star10" name="rating" value="10"/>
                                     <label class="rating-star fa fa-star" for="star10" title="10 stars"></label>
-                                    <input type="radio" id="star9" name="rating" value="9"/>
+                                    <input type="radio" id="star9" name="rating" value="9" required/>
                                     <label class="rating-star fa fa-star" for="star9" title="9 stars"></label>
-                                    <input type="radio" id="star8" name="rating" value="8"/>
+                                    <input type="radio" id="star8" name="rating" value="8" required/>
                                     <label class="rating-star fa fa-star" for="star8" title="8 stars"></label>
-                                    <input type="radio" id="star7" name="rating" value="7"/>
+                                    <input type="radio" id="star7" name="rating" value="7" required/>
                                     <label class="rating-star fa fa-star" for="star7" title="7 stars"></label>
-                                    <input type="radio" id="star6" name="rating" value="6"/>
+                                    <input type="radio" id="star6" name="rating" value="6" required/>
                                     <label class="rating-star fa fa-star" for="star6" title="6 stars"></label>
-                                    <input type="radio" id="star5" name="rating" value="5"/>
+                                    <input type="radio" id="star5" name="rating" value="5" required/>
                                     <label class="rating-star fa fa-star" for="star5" title="5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4"/>
+                                    <input type="radio" id="star4" name="rating" value="4" required/>
                                     <label class="rating-star fa fa-star" for="star4" title="4 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3"/>
+                                    <input type="radio" id="star3" name="rating" value="3" required/>
                                     <label class="rating-star fa fa-star" for="star3" title="3 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2"/>
+                                    <input type="radio" id="star2" name="rating" value="2" required/>
                                     <label class="rating-star fa fa-star" for="star2" title="2 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1"/>
+                                    <input type="radio" id="star1" name="rating" value="1" required/>
                                     <label class="rating-star fa fa-star" for="star1" title="1 star"></label>
                                 </fieldset>
                             </div>
@@ -294,15 +302,13 @@
                     </form>
                 </c:if>
                 <c:if test="${user.type.typeName == 'guest'}">
-                    <div><a href="${pageContext.request.contextPath}/jsp/user/authorization.jsp">
+                    <div><a href="${pageContext.request.contextPath}/MainController?command=prepare_login">
                         <fmt:message key="film.guest.first"/></a>
                         <fmt:message key="film.guest.second"/> <a
-                                href="${pageContext.request.contextPath}/MainController?command=registration_setup">
+                                href="${pageContext.request.contextPath}/MainController?command=country_setup">
                             <fmt:message key="film.guest.third"/></a> <fmt:message key="film.guest.fourth"/>
                     </div>
                 </c:if>
-            </div>
-            <div class="filter">
             </div>
         </div>
     </div>

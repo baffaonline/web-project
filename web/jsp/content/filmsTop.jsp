@@ -41,16 +41,6 @@
                     </div>
                 </c:forEach>
             </div>
-            <div class="filter">
-                <div>
-                    <h1><fmt:message key="films.filter.films"/></h1>
-                    <input type="text">
-                </div>
-                <div>
-                    <h1><fmt:message key="films.filter.rating"/></h1>
-                    <input type="text"/>
-                </div>
-            </div>
         </div>
     </div>
     <div>

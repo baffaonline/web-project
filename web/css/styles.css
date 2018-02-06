@@ -15,6 +15,10 @@ footer {
     color: white;
 }
 
+.errorDiv{
+    color: red;
+}
+
 .navigation-bar-container {
     display: flex;
     flex-direction: row;
@@ -51,8 +55,15 @@ footer {
     color: white;
 }
 
-.mainContent {
+.indexContent{
     width: 90%;
+    margin: 0 auto;
+    background: white;
+    opacity: 0.7;
+}
+
+.mainContent {
+    width: 50%;
     margin: 0 auto;
     background: white;
     opacity: 0.7;
@@ -105,7 +116,7 @@ footer {
 }
 
 .content {
-    flex: 0.5;
+    flex: 1;
 }
 
 .filter {
@@ -161,7 +172,7 @@ footer {
  */
 
 .filmContent {
-    flex: 0.7;
+    flex: 1;
     background-color: #314D68;
     color: wheat;
 }
@@ -209,13 +220,13 @@ footer {
 }
 
 .film-information-item-name {
-    flex: 0.3;
+    flex: 0.4;
     display: flex;
     font-weight: bold;
 }
 
 .film-information-item-content {
-    flex: 0.7;
+    flex: 0.6;
 }
 
 .actor-squad {
@@ -281,6 +292,7 @@ footer {
 }
 
 .review-text p {
+    padding: 0 2%;
     text-align: left;
     color: white;
 }
@@ -374,7 +386,7 @@ fieldset, label {
  */
 
 .actor-content {
-    flex: 0.7;
+    flex: 1;
     background-color: #314D68;
     color: wheat;
 }
@@ -502,7 +514,7 @@ fieldset, label {
     Styles for admin.jsp
  */
 .admin-menu{
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 /*

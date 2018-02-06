@@ -13,7 +13,7 @@
 <c:import url="${pageContext.request.contextPath}/jsp/parts/header.jsp">
     <c:param name="user" value="${user}"/>
 </c:import>
-    <div class="admin-content">
+<div class="admin-content">
     <div class="container">
         <h2><fmt:message key="admin.menu.header"/></h2>
         <div class="admin-menu">
@@ -22,7 +22,8 @@
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.users.list"/></a>
                 <a href="${pageContext.request.contextPath}/MainController?command=film_setup"
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.add"/></a>
-                <a href="#" class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.edit"/></a>
+                <a href="${pageContext.request.contextPath}/MainController?command=film_top&page=admin"
+                   class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.edit"/></a>
             </div>
         </div>
     </div>

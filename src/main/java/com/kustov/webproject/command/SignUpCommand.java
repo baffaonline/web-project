@@ -12,10 +12,6 @@ import com.kustov.webproject.service.StringDateFormatter;
 import com.kustov.webproject.validator.SignUpValidator;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.*;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class SignUpCommand implements Command {
     private UserReceiver receiver;
@@ -40,6 +36,7 @@ public class SignUpCommand implements Command {
         if (isAllValid(request, username, password, email, name, surname, birthday)) {
             try {
                 if (!isNotDuplicatePasswordOrEmail(request, username, email)) {
+                    setInformationToInput(username, password, email, name, surname, birthday, countryName, request);
                     return new CommandPair(CommandPair.DispatchType.FORWARD,thisPage);
                 }
                 CountriesMap countriesMap = CountriesMap.getInstance();
@@ -58,8 +55,21 @@ public class SignUpCommand implements Command {
             return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } else {
             page = thisPage;
+            setInformationToInput(username, password, email, name, surname, birthday, countryName, request);
             return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         }
+    }
+
+    private void setInformationToInput(String username, String password, String email, String name, String surname,
+                                      String releaseDate, String countryName, HttpServletRequest request){
+        request.setAttribute("username", username);
+        request.setAttribute("password", password);
+        request.setAttribute("email", email);
+        request.setAttribute("name", name);
+        request.setAttribute("surname", surname);
+        request.setAttribute("releaseDate", releaseDate);
+        request.setAttribute("country", countryName);
+        request.setAttribute("isWrongInput", true);
     }
 
     private boolean isNotDuplicatePasswordOrEmail(HttpServletRequest request,

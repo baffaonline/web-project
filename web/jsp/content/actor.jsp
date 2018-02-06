@@ -18,7 +18,12 @@
         <div class="actor-content">
             <div class="actor-title-item">
                 <div class="actor-title-image">
-                    <img src="${pageContext.request.contextPath}/${actor.imagePath}">
+                    <c:if test="${actor.imagePath != null}">
+                        <img src="${pageContext.request.contextPath}/img/actors/${actor.imagePath}">
+                    </c:if>
+                    <c:if test="${actor.imagePath == null}">
+                        <img src="${pageContext.request.contextPath}/img/default.png">
+                    </c:if>
                 </div>
                 <div class="actor-title">
                     <strong>${actor.name} ${actor.surname}</strong>
@@ -80,8 +85,6 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-        </div>
-        <div class="filter">
         </div>
     </div>
 </div>
