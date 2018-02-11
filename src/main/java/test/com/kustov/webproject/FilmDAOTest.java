@@ -12,12 +12,11 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class FilmDAOTest {
-    List<Film> films = new ArrayList<>();
+    private List<Film> films = new ArrayList<>();
+    private FilmDAO dao = new FilmDAO();
 
     @BeforeClass
     public void init(){
@@ -42,12 +41,47 @@ public class FilmDAOTest {
                 " a number of years, finding solace and eventual redemption through acts of common decency.", 16,
                 LocalDate.of(1994, 10, 13), "img/shawshank.jpg", 8.5,
                 null, null, null));
+        films.add(new Film(4, "The Avengers", new Country(2, "USA"), "Earth's " +
+                "mightiest heroes must come together and learn to fight as a team if they are going to stop the" +
+                " mischievous Loki and his alien army from enslaving humanity.",
+                12, LocalDate.of(2012, 5, 3),
+                "img/avengers.jpg", 0, null, null, null));
     }
 
     @Test
     public void findAll() throws DAOException{
-        FilmDAO dao = new FilmDAO();
         List<Film> answer = dao.findAll();
         Assert.assertEquals(films, answer);
+    }
+
+    @Test
+    public void findById() throws DAOException{
+        int id = 2;
+        Film expected = films.get(id - 1);
+        Film actual = dao.findById(id);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findByWrongId() throws DAOException{
+        int id = -1;
+        Film actual = dao.findById(id);
+        Assert.assertEquals(actual, null);
+    }
+
+    @Test
+    public void findFilmsByActorId() throws DAOException{
+        int id = 4;
+        List<Film> expectedFilms = new ArrayList<>();
+        expectedFilms.add(films.get(1));
+        expectedFilms.add(films.get(3));
+        List<Film> actualFilms = dao.findFilmsByActorId(id);
+        Assert.assertEquals(actualFilms, expectedFilms);
+    }
+
+    @Test
+    public void findFilmsByActorIdWithNoFilms() throws DAOException{
+        List<Film> actualFilms = dao.findFilmsByActorId(9);
+        Assert.assertEquals(actualFilms, null);
     }
 }

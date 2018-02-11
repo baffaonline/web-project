@@ -17,20 +17,20 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/MainController?command=film_top&page=user">
+                           href="${pageContext.request.contextPath}/MainController?command=film_top&option=user">
                             <fmt:message key="header.films"/>
                         </a>
                     </li>
                     <ctg:user-list user="${user}" contextPath="${pageContext.request.contextPath}"/>
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=ru_RU">
+                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=ru">
                             <fmt:message key="header.russian"/>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link navigation-bar-item"
-                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=en_EN">
+                           href="${pageContext.request.contextPath}/MainController?command=localization&newLocale=en">
                             English
                         </a>
                     </li>

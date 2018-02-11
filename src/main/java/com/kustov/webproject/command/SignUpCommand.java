@@ -1,19 +1,16 @@
 package com.kustov.webproject.command;
 
-import com.kustov.webproject.entity.CountriesMap;
-import com.kustov.webproject.entity.Country;
 import com.kustov.webproject.entity.User;
-import com.kustov.webproject.entity.UserType;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.UserReceiver;
 import com.kustov.webproject.service.PropertyManager;
-import com.kustov.webproject.service.StringDateFormatter;
 import com.kustov.webproject.validator.SignUpValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class SignUpCommand implements Command {
+
     private UserReceiver receiver;
 
     SignUpCommand(UserReceiver receiver) {
@@ -22,30 +19,27 @@ public class SignUpCommand implements Command {
 
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
+
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String pageMain = pageManager.getProperty("path_page_default");
         String thisPage = pageManager.getProperty("path_page_registration");
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String name = request.getParameter("firstName");
         String surname = request.getParameter("secondName");
         String birthday = request.getParameter("birthday");
-        String countryName = request.getParameter("country");
+        int countryId = Integer.parseInt(request.getParameter("country"));
+
         if (isAllValid(request, username, password, email, name, surname, birthday)) {
             try {
                 if (!isNotDuplicatePasswordOrEmail(request, username, email)) {
-                    setInformationToInput(username, password, email, name, surname, birthday, countryName, request);
+                    setInformationToInput(username, password, email, name, surname, birthday, countryId, request);
                     return new CommandPair(CommandPair.DispatchType.FORWARD,thisPage);
                 }
-                CountriesMap countriesMap = CountriesMap.getInstance();
-                Country country = countriesMap.getValue(countryName);
-                User user = new User(0, username, password, email, name, surname,
-                        StringDateFormatter.getDateFromString(birthday), country, 0, false,
-                        UserType.USER, null);
-                int id = receiver.addUser(user);
-                user.setId(id);
+                User user = receiver.addUser(username, password, email, name, surname, birthday, countryId);
                 request.getSession(true).setAttribute("user", user);
                 request.getSession().removeAttribute("countries");
             } catch (ServiceException exc) {
@@ -55,20 +49,20 @@ public class SignUpCommand implements Command {
             return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
         } else {
             page = thisPage;
-            setInformationToInput(username, password, email, name, surname, birthday, countryName, request);
+            setInformationToInput(username, password, email, name, surname, birthday, countryId, request);
             return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         }
     }
 
     private void setInformationToInput(String username, String password, String email, String name, String surname,
-                                      String releaseDate, String countryName, HttpServletRequest request){
+                                      String releaseDate, int countryId, HttpServletRequest request){
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         request.setAttribute("email", email);
         request.setAttribute("name", name);
         request.setAttribute("surname", surname);
         request.setAttribute("releaseDate", releaseDate);
-        request.setAttribute("country", countryName);
+        request.setAttribute("country", countryId);
         request.setAttribute("isWrongInput", true);
     }
 

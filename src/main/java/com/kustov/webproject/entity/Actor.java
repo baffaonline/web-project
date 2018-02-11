@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Actor extends Entity {
+
     private String name;
     private String surname;
     private String imagePath;

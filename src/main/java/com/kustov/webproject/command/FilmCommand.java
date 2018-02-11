@@ -9,6 +9,7 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class FilmCommand implements Command{
+
     private FilmReceiver receiver;
 
     FilmCommand(FilmReceiver receiver) {
@@ -20,8 +21,13 @@ public class FilmCommand implements Command{
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String filmPage = pageManager.getProperty("path_page_film");
+        String filmId = request.getParameter("film_id");
+        if (filmId == null){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    pageManager.getProperty("path_page_default"));
+        }
         try {
-            int id = Integer.parseInt(request.getParameter("film_id"));
+            int id = Integer.parseInt(filmId);
             Film film = receiver.findFilmById(id);
             request.setAttribute("film", film);
             page = filmPage;

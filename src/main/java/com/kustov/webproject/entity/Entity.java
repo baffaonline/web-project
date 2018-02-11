@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Entity implements Serializable, Cloneable{
+
     private int id;
+
     Entity(){
     }
 

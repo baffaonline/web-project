@@ -1,6 +1,7 @@
 package com.kustov.webproject.service;
 
 public class ArrayConverter {
+
     public static int[] makeIntArrayFromString(String array[]){
         int intArray[];
         if (array != null) {

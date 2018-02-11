@@ -1,9 +1,6 @@
 package com.kustov.webproject.command;
 
-import com.kustov.webproject.entity.Actor;
-import com.kustov.webproject.entity.Country;
-import com.kustov.webproject.entity.Film;
-import com.kustov.webproject.entity.Genre;
+import com.kustov.webproject.entity.*;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.FilmReceiver;
@@ -14,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class EditFilmSetupCommand implements Command {
+
     private FilmReceiver receiver;
 
     EditFilmSetupCommand(FilmReceiver receiver) {
@@ -24,12 +22,20 @@ public class EditFilmSetupCommand implements Command {
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");
         String page = propertyManager.getProperty("path_page_admin_edit_film");
-        int id = Integer.parseInt(request.getParameter("filmId"));
+        String filmId = request.getParameter("filmId");
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (filmId == null || !"admin".equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    propertyManager.getProperty("path_page_default"));
+        }
+
+        int id = Integer.parseInt(filmId);
         try {
             Film film = receiver.findFilmById(id);
             request.getSession().setAttribute("film", film);
             Pair<Film, List<Country>> filmListPair = receiver.findInformationForFilm();
             List<Genre> genres = filmListPair.getKey().getGenres();
+
             if ((genres != null) && (film.getGenres() != null)) {
                 for (Genre genre : film.getGenres()) {
                     if (genres.contains(genre)) {
@@ -37,6 +43,7 @@ public class EditFilmSetupCommand implements Command {
                     }
                 }
             }
+
             List<Actor> actors = filmListPair.getKey().getActors();
             if ((actors != null) && film.getActors() != null){
                 for (Actor actor : film.getActors()) {
@@ -45,9 +52,11 @@ public class EditFilmSetupCommand implements Command {
                     }
                 }
             }
+
             request.getSession().setAttribute("genres", genres);
             request.getSession().setAttribute("actors", actors);
             request.getSession().setAttribute("countries", filmListPair.getValue());
+
             return new CommandPair(CommandPair.DispatchType.FORWARD, page);
         } catch (ServiceException exc) {
             throw new CommandException(exc);

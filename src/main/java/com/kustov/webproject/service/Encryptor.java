@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Encryptor {
+
     public String encryptPassword(String password) throws NoSuchAlgorithmException{
         StringBuilder code = new StringBuilder();
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");

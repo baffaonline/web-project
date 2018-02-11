@@ -14,11 +14,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DBConnectionPool {
+
     private final static Logger LOGGER = LogManager.getLogger();
     private static DBConnectionPool instance;
-    private String uri;
-    private String user;
-    private String password;
     private static ReentrantLock lock = new ReentrantLock();
 
     private BlockingQueue<ProxyConnection> pool;
@@ -26,14 +24,11 @@ public class DBConnectionPool {
     private DBConnectionPool() {
         try {
             PropertyManager databaseManager = new PropertyManager("database");
-            Properties properties=new Properties();
+            Properties properties = new Properties();
             properties.setProperty("user", databaseManager.getProperty("db.user"));
             properties.setProperty("password",databaseManager.getProperty("db.password"));
             properties.setProperty("useUnicode","true");
             properties.setProperty("characterEncoding", databaseManager.getProperty("db.characterEncoding"));
-            uri = databaseManager.getProperty("db.uri");
-            user = databaseManager.getProperty("db.user");
-            password = databaseManager.getProperty("db.password");
             int poolSize = Integer.parseInt(databaseManager.getProperty("db.pool_size"));
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             pool = new ArrayBlockingQueue<>(poolSize);
@@ -52,13 +47,16 @@ public class DBConnectionPool {
     private DBConnectionPool(String database, String user, String password, int poolSize){
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            uri = database;
-            this.user = user;
-            this.password = password;
+            Properties properties = new Properties();
+            properties.setProperty("user", user);
+            properties.setProperty("password", password);
+            properties.setProperty("useUnicode","true");
+            properties.setProperty("characterEncoding", "UTF8");
             pool = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 ProxyConnection connection =
-                        new ProxyConnection(DriverManager.getConnection(database, user, password));
+                        new ProxyConnection(DriverManager.getConnection(
+                                database, properties));
                 pool.put(connection);
             }
         } catch (SQLException | InterruptedException exc) {

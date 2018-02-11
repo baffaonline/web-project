@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MessageManager {
+
     private static Locale locale;
 
     public String getString(String key){

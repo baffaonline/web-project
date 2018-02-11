@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class UserListCommand implements Command{
+
     private UserReceiver receiver;
 
     UserListCommand(UserReceiver receiver) {

@@ -11,6 +11,7 @@ import java.io.IOException;
 
 
 public class HeaderTag extends TagSupport{
+
     private User user;
     private String contextPath;
 

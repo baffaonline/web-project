@@ -148,11 +148,11 @@
                     <div>
                         <select name="country" id="wrongCountry" class="form-control">
                             <c:forEach var="elem" items="${countries}">
-                                <c:if test="${elem.name == country}">
-                                    <option selected value="${elem}">${elem}</option>
+                                <c:if test="${elem.id == country}">
+                                    <option selected value="${elem.id}">${elem}</option>
                                 </c:if>
-                                <c:if test="${elem.name != country}">
-                                    <option value="${elem}">${elem}</option>
+                                <c:if test="${elem.id != country}">
+                                    <option value="${elem.id}">${elem}</option>
                                 </c:if>
                             </c:forEach>
                         </select>

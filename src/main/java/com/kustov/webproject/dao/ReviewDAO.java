@@ -95,10 +95,10 @@ public class ReviewDAO extends AbstractReviewDAO {
             while (resultSet.next()) {
                 UserDAO userDAO = new UserDAO();
                 User user = userDAO.createUserFromResultSet(resultSet);
-                int filmId = resultSet.getInt("film_id");
-                String reviewText = resultSet.getString("review_text");
-                String title = resultSet.getString("review_title");
-                int userMark = resultSet.getInt("user_mark");
+                int filmId = resultSet.getInt(SQLConstant.FILM_ID);
+                String reviewText = resultSet.getString(SQLConstant.REVIEW_TEXT);
+                String title = resultSet.getString(SQLConstant.REVIEW_TITLE);
+                int userMark = resultSet.getInt(SQLConstant.USER_MARK);
                 Review review = new Review(filmId, user, reviewText, title, userMark, null);
                 reviews.add(review);
             }
@@ -167,8 +167,8 @@ public class ReviewDAO extends AbstractReviewDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ReviewUserRating reviewUserRating = new ReviewUserRating();
-                reviewUserRating.setRating(resultSet.getInt("user_rating"));
-                reviewUserRating.setUserId(resultSet.getInt("user_id"));
+                reviewUserRating.setRating(resultSet.getInt(SQLConstant.REVIEW_USER_RATING_USER_RATING));
+                reviewUserRating.setUserId(resultSet.getInt(SQLConstant.USER_RATING_ID));
                 reviewUserRatings.add(reviewUserRating);
             }
             return (reviewUserRatings.isEmpty()) ? null : reviewUserRatings;

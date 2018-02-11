@@ -1,11 +1,15 @@
 package com.kustov.webproject.logic;
 
+import com.kustov.webproject.dao.CountryDAO;
 import com.kustov.webproject.dao.ReviewDAO;
 import com.kustov.webproject.dao.UserDAO;
+import com.kustov.webproject.entity.Country;
 import com.kustov.webproject.entity.User;
+import com.kustov.webproject.entity.UserType;
 import com.kustov.webproject.exception.DAOException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.service.Encryptor;
+import com.kustov.webproject.service.StringDateFormatter;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -21,12 +25,20 @@ public class UserReceiver {
         }
     }
 
-    public int addUser(User user) throws ServiceException {
+    public User addUser(String username, String password, String email, String name, String surname,
+                       String birthday, int countryId) throws ServiceException {
         UserDAO dao = new UserDAO();
+        CountryDAO countryDAO = new CountryDAO();
         try {
             Encryptor encryptor = new Encryptor();
-            user.setPassword(encryptor.encryptPassword(user.getPassword()));
-            return dao.insert(user);
+            String encryptedPassword = encryptor.encryptPassword(password);
+            Country country = countryDAO.findById(countryId);
+            User user = new User(0, username, encryptedPassword, email, name, surname,
+                    StringDateFormatter.getDateFromString(birthday), country, 0, false,
+                    UserType.USER, null);
+            int id = dao.insert(user);
+            user.setId(id);
+            return user;
         } catch (NoSuchAlgorithmException | DAOException exc) {
             throw new ServiceException(exc);
         }

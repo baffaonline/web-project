@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Film extends Entity{
+
     private String title;
     private Country country;
     private String description;

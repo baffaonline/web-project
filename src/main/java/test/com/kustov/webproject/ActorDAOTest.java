@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActorDAOTest {
+    private ActorDAO actorDAO = new ActorDAO();
     private List<Actor> actors = new ArrayList<>();
+    private List<Actor> allActors;
     private int id;
 
     @BeforeClass
@@ -31,13 +33,46 @@ public class ActorDAOTest {
                 new Country(8, "Australia"), null));
         actors.add(new Actor(3, "Tom", "Hiddleston", "/img/actors/hiddleston.png",
                 new Country(1, "England"), null));
+        allActors = new ArrayList<>(actors);
+        allActors.add(new Actor(4, "Robert", "Downey Jr.", "/img/actors/downey.jpg",
+                new Country(2, "USA"), null));
+        allActors.add(new Actor(5, "Tom", "Holland", "/img/actors/holland.jpg",
+                new Country(1, "England"), null));
+        allActors.add(new Actor(6, "Tim", "Robbins", "/img/actors/robbins.jpg",
+                new Country(1, "England"), null));
+        allActors.add(new Actor(7, "Morgan", "Freeman", "/img/actors/freeman.jpg",
+                new Country(2, "USA"), null));
+        allActors.add(new Actor(8, "Michael", "Keaton", "/img/actors/keaton.jpg",
+                new Country(2, "USA"), null));
+        allActors.add(new Actor(9, "Александр", "Невский", "/img/actors/nevskiy.png",
+                new Country(4, "Russia"), null));
         id = 1;
     }
 
     @Test
     public void findActorsByFilmId() throws DAOException{
-        ActorDAO actorDAO = new ActorDAO();
         List<Actor> actual = actorDAO.findActorsByFilmId(id);
         Assert.assertEquals(actors, actual);
+    }
+
+    @Test
+    public void findAll() throws DAOException {
+        List<Actor> actual = actorDAO.findAll();
+        Assert.assertEquals(actual, allActors);
+    }
+
+    @Test
+    public void findById() throws DAOException {
+        int id = 9;
+        Actor expectedActor = allActors.get(id - 1);
+        Actor actual = actorDAO.findById(id);
+        Assert.assertEquals(expectedActor, actual);
+    }
+
+    @Test
+    public void findByWrongId() throws DAOException{
+        int id = 12;
+        Actor actual = actorDAO.findById(id);
+        Assert.assertEquals(actual, null);
     }
 }

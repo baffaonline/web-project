@@ -1,6 +1,7 @@
 package com.kustov.webproject.exception;
 
 public class ServiceException extends Exception {
+
     public ServiceException() {
     }
 

@@ -5,6 +5,9 @@
 <fmt:setBundle basename="message" scope="session"/>
 <html>
 <head>
+    <c:if test="${user.type.typeName != 'admin'}">
+        <c:redirect url="${pageContext.request.contextPath}/index.jsp"/>
+    </c:if>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/styles.css"/>
     <title><fmt:message key="admin.title"/></title>
@@ -22,8 +25,12 @@
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.users.list"/></a>
                 <a href="${pageContext.request.contextPath}/MainController?command=film_setup"
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.add"/></a>
-                <a href="${pageContext.request.contextPath}/MainController?command=film_top&page=admin"
+                <a href="${pageContext.request.contextPath}/MainController?command=film_top&option=edit"
                    class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.edit"/></a>
+                <a href="${pageContext.request.contextPath}/MainController?command=actor_setup"
+                   class="list-group-item list-group-item-action"><fmt:message key="admin.menu.actor.add"/></a>
+                <a href="${pageContext.request.contextPath}/MainController?command=film_top&option=delete"
+                   class="list-group-item list-group-item-action"><fmt:message key="admin.menu.film.delete"/></a>
             </div>
         </div>
     </div>

@@ -1,7 +1,6 @@
 package com.kustov.webproject.command;
 
 import com.kustov.webproject.entity.Actor;
-import com.kustov.webproject.entity.Film;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.ActorReceiver;
@@ -10,6 +9,7 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class ActorCommand implements Command {
+
     private ActorReceiver receiver;
 
     ActorCommand(ActorReceiver receiver) {
@@ -20,9 +20,14 @@ public class ActorCommand implements Command {
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
+        String actorId = request.getParameter("actor_id");
+        if (actorId == null){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    pageManager.getProperty("path_page_default"));
+        }
         String actorPage = pageManager.getProperty("path_page_actor");
         try {
-            int id = Integer.parseInt(request.getParameter("actor_id"));
+            int id = Integer.parseInt(actorId);
             Actor actor = receiver.findActorById(id);
             request.setAttribute("actor", actor);
             page = actorPage;

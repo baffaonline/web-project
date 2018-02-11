@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Review {
+
     private int filmId;
     private User user;
     private String text;

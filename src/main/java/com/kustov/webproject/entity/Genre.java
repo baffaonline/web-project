@@ -3,6 +3,7 @@ package com.kustov.webproject.entity;
 import java.util.Objects;
 
 public class Genre extends Entity {
+
     private String name;
 
     public Genre() {

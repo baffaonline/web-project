@@ -23,10 +23,10 @@
                     <div class="ratingPanel">
                         <div class="rating-panel-image">
                             <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${elem.id}">
-                                <c:if test="${elem.posterPath != null}">
+                                <c:if test="${elem.posterPath != null && !elem.posterPath.isEmpty()}">
                                     <img src="${pageContext.request.contextPath}/img/${elem.posterPath}">
                                 </c:if>
-                                <c:if test="${elem.posterPath == null}">
+                                <c:if test="${elem.posterPath == null || elem.posterPath.isEmpty()}">
                                     <img src="${pageContext.request.contextPath}/img/default.png">
                                 </c:if>
                             </a>

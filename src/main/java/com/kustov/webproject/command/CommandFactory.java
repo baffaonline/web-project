@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Optional;
 
 public class CommandFactory {
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     public static Optional<Command> defineCommand(String commandName) throws CommandException{

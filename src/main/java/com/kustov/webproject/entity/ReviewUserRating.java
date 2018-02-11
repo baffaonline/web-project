@@ -3,6 +3,7 @@ package com.kustov.webproject.entity;
 import java.util.Objects;
 
 public class ReviewUserRating {
+
     private int userId;
     private int rating;
 

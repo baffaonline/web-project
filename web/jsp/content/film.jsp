@@ -24,10 +24,10 @@
                 </div>
                 <div class="film-title-item">
                     <div class="film-title-image">
-                        <c:if test="${film.posterPath != null}">
+                        <c:if test="${film.posterPath != null && !film.posterPath.isEmpty()}">
                             <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
                         </c:if>
-                        <c:if test="${film.posterPath == null}">
+                        <c:if test="${film.posterPath == null || film.posterPath.isEmpty()}">
                             <img src="${pageContext.request.contextPath}/img/default.png">
                         </c:if>
                     </div>
@@ -243,10 +243,10 @@
                         <div class="user-review">
                             <div class="user-review-title-panel">
                                 <div class="user-review-image">
-                                    <c:if test="${film.posterPath != null}">
+                                    <c:if test="${film.posterPath != null && !film.posterPath.isEmpty()}">
                                         <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
                                     </c:if>
-                                    <c:if test="${film.posterPath == null}">
+                                    <c:if test="${film.posterPath == null || film.posterPath.isEmpty()}">
                                         <img src="${pageContext.request.contextPath}/img/default.png">
                                     </c:if>
                                 </div>

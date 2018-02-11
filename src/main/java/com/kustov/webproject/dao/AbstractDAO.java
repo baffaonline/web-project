@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 public interface AbstractDAO<K, T> {
+
     List<T> findAll() throws DAOException;
 
     K insert(T entity) throws DAOException;

@@ -10,6 +10,7 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class BanCommand implements Command{
+
     private UserReceiver receiver;
 
     BanCommand(UserReceiver receiver){
@@ -20,7 +21,13 @@ public class BanCommand implements Command{
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
-        int id = Integer.parseInt(request.getParameter("userId"));
+        String userId = request.getParameter("userId");
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (userId == null || !PageConstant.ADMIN_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    propertyManager.getProperty("path_page_default"));
+        }
+        int id = Integer.parseInt(userId);
         page = propertyManager.getProperty("path_page_admin_user_command") + id;
         try{
             User user = receiver.findUserById(id);

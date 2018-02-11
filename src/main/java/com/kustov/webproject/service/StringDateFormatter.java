@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class StringDateFormatter {
+
     public static LocalDate getDateFromString(String date) {
         Date dateFromString;
         LocalDate localDate = LocalDate.MIN;

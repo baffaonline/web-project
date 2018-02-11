@@ -1,6 +1,7 @@
 package com.kustov.webproject.entity;
 
 public enum UserType {
+
     USER("user"), ADMIN("admin"), GUEST("guest");
 
     private String typeName;
@@ -11,9 +12,5 @@ public enum UserType {
 
     public String getTypeName() {
         return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
     }
 }

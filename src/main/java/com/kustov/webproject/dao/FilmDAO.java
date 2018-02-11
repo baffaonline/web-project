@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
+
     private final static String SQL_SELECT_FILMS = "SELECT film_id, film_title, country_id, " +
             "country_name, film_description, film_age_restriction, film_date_of_release, " +
             "film_poster_path FROM film JOIN country " +
@@ -44,7 +45,8 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             "AS film_act ON actor_id = actor_flm_id WHERE actor_id = ?";
 
     private final static String SQL_SELECT_ID_BY_FILM = "SELECT film_id, film_title," +
-            " film_description FROM film WHERE film_title = ? AND film_description = ?";
+            " film_description FRO" +
+            "M film WHERE film_title = ? AND film_description = ?";
 
     private final static String SQL_INSERT_FILM = "INSERT into film (film_id, film_title, film_country," +
             "film_description, film_age_restriction, film_date_of_release, " +
@@ -59,6 +61,8 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
     private final static String SQL_UPDATE_FILM = "UPDATE film SET film_title = ?, film_country = ?, " +
             "film_description = ?, film_age_restriction = ?, film_date_of_release = ?, " +
             "film_poster_path = ? WHERE film_id = ?";
+
+    private final static String SQL_DELETE_FILM = "DELETE FROM film WHERE film_id = ?";
 
     private final static String SQL_DELETE_GENRES_FROM_FILM = "DELETE FROM film_genre WHERE film_gnr_id = ? " +
             "AND genre_flm_id = ?";
@@ -158,7 +162,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             statement = connection.prepareStatement(SQL_SELECT_FILMS_BY_ACTOR_ID);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next() && resultSet.getInt(SQLConstant.FILM_ID) != 0){
                 Film film = createFilmFromResultSet(resultSet);
                 films.add(film);
             }
@@ -170,6 +174,22 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             throw new DAOException(exc);
         }finally {
             close(statement, connectionPool, connection);
+        }
+    }
+
+    public boolean deleteFilm(int filmId) throws DAOException{
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        DBConnectionPool connectionPool = DBConnectionPool.getInstance();
+        try{
+            connection = connectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(SQL_DELETE_FILM);
+            preparedStatement.setInt(1, filmId);
+            return preparedStatement.executeUpdate() != 0;
+        }catch (ConnectionException | SQLException exc){
+            throw new DAOException(exc);
+        }finally {
+            close(preparedStatement, connectionPool, connection);
         }
     }
 
@@ -237,15 +257,15 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
 
     private Film createFilmFromResultSet(ResultSet resultSet) throws SQLException{
         Film film;
-        int id = resultSet.getInt("film_id");
-        String title = resultSet.getString("film_title");
-        int countryId = resultSet.getInt("country_id");
-        String countryName = resultSet.getString("country_name");
+        int id = resultSet.getInt(SQLConstant.FILM_ID);
+        String title = resultSet.getString(SQLConstant.FILM_TITLE);
+        int countryId = resultSet.getInt(SQLConstant.COUNTRY_ID);
+        String countryName = resultSet.getString(SQLConstant.COUNTRY_NAME);
         Country country = new Country(countryId, countryName);
-        String description = resultSet.getString("film_description");
-        int ageRestriction = resultSet.getInt("film_age_restriction");
-        LocalDate localDate = resultSet.getDate("film_date_of_release").toLocalDate();
-        String posterPath = resultSet.getString("film_poster_path");
+        String description = resultSet.getString(SQLConstant.FILM_DESCRIPTION);
+        int ageRestriction = resultSet.getInt(SQLConstant.FILM_AGE_RESTRICTION);
+        LocalDate localDate = resultSet.getDate(SQLConstant.FILM_DATE_OF_RELEASE).toLocalDate();
+        String posterPath = resultSet.getString(SQLConstant.FILM_POSTER);
         film = new Film(id, title, country, description, ageRestriction, localDate, posterPath, 0,
                 null, null, null);
         return film;
@@ -280,7 +300,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
             statement.setString(2, film.getDescription());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("film_id");
+                return resultSet.getInt(SQLConstant.FILM_ID);
             }
             return 0;
         }catch (SQLException exc){

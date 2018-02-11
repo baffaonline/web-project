@@ -1,6 +1,7 @@
 package com.kustov.webproject.command;
 
 public class CommandPair {
+
     private DispatchType dispatchType;
     private String page;
 

@@ -10,6 +10,7 @@ import com.kustov.webproject.validator.LoginCommandValidator;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements Command {
+
     private UserReceiver receiver;
     private final static String PARAM_LOGIN = "login";
     private final static String PARAM_PASSWORD = "password";
@@ -29,15 +30,14 @@ public class LoginCommand implements Command {
                 User user = receiver.checkUser(login, password);
                 if (user != null && !user.isBanned()) {
                     request.getSession(true).setAttribute("user", user);
-                    page = (String)request.getSession().getAttribute("page");
+                    page = (String) request.getSession().getAttribute("page");
                     request.getSession().removeAttribute("page");
                     return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
-                }else if (user != null && user.isBanned()){
-                    request.setAttribute("errorInLoginOrPasswordMessage", "You are banned. Сontact the administrator" +
-                            " to get more information");
+                } else if (user != null && user.isBanned()) {
+                    request.setAttribute("errorInLoginOrPasswordMessage", "You are banned. " +
+                            "Contact the administrator to get more information");
                     page = pageAuthorization;
-                }
-                else {
+                } else {
                     request.setAttribute("errorInLoginOrPasswordMessage", "Wrong login or password");
                     page = pageAuthorization;
                 }

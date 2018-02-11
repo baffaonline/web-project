@@ -200,24 +200,24 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
 
     User createUserFromResultSet(ResultSet resultSet) throws SQLException{
         User user = new User();
-        user.setId(resultSet.getInt("id"));
-        user.setUsername(resultSet.getString("username"));
-        user.setPassword(resultSet.getString("password"));
-        user.setEmail(resultSet.getString("email"));
-        user.setName(resultSet.getString("name"));
-        user.setSurname(resultSet.getString("lastname"));
-        LocalDate localDate = resultSet.getDate("birthdate").toLocalDate();
+        user.setId(resultSet.getInt(SQLConstant.USER_ID));
+        user.setUsername(resultSet.getString(SQLConstant.USERNAME));
+        user.setPassword(resultSet.getString(SQLConstant.PASSWORD));
+        user.setEmail(resultSet.getString(SQLConstant.EMAIL));
+        user.setName(resultSet.getString(SQLConstant.USER_NAME));
+        user.setSurname(resultSet.getString(SQLConstant.USER_SURNAME));
+        LocalDate localDate = resultSet.getDate(SQLConstant.USER_BIRTHDAY).toLocalDate();
         user.setBirthday(localDate);
-        user.setCountry(new Country(resultSet.getInt("country_id"),
-                resultSet.getString("country_name")));
-        user.setRating(resultSet.getInt("user_rating"));
-        if (resultSet.getBoolean("isAdmin")){
+        user.setCountry(new Country(resultSet.getInt(SQLConstant.COUNTRY_ID),
+                resultSet.getString(SQLConstant.COUNTRY_NAME)));
+        user.setRating(resultSet.getInt(SQLConstant.USER_RATING));
+        if (resultSet.getBoolean(SQLConstant.USER_IS_ADMIN)){
             user.setType(UserType.ADMIN);
         }
         else {
             user.setType(UserType.USER);
         }
-        user.setBanned(resultSet.getBoolean("isBanned"));
+        user.setBanned(resultSet.getBoolean(SQLConstant.USER_IS_BANNED));
         return user;
     }
 
@@ -250,7 +250,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
             preparedStatement.setString(1, user.getUsername());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return resultSet.getInt("id");
+            return resultSet.getInt(SQLConstant.USER_ID);
         }catch (SQLException exc){
             throw new DAOException(exc);
         }finally {

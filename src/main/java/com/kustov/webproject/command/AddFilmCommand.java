@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 public class AddFilmCommand implements Command{
+
     private FilmReceiver receiver;
 
     AddFilmCommand(FilmReceiver receiver){
@@ -32,12 +33,17 @@ public class AddFilmCommand implements Command{
         String addFilmPage = propertyManager.getProperty("path_page_admin_add_film");
 
         String filmTitle = request.getParameter("filmTitle");
+        if (filmTitle == null){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    propertyManager.getProperty("path_page_default"));
+        }
         String description = request.getParameter("filmDescription");
         String dateString = request.getParameter("filmDate");
         String country = request.getParameter("country");
         String ageRestrictionString = request.getParameter("ageRestriction");
         String genres[] = request.getParameterValues("genres[]");
         String actors[] = request.getParameterValues("actors[]");
+
         try {
             if (isAllValid(request, dateString, ageRestrictionString)) {
                 Part filePart = request.getPart("filmImage");
@@ -48,11 +54,14 @@ public class AddFilmCommand implements Command{
                 int genresId[], actorsId[];
                 genresId = ArrayConverter.makeIntArrayFromString(genres);
                 actorsId = ArrayConverter.makeIntArrayFromString(actors);
+
                 Film film = receiver.addFilm(filmTitle, filePath, description, localDate, countryId, ageRestriction,
                         genresId, actorsId);
+
                 request.getSession().removeAttribute("countries");
                 request.getSession().removeAttribute("genres");
                 request.getSession().removeAttribute("actors");
+
                 return new CommandPair(CommandPair.DispatchType.REDIRECT,filmPage + film.getId());
             }
             else {
@@ -68,10 +77,12 @@ public class AddFilmCommand implements Command{
         boolean isValid = true;
         MessageManager messageManager = new MessageManager();
             MessageManager.setLocale(new Locale((String)request.getSession().getAttribute("locale")));
+
         if (!validator.checkDate(dateString)) {
             request.setAttribute("errorDate", messageManager.getString("command.add.film.date.error"));
             isValid = false;
         }
+
         if (!validator.checkAgeRestriction(ageRestrictionString)){
             request.setAttribute("errorAgeRestriction",
                     messageManager.getString("command.add.film.ageRestriction.error"));

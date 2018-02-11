@@ -1,6 +1,7 @@
 package com.kustov.webproject.command;
 
 import com.kustov.webproject.entity.Film;
+import com.kustov.webproject.entity.User;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.FilmReceiver;
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class FilmEditCommand implements Command{
+
     private FilmReceiver receiver;
 
     FilmEditCommand(FilmReceiver receiver){
@@ -30,7 +32,13 @@ public class FilmEditCommand implements Command{
         String filmPage = propertyManager.getProperty("path_page_film_command");
         String editFilmPage = propertyManager.getProperty("path_page_admin_edit_film");
 
-        int filmId = ((Film)request.getSession().getAttribute("film")).getId();
+        Film film = (Film)request.getSession().getAttribute("film");
+        User user = (User)request.getSession().getAttribute("user");
+        if (film == null || !"admin".equals(user.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    propertyManager.getProperty("path_page_default"));
+        }
+        int filmId = film.getId();
         String filmTitle = request.getParameter("filmTitle");
         String description = request.getParameter("filmDescription");
         String dateString = request.getParameter("filmDate");

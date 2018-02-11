@@ -26,13 +26,10 @@ public class InitialFilter implements Filter {
         }
         String locale = (String)session.getAttribute("locale");
         if (locale == null){
-            locale = "en_EN";
+            locale = "en";
             session.setAttribute("locale", locale);
             MessageManager.setLocale(new Locale(locale));
         }
-        //index - lol
-//        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
-//        dispatcher.forward(request, response);
         filterChain.doFilter(request, response);
     }
 

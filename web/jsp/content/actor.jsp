@@ -56,7 +56,12 @@
                             <div class="actor-films-item">
                                 <div class="actor-films-image">
                                     <a href="${pageContext.request.contextPath}/MainController?command=film&film_id=${film.id}">
-                                        <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
+                                        <c:if test="${film.posterPath != null && !film.posterPath.isEmpty()}">
+                                            <img src="${pageContext.request.contextPath}/img/${film.posterPath}">
+                                        </c:if>
+                                        <c:if test="${film.posterPath == null || film.posterPath.isEmpty()}">
+                                            <img src="${pageContext.request.contextPath}/img/default.png">
+                                        </c:if>
                                     </a>
                                 </div>
                                 <div class="actor-film-name">

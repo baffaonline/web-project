@@ -3,6 +3,7 @@ package com.kustov.webproject.command;
 import com.kustov.webproject.logic.*;
 
 public enum CommandType {
+
     PREPARE_LOGIN(new PrepareLoginCommand()),
     LOGIN(new LoginCommand(new UserReceiver())),
     COUNTRY_SETUP(new CountrySetupCommand(new CountryReceiver())),
@@ -21,7 +22,10 @@ public enum CommandType {
     FILM_SETUP(new FilmSetupCommand(new FilmReceiver())),
     ADD_FILM(new AddFilmCommand(new FilmReceiver())),
     EDIT_FILM_SETUP(new EditFilmSetupCommand(new FilmReceiver())),
-    EDIT_FILM(new FilmEditCommand(new FilmReceiver()));
+    EDIT_FILM(new FilmEditCommand(new FilmReceiver())),
+    ACTOR_SETUP(new ActorSetupCommand(new ActorReceiver())),
+    ADD_ACTOR(new AddActorCommand(new ActorReceiver())),
+    DELETE_FILM(new DeleteFilmCommand(new FilmReceiver()));
 
     private Command command;
 

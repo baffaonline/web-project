@@ -26,7 +26,9 @@ import java.util.Optional;
 @WebServlet("/MainController")
 @MultipartConfig
 public class Controller extends HttpServlet {
+
     private static String pathPageDefault;
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Override
@@ -59,9 +61,13 @@ public class Controller extends HttpServlet {
                     dispatcher = req.getRequestDispatcher(commandPair.getPage());
                     dispatcher.forward(req, resp);
                 } else {
-                    String page = commandPair.getPage();
                     PropertyManager propertyManager = new PropertyManager("pages");
-                    if (!propertyManager.getProperty("path_page_default").equals(page)) {
+                    String defaultPage = propertyManager.getProperty("path_page_default");
+                    if (commandPair.getPage().isEmpty()){
+                        resp.sendRedirect(defaultPage);
+                    }
+                    String page = commandPair.getPage();
+                    if (!defaultPage.equals(page)) {
                         req.getSession().setAttribute("isUpdated", true);
                     }
                     req.getSession().setAttribute("pagePath", page);

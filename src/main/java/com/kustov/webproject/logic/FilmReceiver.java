@@ -118,4 +118,13 @@ public class FilmReceiver {
             throw new ServiceException(exc);
         }
     }
+
+    public boolean deleteFilm(int filmId) throws ServiceException{
+        FilmDAO filmDAO = new FilmDAO();
+        try{
+            return filmDAO.deleteFilm(filmId);
+        }catch (DAOException exc){
+            throw new ServiceException(exc);
+        }
+    }
 }

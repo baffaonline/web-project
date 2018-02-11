@@ -16,12 +16,12 @@
     </c:import>
     <div class="admin-content">
         <div class="container">
-            <h1><fmt:message key="films.movies.header"/></h1>
+            <h1><fmt:message key="admin.delete.films.header"/></h1>
             <hr>
             <c:forEach var="elem" items="${films}">
                 <div class="ratingPanel">
                     <div class="rating-panel-image">
-                        <a href="${pageContext.request.contextPath}/MainController?command=edit_film_setup&filmId=${elem.id}">
+                        <a href="${pageContext.request.contextPath}/MainController?command=delete_film&filmId=${elem.id}">
                             <c:if test="${elem.posterPath != null && !elem.posterPath.isEmpty()}">
                                 <img src="${pageContext.request.contextPath}/img/${elem.posterPath}">
                             </c:if>
@@ -31,7 +31,7 @@
                         </a>
                     </div>
                     <div class="rating-panel-content">
-                        <a href="${pageContext.request.contextPath}/MainController?command=edit_film_setup&filmId=${elem.id}">
+                        <a href="${pageContext.request.contextPath}/MainController?command=delete_film&filmId=${elem.id}">
                                 ${elem.title}(${elem.releaseDate.year})</a>
                     </div>
                     <div class="rating-panel-degree">
@@ -56,3 +56,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>
+

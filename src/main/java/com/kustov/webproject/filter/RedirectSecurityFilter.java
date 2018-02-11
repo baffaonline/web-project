@@ -10,26 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = "/jsp/*")
-public class RedirectSecurityFilter implements Filter{
+public class RedirectSecurityFilter implements Filter {
+
     private String indexPage;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         PropertyManager propertyManager = new PropertyManager("pages");
         indexPage = propertyManager.getProperty("path_page_default");
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
-        //21-const
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         String page = request.getRequestURI();
         PropertyManager propertyManager = new PropertyManager("pages");
-        //Убрать админ изменить
-        if (!propertyManager.getProperty("path_page_authorization").equals(page)
-                && !propertyManager.getProperty("path_page_admin").equals(page)
-                && !propertyManager.getProperty("path_page_admin_edit_film").equals(page)) {
+        if (!propertyManager.getProperty("path_page_admin").equals(page)) {
             response.sendRedirect(request.getContextPath() + indexPage);
         }
         filterChain.doFilter(request, response);
