@@ -9,14 +9,29 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class ReviewCommand.
+ */
 public class ReviewCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private ReviewReceiver receiver;
 
+    /**
+     * Instantiates a new review command.
+     *
+     * @param receiver the receiver
+     */
     ReviewCommand(ReviewReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;

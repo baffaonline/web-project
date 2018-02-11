@@ -13,10 +13,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+
+/**
+ * The Class CountryDAOTest.
+ */
 public class CountryDAOTest {
+    
+    /** The countries. */
     private List<Country> countries = new ArrayList<>();
+    
+    /** The country DAO. */
     private CountryDAO countryDAO = new CountryDAO();
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init(){
         PropertyManager databaseManager = new PropertyManager("database");
@@ -37,6 +48,11 @@ public class CountryDAOTest {
         countries.sort(Comparator.comparing(Country::getName));
     }
 
+    /**
+     * Find all.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAll() throws DAOException{
         List<Country> actual;
@@ -44,6 +60,11 @@ public class CountryDAOTest {
         Assert.assertEquals(countries, actual);
     }
 
+    /**
+     * Find by id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findById() throws DAOException{
         int id = 3;
@@ -52,6 +73,11 @@ public class CountryDAOTest {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Find by wrong id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findByWrongId() throws DAOException {
         int id = 10;

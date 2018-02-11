@@ -7,7 +7,18 @@ import com.kustov.webproject.exception.ServiceException;
 
 import java.util.List;
 
+
+/**
+ * The Class CountryReceiver.
+ */
 public class CountryReceiver{
+    
+    /**
+     * Find countries.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Country> findCountries() throws ServiceException{
         CountryDAO dao = new CountryDAO();
         try {

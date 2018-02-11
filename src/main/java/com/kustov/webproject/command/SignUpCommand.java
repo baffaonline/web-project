@@ -9,10 +9,23 @@ import com.kustov.webproject.validator.SignUpValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class SignUpCommand.
+ */
+
 public class SignUpCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private UserReceiver receiver;
 
+    /**
+     * Instantiates a new sign up command.
+     *
+     * @param receiver the receiver
+     */
     SignUpCommand(UserReceiver receiver) {
         this.receiver = receiver;
     }
@@ -37,7 +50,7 @@ public class SignUpCommand implements Command {
             try {
                 if (!isNotDuplicatePasswordOrEmail(request, username, email)) {
                     setInformationToInput(username, password, email, name, surname, birthday, countryId, request);
-                    return new CommandPair(CommandPair.DispatchType.FORWARD,thisPage);
+                    return new CommandPair(CommandPair.DispatchType.FORWARD, thisPage);
                 }
                 User user = receiver.addUser(username, password, email, name, surname, birthday, countryId);
                 request.getSession(true).setAttribute("user", user);
@@ -54,8 +67,20 @@ public class SignUpCommand implements Command {
         }
     }
 
+    /**
+     * Sets the information to input.
+     *
+     * @param username    the username
+     * @param password    the password
+     * @param email       the email
+     * @param name        the name
+     * @param surname     the surname
+     * @param releaseDate the release date
+     * @param countryId   the country id
+     * @param request     the request
+     */
     private void setInformationToInput(String username, String password, String email, String name, String surname,
-                                      String releaseDate, int countryId, HttpServletRequest request){
+                                       String releaseDate, int countryId, HttpServletRequest request) {
         request.setAttribute("username", username);
         request.setAttribute("password", password);
         request.setAttribute("email", email);
@@ -66,6 +91,15 @@ public class SignUpCommand implements Command {
         request.setAttribute("isWrongInput", true);
     }
 
+    /**
+     * Checks if is not duplicate password or email.
+     *
+     * @param request  the request
+     * @param username the username
+     * @param email    the email
+     * @return true, if is not duplicate password or email
+     * @throws ServiceException the service exception
+     */
     private boolean isNotDuplicatePasswordOrEmail(HttpServletRequest request,
                                                   String username, String email) throws ServiceException {
         boolean isNotDuplicate = true;
@@ -80,6 +114,18 @@ public class SignUpCommand implements Command {
         return isNotDuplicate;
     }
 
+    /**
+     * Checks if is all valid.
+     *
+     * @param request  the request
+     * @param username the username
+     * @param password the password
+     * @param email    the email
+     * @param name     the name
+     * @param surname  the surname
+     * @param birthday the birthday
+     * @return true, if is all valid
+     */
     private boolean isAllValid(HttpServletRequest request, String username, String password, String email, String name,
                                String surname, String birthday) {
         SignUpValidator validator = new SignUpValidator();

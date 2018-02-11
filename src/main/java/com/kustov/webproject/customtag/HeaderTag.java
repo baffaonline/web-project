@@ -10,19 +10,42 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
 
+
+/**
+ * The Class HeaderTag.
+ */
 public class HeaderTag extends TagSupport{
 
+    /** The user. */
     private User user;
+    
+    /** The context path. */
     private String contextPath;
 
+    /**
+     * Sets the user.
+     *
+     * @param user the new user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Sets the context path.
+     *
+     * @param contextPath the new context path
+     */
     public void setContextPath(String contextPath) {
         this.contextPath = contextPath;
     }
 
+    /**
+     * Do start tag.
+     *
+     * @return the int
+     * @throws JspException the jsp exception
+     */
     @Override
     public int doStartTag() throws JspException {
         try{

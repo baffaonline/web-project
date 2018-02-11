@@ -13,11 +13,27 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * The Class FilmTopCommand.
+ */
+
 public class FilmTopCommand implements Command {
 
+    /**
+     * The Constant LOGGER.
+     */
     private final static Logger LOGGER = LogManager.getLogger();
+
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
+    /**
+     * Instantiates a new film top command.
+     *
+     * @param receiver the receiver
+     */
     FilmTopCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }

@@ -13,10 +13,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class FilmReceiverTest.
+ */
 public class FilmReceiverTest {
+    
+    /** The film for test. */
     private Film filmForTest;
+    
+    /** The id. */
     private int id = 3;
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init(){
         PropertyManager databaseManager = new PropertyManager("database");
@@ -87,6 +98,11 @@ public class FilmReceiverTest {
 
 
 
+    /**
+     * Find film by id.
+     *
+     * @throws ServiceException the service exception
+     */
     @Test
     public void findFilmById() throws ServiceException{
         FilmReceiver receiver = new FilmReceiver();
@@ -94,6 +110,11 @@ public class FilmReceiverTest {
         Assert.assertEquals(actual, filmForTest);
     }
 
+    /**
+     * Find film by I wrong id.
+     *
+     * @throws ServiceException the service exception
+     */
     @Test
     public void findFilmByIWrongId() throws ServiceException{
         FilmReceiver receiver = new FilmReceiver();

@@ -14,7 +14,20 @@ import com.kustov.webproject.service.StringDateFormatter;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+
+/**
+ * The Class UserReceiver.
+ */
 public class UserReceiver {
+    
+    /**
+     * Check user.
+     *
+     * @param login the login
+     * @param password the password
+     * @return the user
+     * @throws ServiceException the service exception
+     */
     public User checkUser(String login, String password) throws ServiceException {
         UserDAO dao = new UserDAO();
         try {
@@ -25,6 +38,19 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Adds the user.
+     *
+     * @param username the username
+     * @param password the password
+     * @param email the email
+     * @param name the name
+     * @param surname the surname
+     * @param birthday the birthday
+     * @param countryId the country id
+     * @return the user
+     * @throws ServiceException the service exception
+     */
     public User addUser(String username, String password, String email, String name, String surname,
                        String birthday, int countryId) throws ServiceException {
         UserDAO dao = new UserDAO();
@@ -44,6 +70,13 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Find user by username.
+     *
+     * @param username the username
+     * @return the user
+     * @throws ServiceException the service exception
+     */
     public User findUserByUsername(String username) throws ServiceException {
         UserDAO dao = new UserDAO();
         try {
@@ -53,6 +86,13 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Find user by email.
+     *
+     * @param email the email
+     * @return the user
+     * @throws ServiceException the service exception
+     */
     public User findUserByEmail(String email) throws ServiceException {
         UserDAO dao = new UserDAO();
         try {
@@ -62,6 +102,12 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Find all users.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<User> findAllUsers() throws ServiceException {
         UserDAO dao = new UserDAO();
         try {
@@ -71,6 +117,12 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Find reviews for user.
+     *
+     * @param user the user
+     * @throws ServiceException the service exception
+     */
     public void findReviewsForUser(User user) throws ServiceException {
         ReviewDAO reviewDAO = new ReviewDAO();
         try {
@@ -80,6 +132,13 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Find user by id.
+     *
+     * @param id the id
+     * @return the user
+     * @throws ServiceException the service exception
+     */
     public User findUserById(int id) throws ServiceException {
         UserDAO userDAO = new UserDAO();
         try {
@@ -89,6 +148,14 @@ public class UserReceiver {
         }
     }
 
+    /**
+     * Update ban.
+     *
+     * @param id the id
+     * @param isBanned the is banned
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean updateBan(int id, boolean isBanned) throws ServiceException{
         UserDAO userDAO = new UserDAO();
         try{

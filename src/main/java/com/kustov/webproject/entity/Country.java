@@ -2,6 +2,9 @@ package com.kustov.webproject.entity;
 
 import java.util.Objects;
 
+/**
+ * The Class Country.
+ */
 public class Country extends Entity{
 
     private String name;

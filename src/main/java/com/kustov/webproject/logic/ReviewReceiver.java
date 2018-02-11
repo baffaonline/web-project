@@ -6,7 +6,19 @@ import com.kustov.webproject.entity.Review;
 import com.kustov.webproject.exception.DAOException;
 import com.kustov.webproject.exception.ServiceException;
 
+
+/**
+ * The Class ReviewReceiver.
+ */
 public class ReviewReceiver {
+    
+    /**
+     * Insert review.
+     *
+     * @param review the review
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean insertReview(Review review) throws ServiceException{
         ReviewDAO reviewDAO = new ReviewDAO();
         try{
@@ -16,6 +28,16 @@ public class ReviewReceiver {
         }
     }
 
+    /**
+     * Insert review rating.
+     *
+     * @param filmId the film id
+     * @param userReviewId the user review id
+     * @param userId the user id
+     * @param rating the rating
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean insertReviewRating(int filmId, int userReviewId, int userId, int rating) throws ServiceException{
         ReviewDAO reviewDAO = new ReviewDAO();
         UserDAO userDAO = new UserDAO();
@@ -27,6 +49,14 @@ public class ReviewReceiver {
         }
     }
 
+    /**
+     * Delete review.
+     *
+     * @param filmId the film id
+     * @param userId the user id
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean deleteReview(int filmId, int userId) throws ServiceException{
         ReviewDAO reviewDAO = new ReviewDAO();
         try {

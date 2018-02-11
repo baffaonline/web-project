@@ -8,14 +8,29 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class ReviewDeleteCommand.
+ */
 public class ReviewDeleteCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private ReviewReceiver receiver;
 
+    /**
+     * Instantiates a new review delete command.
+     *
+     * @param receiver the receiver
+     */
     ReviewDeleteCommand(ReviewReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
@@ -24,7 +39,7 @@ public class ReviewDeleteCommand implements Command {
             PropertyManager propertyManager = new PropertyManager("pages");
             page = propertyManager.getProperty("path_page_default");
         }
-        try{
+        try {
             int filmId = Integer.parseInt(request.getParameter("filmId"));
             int userId = Integer.parseInt(request.getParameter("userId"));
             if (!receiver.deleteReview(filmId, userId)) {
@@ -33,7 +48,7 @@ public class ReviewDeleteCommand implements Command {
             }
             request.getSession().setAttribute("isUpdated", true);
             return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
     }

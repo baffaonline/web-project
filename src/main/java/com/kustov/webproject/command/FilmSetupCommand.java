@@ -11,11 +11,23 @@ import javafx.util.Pair;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class FilmSetupCommand implements Command{
 
+/**
+ * The Class FilmSetupCommand.
+ */
+public class FilmSetupCommand implements Command {
+
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
-    FilmSetupCommand(FilmReceiver receiver){
+    /**
+     * Instantiates a new film setup command.
+     *
+     * @param receiver the receiver
+     */
+    FilmSetupCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -24,7 +36,7 @@ public class FilmSetupCommand implements Command{
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         page = propertyManager.getProperty("path_page_admin_add_film");
-        try{
+        try {
             Pair<Film, List<Country>> filmListPair = receiver.findInformationForFilm();
             Film film = filmListPair.getKey();
 
@@ -32,7 +44,7 @@ public class FilmSetupCommand implements Command{
             request.getSession().setAttribute("genres", film.getGenres());
             request.getSession().setAttribute("actors", film.getActors());
             return new CommandPair(CommandPair.DispatchType.FORWARD, page);
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
     }

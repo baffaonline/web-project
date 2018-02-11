@@ -13,12 +13,28 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class ActorDAOTest.
+ */
+
 public class ActorDAOTest {
+    
+    /** The actor DAO. */
     private ActorDAO actorDAO = new ActorDAO();
+    
+    /** The actors. */
     private List<Actor> actors = new ArrayList<>();
+    
+    /** The all actors. */
     private List<Actor> allActors;
+    
+    /** The id. */
     private int id;
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init(){
         PropertyManager databaseManager = new PropertyManager("database");
@@ -49,18 +65,33 @@ public class ActorDAOTest {
         id = 1;
     }
 
+    /**
+     * Find actors by film id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findActorsByFilmId() throws DAOException{
         List<Actor> actual = actorDAO.findActorsByFilmId(id);
         Assert.assertEquals(actors, actual);
     }
 
+    /**
+     * Find all.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAll() throws DAOException {
         List<Actor> actual = actorDAO.findAll();
         Assert.assertEquals(actual, allActors);
     }
 
+    /**
+     * Find by id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findById() throws DAOException {
         int id = 9;
@@ -69,6 +100,11 @@ public class ActorDAOTest {
         Assert.assertEquals(expectedActor, actual);
     }
 
+    /**
+     * Find by wrong id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findByWrongId() throws DAOException{
         int id = 12;

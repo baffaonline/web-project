@@ -7,14 +7,30 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class DeleteFilmCommand.
+ */
+
 public class DeleteFilmCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
-    DeleteFilmCommand(FilmReceiver receiver){
+    /**
+     * Instantiates a new delete film command.
+     *
+     * @param receiver the receiver
+     */
+    DeleteFilmCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");
@@ -22,18 +38,17 @@ public class DeleteFilmCommand implements Command {
                 + PageConstant.ADMIN_STRING;
         String indexPage = propertyManager.getProperty("path_page_default");
         String filmId = request.getParameter("filmId");
-        if (filmId == null){
+        if (filmId == null) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT, indexPage);
         }
         int id = Integer.parseInt(filmId);
-        try{
-            if (receiver.deleteFilm(id)){
+        try {
+            if (receiver.deleteFilm(id)) {
                 return new CommandPair(CommandPair.DispatchType.REDIRECT, filmTopPage);
-            }
-            else {
+            } else {
                 return new CommandPair(CommandPair.DispatchType.REDIRECT, indexPage);
             }
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
     }

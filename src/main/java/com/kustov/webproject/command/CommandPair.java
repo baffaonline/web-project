@@ -26,7 +26,7 @@ public class CommandPair {
         this.page = page;
     }
 
-    public enum DispatchType{
+    public enum DispatchType {
         REDIRECT, FORWARD
     }
 }

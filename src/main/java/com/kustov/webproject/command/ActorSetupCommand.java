@@ -12,11 +12,11 @@ import javafx.util.Pair;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ActorSetupCommand implements Command{
+public class ActorSetupCommand implements Command {
 
     private ActorReceiver receiver;
 
-    ActorSetupCommand(ActorReceiver receiver){
+    ActorSetupCommand(ActorReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -24,19 +24,19 @@ public class ActorSetupCommand implements Command{
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
-        User user = (User)request.getSession().getAttribute("user");
-        if (!PageConstant.ADMIN_STRING.equals(user.getType().getTypeName())){
+        User user = (User) request.getSession().getAttribute("user");
+        if (!PageConstant.ADMIN_STRING.equals(user.getType().getTypeName())) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     propertyManager.getProperty("path_page_default"));
         }
         page = propertyManager.getProperty("path_page_admin_add_actor");
-        try{
+        try {
             Pair<List<Film>, List<Country>> filmListPair = receiver.findInformationForActor();
 
             request.getSession().setAttribute("films", filmListPair.getKey());
             request.getSession().setAttribute("countries", filmListPair.getValue());
             return new CommandPair(CommandPair.DispatchType.FORWARD, page);
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
     }

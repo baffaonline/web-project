@@ -9,17 +9,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+/**
+ * The Class RedirectSecurityFilter.
+ */
+
 @WebFilter(urlPatterns = "/jsp/*")
 public class RedirectSecurityFilter implements Filter {
 
+    /** The index page. */
     private String indexPage;
 
+    /**
+     * Inits the.
+     *
+     * @param filterConfig the filter config
+     */
     @Override
     public void init(FilterConfig filterConfig) {
         PropertyManager propertyManager = new PropertyManager("pages");
         indexPage = propertyManager.getProperty("path_page_default");
     }
 
+    /**
+     * Do filter.
+     *
+     * @param servletRequest the servlet request
+     * @param servletResponse the servlet response
+     * @param filterChain the filter chain
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
@@ -33,6 +53,9 @@ public class RedirectSecurityFilter implements Filter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
 

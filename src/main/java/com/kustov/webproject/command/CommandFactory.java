@@ -11,7 +11,7 @@ public class CommandFactory {
 
     private final static Logger LOGGER = LogManager.getLogger();
 
-    public static Optional<Command> defineCommand(String commandName) throws CommandException{
+    public static Optional<Command> defineCommand(String commandName) throws CommandException {
         Optional<Command> command = Optional.empty();
         try {
             if (commandName == null) {
@@ -20,7 +20,7 @@ public class CommandFactory {
                 CommandType type = CommandType.valueOf(commandName.toUpperCase());
                 command = Optional.of(type.getCommand());
             }
-        }catch (IllegalArgumentException exc){
+        } catch (IllegalArgumentException exc) {
             LOGGER.log(Level.ERROR, exc.getMessage());
             throw new CommandException(exc);
         }

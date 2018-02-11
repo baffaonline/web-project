@@ -10,20 +10,35 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
+/**
+ * The Class CountrySetupCommand.
+ */
 public class CountrySetupCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private CountryReceiver receiver;
 
+    /**
+     * Instantiates a new country setup command.
+     *
+     * @param receiver the receiver
+     */
     CountrySetupCommand(CountryReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
-        User thisUser = (User)request.getSession().getAttribute("user");
-        if (!PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+        User thisUser = (User) request.getSession().getAttribute("user");
+        if (!PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     pageManager.getProperty("path_page_default"));
         }

@@ -18,10 +18,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class UserDAOTest.
+ */
+
 public class UserDAOTest {
+    
+    /** The all users. */
     private List<User> allUsers;
+    
+    /** The user DAO. */
     private UserDAO userDAO = new UserDAO();
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init() {
         allUsers = new ArrayList<>();
@@ -44,12 +56,22 @@ public class UserDAOTest {
                 0, false, UserType.ADMIN, null));
     }
 
+    /**
+     * Find all.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAll() throws DAOException {
         List<User> actual = userDAO.findAll();
         Assert.assertEquals(actual, allUsers);
     }
 
+    /**
+     * Find by id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findById() throws DAOException {
         int id = 3;
@@ -57,6 +79,12 @@ public class UserDAOTest {
         Assert.assertEquals(allUsers.get(id - 1), user);
     }
 
+    /**
+     * Find user by username and password.
+     *
+     * @throws DAOException the DAO exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     @Test
     public void findUserByUsernameAndPassword() throws DAOException, NoSuchAlgorithmException {
         String username = "baffa";
@@ -68,6 +96,12 @@ public class UserDAOTest {
         Assert.assertEquals(expectedUser, actualUser);
     }
 
+    /**
+     * Find user by wrong username or password.
+     *
+     * @throws DAOException the DAO exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     @Test
     public void findUserByWrongUsernameOrPassword() throws DAOException, NoSuchAlgorithmException {
         String username = "WrongUsername";
@@ -78,6 +112,11 @@ public class UserDAOTest {
         Assert.assertEquals(actualUser, null);
     }
 
+    /**
+     * Find user by email.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findUserByEmail() throws DAOException {
         String email = "kurty872@gmail.com";

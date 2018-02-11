@@ -15,11 +15,11 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class AddActorCommand implements Command{
+public class AddActorCommand implements Command {
 
     private ActorReceiver receiver;
 
-    AddActorCommand(ActorReceiver receiver){
+    AddActorCommand(ActorReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -30,7 +30,7 @@ public class AddActorCommand implements Command{
         String addActorPage = propertyManager.getProperty("path_page_admin_add_actor");
 
         String actorName = request.getParameter("name");
-        if (actorName == null){
+        if (actorName == null) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     propertyManager.getProperty("path_page_default"));
         }
@@ -50,17 +50,16 @@ public class AddActorCommand implements Command{
                 request.getSession().removeAttribute("countries");
                 request.getSession().removeAttribute("films");
 
-                return new CommandPair(CommandPair.DispatchType.REDIRECT,actorPage + actor.getId());
-            }
-            else {
+                return new CommandPair(CommandPair.DispatchType.REDIRECT, actorPage + actor.getId());
+            } else {
                 return new CommandPair(CommandPair.DispatchType.FORWARD, addActorPage);
             }
-        }catch (ServletException | IOException | ServiceException exc){
+        } catch (ServletException | IOException | ServiceException exc) {
             throw new CommandException(exc);
         }
     }
 
-    private boolean isAllValid(HttpServletRequest request, String name, String surname){
+    private boolean isAllValid(HttpServletRequest request, String name, String surname) {
         SignUpValidator validator = new SignUpValidator();
         MessageManager messageManager = new MessageManager();
 

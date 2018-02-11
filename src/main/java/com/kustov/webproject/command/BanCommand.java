@@ -9,11 +9,23 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BanCommand implements Command{
+/**
+ * The Class BanCommand.
+ */
 
+public class BanCommand implements Command {
+
+    /**
+     * The receiver.
+     */
     private UserReceiver receiver;
 
-    BanCommand(UserReceiver receiver){
+    /**
+     * Instantiates a new ban command.
+     *
+     * @param receiver the receiver
+     */
+    BanCommand(UserReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -22,21 +34,21 @@ public class BanCommand implements Command{
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         String userId = request.getParameter("userId");
-        User thisUser = (User)request.getSession().getAttribute("user");
-        if (userId == null || !PageConstant.ADMIN_STRING.equals(thisUser.getType().getTypeName())){
+        User thisUser = (User) request.getSession().getAttribute("user");
+        if (userId == null || !PageConstant.ADMIN_STRING.equals(thisUser.getType().getTypeName())) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     propertyManager.getProperty("path_page_default"));
         }
         int id = Integer.parseInt(userId);
         page = propertyManager.getProperty("path_page_admin_user_command") + id;
-        try{
+        try {
             User user = receiver.findUserById(id);
-            if (!receiver.updateBan(id, !user.isBanned())){
+            if (!receiver.updateBan(id, !user.isBanned())) {
                 MessageManager messageManager = new MessageManager();
                 request.setAttribute("errorBan", messageManager.getString("command.user.ban.error"));
             }
             return new CommandPair(CommandPair.DispatchType.REDIRECT, page);
-        }catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
     }

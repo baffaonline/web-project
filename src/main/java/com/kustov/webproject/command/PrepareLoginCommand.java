@@ -4,8 +4,15 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class PrepareLoginCommand implements Command{
 
+/**
+ * The Class PrepareLoginCommand.
+ */
+public class PrepareLoginCommand implements Command {
+
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) {
         PropertyManager propertyManager = new PropertyManager("pages");

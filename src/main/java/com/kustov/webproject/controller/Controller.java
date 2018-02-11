@@ -23,14 +23,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+
+/**
+ * The Class Controller.
+ */
 @WebServlet("/MainController")
 @MultipartConfig
 public class Controller extends HttpServlet {
 
+    /** The path page default. */
     private static String pathPageDefault;
 
+    /** The Constant LOGGER. */
     private final static Logger LOGGER = LogManager.getLogger();
 
+    /**
+     * Inits the.
+     *
+     * @param config the config
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -38,16 +50,34 @@ public class Controller extends HttpServlet {
         pathPageDefault = pageManager.getProperty("path_page_default");
     }
 
+    /**
+     * Do post.
+     *
+     * @param req the req
+     * @param resp the resp
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         commandDefine(req, resp);
     }
 
+    /**
+     * Do get.
+     *
+     * @param req the req
+     * @param resp the resp
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         commandDefine(req, resp);
     }
 
+    /**
+     * Command define.
+     *
+     * @param req the req
+     * @param resp the resp
+     */
     private void commandDefine(HttpServletRequest req, HttpServletResponse resp) {
         try {
             req.setCharacterEncoding("UTF8");
@@ -91,6 +121,9 @@ public class Controller extends HttpServlet {
         }
     }
 
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
         DBConnectionPool connectionPool = DBConnectionPool.getInstance();

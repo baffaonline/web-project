@@ -13,7 +13,20 @@ import javafx.util.Pair;
 import java.util.Comparator;
 import java.util.List;
 
+
+/**
+ * The Class ActorReceiver.
+ */
+
 public class ActorReceiver {
+    
+    /**
+     * Find actor by id.
+     *
+     * @param id the id
+     * @return the actor
+     * @throws ServiceException the service exception
+     */
     public Actor findActorById(int id) throws ServiceException{
         ActorDAO actorDAO = new ActorDAO();
         try{
@@ -33,6 +46,17 @@ public class ActorReceiver {
         }
     }
 
+    /**
+     * Adds the actor.
+     *
+     * @param name the name
+     * @param surname the surname
+     * @param countryId the country id
+     * @param imagePath the image path
+     * @param filmsId the films id
+     * @return the actor
+     * @throws ServiceException the service exception
+     */
     public Actor addActor(String name, String surname, int countryId, String imagePath, int filmsId[])
             throws ServiceException{
         ActorDAO actorDAO = new ActorDAO();
@@ -51,6 +75,12 @@ public class ActorReceiver {
         }
     }
 
+    /**
+     * Find information for actor.
+     *
+     * @return the pair
+     * @throws ServiceException the service exception
+     */
     public Pair<List<Film>, List<Country>> findInformationForActor() throws ServiceException{
         CountryDAO countryDAO = new CountryDAO();
         FilmDAO filmDAO = new FilmDAO();

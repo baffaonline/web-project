@@ -21,7 +21,7 @@ public class ActorCommand implements Command {
         String page;
         PropertyManager pageManager = new PropertyManager("pages");
         String actorId = request.getParameter("actor_id");
-        if (actorId == null){
+        if (actorId == null) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     pageManager.getProperty("path_page_default"));
         }
@@ -31,7 +31,7 @@ public class ActorCommand implements Command {
             Actor actor = receiver.findActorById(id);
             request.setAttribute("actor", actor);
             page = actorPage;
-        } catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
         return new CommandPair(CommandPair.DispatchType.FORWARD, page);

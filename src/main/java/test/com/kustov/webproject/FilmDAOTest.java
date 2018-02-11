@@ -14,10 +14,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class FilmDAOTest.
+ */
 public class FilmDAOTest {
+    
+    /** The films. */
     private List<Film> films = new ArrayList<>();
+    
+    /** The dao. */
     private FilmDAO dao = new FilmDAO();
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init(){
         PropertyManager databaseManager = new PropertyManager("database");
@@ -48,12 +59,22 @@ public class FilmDAOTest {
                 "img/avengers.jpg", 0, null, null, null));
     }
 
+    /**
+     * Find all.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findAll() throws DAOException{
         List<Film> answer = dao.findAll();
         Assert.assertEquals(films, answer);
     }
 
+    /**
+     * Find by id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findById() throws DAOException{
         int id = 2;
@@ -62,6 +83,11 @@ public class FilmDAOTest {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Find by wrong id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findByWrongId() throws DAOException{
         int id = -1;
@@ -69,6 +95,11 @@ public class FilmDAOTest {
         Assert.assertEquals(actual, null);
     }
 
+    /**
+     * Find films by actor id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findFilmsByActorId() throws DAOException{
         int id = 4;
@@ -79,6 +110,11 @@ public class FilmDAOTest {
         Assert.assertEquals(actualFilms, expectedFilms);
     }
 
+    /**
+     * Find films by actor id with no films.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findFilmsByActorIdWithNoFilms() throws DAOException{
         List<Film> actualFilms = dao.findFilmsByActorId(9);

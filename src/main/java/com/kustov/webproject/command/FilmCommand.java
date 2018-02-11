@@ -8,10 +8,22 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class FilmCommand implements Command{
 
+/**
+ * The Class FilmCommand.
+ */
+public class FilmCommand implements Command {
+
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
+    /**
+     * Instantiates a new film command.
+     *
+     * @param receiver the receiver
+     */
     FilmCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }
@@ -22,7 +34,7 @@ public class FilmCommand implements Command{
         PropertyManager pageManager = new PropertyManager("pages");
         String filmPage = pageManager.getProperty("path_page_film");
         String filmId = request.getParameter("film_id");
-        if (filmId == null){
+        if (filmId == null) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     pageManager.getProperty("path_page_default"));
         }
@@ -31,7 +43,7 @@ public class FilmCommand implements Command{
             Film film = receiver.findFilmById(id);
             request.setAttribute("film", film);
             page = filmPage;
-        } catch (ServiceException exc){
+        } catch (ServiceException exc) {
             throw new CommandException(exc);
         }
         return new CommandPair(CommandPair.DispatchType.FORWARD, page);

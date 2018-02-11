@@ -9,16 +9,40 @@ import com.kustov.webproject.validator.LoginCommandValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class LoginCommand.
+ */
+
 public class LoginCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private UserReceiver receiver;
+
+    /**
+     * The Constant PARAM_LOGIN.
+     */
     private final static String PARAM_LOGIN = "login";
+
+    /**
+     * The Constant PARAM_PASSWORD.
+     */
     private final static String PARAM_PASSWORD = "password";
 
+    /**
+     * Instantiates a new login command.
+     *
+     * @param receiver the receiver
+     */
     LoginCommand(UserReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
         String login = request.getParameter(PARAM_LOGIN);

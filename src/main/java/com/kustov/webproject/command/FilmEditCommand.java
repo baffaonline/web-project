@@ -18,23 +18,38 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
-public class FilmEditCommand implements Command{
 
+/**
+ * The Class FilmEditCommand.
+ */
+public class FilmEditCommand implements Command {
+
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
-    FilmEditCommand(FilmReceiver receiver){
+    /**
+     * Instantiates a new film edit command.
+     *
+     * @param receiver the receiver
+     */
+    FilmEditCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");
         String filmPage = propertyManager.getProperty("path_page_film_command");
         String editFilmPage = propertyManager.getProperty("path_page_admin_edit_film");
 
-        Film film = (Film)request.getSession().getAttribute("film");
-        User user = (User)request.getSession().getAttribute("user");
-        if (film == null || !"admin".equals(user.getType().getTypeName())){
+        Film film = (Film) request.getSession().getAttribute("film");
+        User user = (User) request.getSession().getAttribute("user");
+        if (film == null || !"admin".equals(user.getType().getTypeName())) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     propertyManager.getProperty("path_page_default"));
         }
@@ -77,12 +92,20 @@ public class FilmEditCommand implements Command{
                 return new CommandPair(CommandPair.DispatchType.REDIRECT, filmPage + filmId);
             }
             return new CommandPair(CommandPair.DispatchType.FORWARD, editFilmPage);
-        }catch (ServletException | IOException | ServiceException exc){
+        } catch (ServletException | IOException | ServiceException exc) {
             throw new CommandException(exc);
         }
     }
 
-    private boolean isAllValid(HttpServletRequest request, String dateString, String ageRestrictionString){
+    /**
+     * Checks if is all valid.
+     *
+     * @param request              the request
+     * @param dateString           the date string
+     * @param ageRestrictionString the age restriction string
+     * @return true, if is all valid
+     */
+    private boolean isAllValid(HttpServletRequest request, String dateString, String ageRestrictionString) {
         AddFilmValidator validator = new AddFilmValidator();
         boolean isValid = true;
         MessageManager messageManager = new MessageManager();
@@ -90,7 +113,7 @@ public class FilmEditCommand implements Command{
             request.setAttribute("errorDate", messageManager.getString("command.add.film.date.error"));
             isValid = false;
         }
-        if (!validator.checkAgeRestriction(ageRestrictionString)){
+        if (!validator.checkAgeRestriction(ageRestrictionString)) {
             request.setAttribute("errorAgeRestriction",
                     messageManager.getString("command.add.film.ageRestriction.error"));
             isValid = false;

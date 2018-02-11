@@ -13,14 +13,27 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
+
+/**
+ * The Int int getFilmId().
+ */
 public class DBConnectionPool {
 
+    /** The Constant LOGGER. */
     private final static Logger LOGGER = LogManager.getLogger();
+    
+    /** The instance. */
     private static DBConnectionPool instance;
+    
+    /** The lock. */
     private static ReentrantLock lock = new ReentrantLock();
 
+    /** The pool. */
     private BlockingQueue<ProxyConnection> pool;
 
+    /**
+     * Instantiates a new DB connection pool.
+     */
     private DBConnectionPool() {
         try {
             PropertyManager databaseManager = new PropertyManager("database");
@@ -44,6 +57,14 @@ public class DBConnectionPool {
         }
     }
 
+    /**
+     * Instantiates a new DB connection pool.
+     *
+     * @param database the database
+     * @param user the user
+     * @param password the password
+     * @param poolSize the pool size
+     */
     private DBConnectionPool(String database, String user, String password, int poolSize){
         try{
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
@@ -65,6 +86,11 @@ public class DBConnectionPool {
         }
     }
 
+    /**
+     * Gets the single instance of DBConnectionPool.
+     *
+     * @return single instance of DBConnectionPool
+     */
     public static DBConnectionPool getInstance() {
         lock.lock();
         try {
@@ -77,6 +103,15 @@ public class DBConnectionPool {
         return instance;
     }
 
+    /**
+     * Gets the single instance of DBConnectionPool.
+     *
+     * @param database the database
+     * @param user the user
+     * @param password the password
+     * @param poolSize the pool size
+     * @return single instance of DBConnectionPool
+     */
     public static DBConnectionPool getInstance(String database, String user, String password, int poolSize){
         lock.lock();
         try {
@@ -89,10 +124,21 @@ public class DBConnectionPool {
         return instance;
     }
 
+    /**
+     * Pool size.
+     *
+     * @return the int
+     */
     public int poolSize() {
         return pool.size();
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws ConnectionException the connection exception
+     */
     public ProxyConnection getConnection() throws ConnectionException {
         ProxyConnection connection;
         try {
@@ -103,6 +149,12 @@ public class DBConnectionPool {
         return connection;
     }
 
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     * @throws ConnectionException the connection exception
+     */
     public void releaseConnection(ProxyConnection connection) throws ConnectionException {
         try {
             pool.put(connection);
@@ -111,6 +163,12 @@ public class DBConnectionPool {
         }
     }
 
+    /**
+     * Close connection.
+     *
+     * @param connection the connection
+     * @throws ConnectionException the connection exception
+     */
     public void closeConnection(ProxyConnection connection) throws ConnectionException{
         pool.offer(connection);
         try {

@@ -18,11 +18,23 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Locale;
 
-public class AddFilmCommand implements Command{
+/**
+ * The Class AddFilmCommand.
+ */
 
+public class AddFilmCommand implements Command {
+
+    /**
+     * The receiver.
+     */
     private FilmReceiver receiver;
 
-    AddFilmCommand(FilmReceiver receiver){
+    /**
+     * Instantiates a new adds the film command.
+     *
+     * @param receiver the receiver
+     */
+    AddFilmCommand(FilmReceiver receiver) {
         this.receiver = receiver;
     }
 
@@ -33,7 +45,7 @@ public class AddFilmCommand implements Command{
         String addFilmPage = propertyManager.getProperty("path_page_admin_add_film");
 
         String filmTitle = request.getParameter("filmTitle");
-        if (filmTitle == null){
+        if (filmTitle == null) {
             return new CommandPair(CommandPair.DispatchType.REDIRECT,
                     propertyManager.getProperty("path_page_default"));
         }
@@ -62,28 +74,35 @@ public class AddFilmCommand implements Command{
                 request.getSession().removeAttribute("genres");
                 request.getSession().removeAttribute("actors");
 
-                return new CommandPair(CommandPair.DispatchType.REDIRECT,filmPage + film.getId());
-            }
-            else {
+                return new CommandPair(CommandPair.DispatchType.REDIRECT, filmPage + film.getId());
+            } else {
                 return new CommandPair(CommandPair.DispatchType.FORWARD, addFilmPage);
             }
-        }catch (ServletException | IOException | ServiceException exc){
+        } catch (ServletException | IOException | ServiceException exc) {
             throw new CommandException(exc);
         }
     }
-    
-    private boolean isAllValid(HttpServletRequest request, String dateString, String ageRestrictionString){
+
+    /**
+     * Checks if is all valid.
+     *
+     * @param request              the request
+     * @param dateString           the date string
+     * @param ageRestrictionString the age restriction string
+     * @return true, if is all valid
+     */
+    private boolean isAllValid(HttpServletRequest request, String dateString, String ageRestrictionString) {
         AddFilmValidator validator = new AddFilmValidator();
         boolean isValid = true;
         MessageManager messageManager = new MessageManager();
-            MessageManager.setLocale(new Locale((String)request.getSession().getAttribute("locale")));
+        MessageManager.setLocale(new Locale((String) request.getSession().getAttribute("locale")));
 
         if (!validator.checkDate(dateString)) {
             request.setAttribute("errorDate", messageManager.getString("command.add.film.date.error"));
             isValid = false;
         }
 
-        if (!validator.checkAgeRestriction(ageRestrictionString)){
+        if (!validator.checkAgeRestriction(ageRestrictionString)) {
             request.setAttribute("errorAgeRestriction",
                     messageManager.getString("command.add.film.ageRestriction.error"));
             isValid = false;

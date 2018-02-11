@@ -24,7 +24,8 @@
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="image"><fmt:message key="admin.edit.film.image"/></label>
-                <input type="file" accept="image/*" class="input-group form-control" value="${film.posterPath}" name="filmImage" id="image">
+                <input type="file" accept="image/*" class="input-group form-control" value="${film.posterPath}"
+                       name="filmImage" id="image">
             </div>
             <div class="add-film-part">
                 <label class="col-form-label" for="description"><fmt:message key="admin.edit.film.description"/></label>

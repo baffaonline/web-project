@@ -5,13 +5,23 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LogoutCommand implements Command{
 
+/**
+ * The Class LogoutCommand.
+ */
+public class LogoutCommand implements Command {
+
+    /**
+     * Instantiates a new logout command.
+     */
     LogoutCommand() {
     }
 
+    /* (non-Javadoc)
+     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
+     */
     @Override
-    public CommandPair execute(HttpServletRequest request){
+    public CommandPair execute(HttpServletRequest request) {
         PropertyManager propertyManager = new PropertyManager("pages");
         String mainPage = propertyManager.getProperty("path_page_default");
         HttpSession session = request.getSession(false);

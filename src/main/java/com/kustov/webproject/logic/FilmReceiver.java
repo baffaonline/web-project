@@ -9,7 +9,18 @@ import javafx.util.Pair;
 import java.time.LocalDate;
 import java.util.List;
 
+
+/**
+ * The Class FilmReceiver.
+ */
 public class FilmReceiver {
+    
+    /**
+     * Find films.
+     *
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Film> findFilms() throws ServiceException {
         FilmDAO dao = new FilmDAO();
         try {
@@ -19,6 +30,13 @@ public class FilmReceiver {
         }
     }
 
+    /**
+     * Find film by id.
+     *
+     * @param id the id
+     * @return the film
+     * @throws ServiceException the service exception
+     */
     public Film findFilmById(int id) throws ServiceException {
         FilmDAO dao = new FilmDAO();
         try {
@@ -41,6 +59,20 @@ public class FilmReceiver {
         }
     }
 
+    /**
+     * Adds the film.
+     *
+     * @param filmTitle the film title
+     * @param filePath the file path
+     * @param description the description
+     * @param date the date
+     * @param countryId the country id
+     * @param ageRestriction the age restriction
+     * @param genresId the genres id
+     * @param actorsId the actors id
+     * @return the film
+     * @throws ServiceException the service exception
+     */
     public Film addFilm(String filmTitle, String filePath, String description, LocalDate date, int countryId,
                         int ageRestriction, int genresId[], int actorsId[]) throws ServiceException {
         FilmDAO filmDAO = new FilmDAO();
@@ -65,6 +97,23 @@ public class FilmReceiver {
         }
     }
 
+    /**
+     * Edits the film.
+     *
+     * @param filmId the film id
+     * @param filmTitle the film title
+     * @param filePath the file path
+     * @param description the description
+     * @param date the date
+     * @param countryId the country id
+     * @param ageRestriction the age restriction
+     * @param oldGenresId the old genres id
+     * @param oldActorsId the old actors id
+     * @param newGenresId the new genres id
+     * @param newActorsId the new actors id
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean editFilm(int filmId, String filmTitle, String filePath, String description, LocalDate date, int countryId,
                             int ageRestriction, int oldGenresId[], int oldActorsId[], int newGenresId[],
                             int newActorsId[]) throws ServiceException {
@@ -104,6 +153,12 @@ public class FilmReceiver {
         }
     }
 
+    /**
+     * Find information for film.
+     *
+     * @return the pair
+     * @throws ServiceException the service exception
+     */
     public Pair<Film, List<Country>> findInformationForFilm() throws ServiceException {
         GenreDAO genreDAO = new GenreDAO();
         ActorDAO actorDAO = new ActorDAO();
@@ -119,6 +174,13 @@ public class FilmReceiver {
         }
     }
 
+    /**
+     * Delete film.
+     *
+     * @param filmId the film id
+     * @return true, if successful
+     * @throws ServiceException the service exception
+     */
     public boolean deleteFilm(int filmId) throws ServiceException{
         FilmDAO filmDAO = new FilmDAO();
         try{

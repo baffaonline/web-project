@@ -35,7 +35,7 @@
                     <label for="password" class="control-label"><fmt:message key="registration.label.password"/></label>
                     <div>
                         <input type="password" name="password" class="form-control" id="password"
-                               pattern="[a-zA-Zа-яА-Я\d]+"
+                               pattern="[a-zA-Z\d]+"
                                placeholder="<fmt:message key="authorization.placeholder.password"/>" required>
                     </div>
                     <div class="errorDiv">${errorPassword}</div>
@@ -81,7 +81,7 @@
                     <div>
                         <select name="country" id="country" class="form-control">
                             <c:forEach var="elem" items="${countries}">
-                                <option value="${elem}">${elem}</option>
+                                <option value="${elem.id}">${elem}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -103,7 +103,7 @@
                             key="registration.label.password"/></label>
                     <div>
                         <input type="password" name="password" class="form-control" id="wrongPassword"
-                               pattern="[a-zA-Zа-яА-Я\d]+" value="${password}" required>
+                               pattern="[a-zA-Z\d]+" value="${password}" required>
                     </div>
                     <div class="errorDiv">${errorPassword}</div>
                 </div>

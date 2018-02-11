@@ -1,10 +1,7 @@
 package test.com.kustov.webproject;
 
 import com.kustov.webproject.dao.ReviewDAO;
-import com.kustov.webproject.entity.Country;
 import com.kustov.webproject.entity.Review;
-import com.kustov.webproject.entity.User;
-import com.kustov.webproject.entity.UserType;
 import com.kustov.webproject.exception.DAOException;
 import com.kustov.webproject.pool.DBConnectionPool;
 import com.kustov.webproject.service.PropertyManager;
@@ -12,14 +9,25 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Country rating.
+ */
+
 public class ReviewDAOTest {
+    
+    /** The reviews. */
     private List<Review> reviews = new ArrayList<>();
+    
+    /** The id. */
     private int id = 1;
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public void init() {
         PropertyManager databaseManager = new PropertyManager("database");
@@ -46,6 +54,11 @@ public class ReviewDAOTest {
 //                        "Jokes weren't misplaced", 8, 0, 0));
     }
 
+    /**
+     * Find reviews by film id.
+     *
+     * @throws DAOException the DAO exception
+     */
     @Test
     public void findReviewsByFilmId() throws DAOException{
         ReviewDAO dao = new ReviewDAO();
