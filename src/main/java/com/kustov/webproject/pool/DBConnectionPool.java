@@ -19,16 +19,24 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class DBConnectionPool {
 
-    /** The Constant LOGGER. */
+    /**
+     * The Constant LOGGER.
+     */
     private final static Logger LOGGER = LogManager.getLogger();
-    
-    /** The instance. */
+
+    /**
+     * The instance.
+     */
     private static DBConnectionPool instance;
-    
-    /** The lock. */
+
+    /**
+     * The lock.
+     */
     private static ReentrantLock lock = new ReentrantLock();
 
-    /** The pool. */
+    /**
+     * The pool.
+     */
     private BlockingQueue<ProxyConnection> pool;
 
     /**
@@ -39,8 +47,8 @@ public class DBConnectionPool {
             PropertyManager databaseManager = new PropertyManager("database");
             Properties properties = new Properties();
             properties.setProperty("user", databaseManager.getProperty("db.user"));
-            properties.setProperty("password",databaseManager.getProperty("db.password"));
-            properties.setProperty("useUnicode","true");
+            properties.setProperty("password", databaseManager.getProperty("db.password"));
+            properties.setProperty("useUnicode", "true");
             properties.setProperty("characterEncoding", databaseManager.getProperty("db.characterEncoding"));
             int poolSize = Integer.parseInt(databaseManager.getProperty("db.pool_size"));
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
@@ -61,17 +69,17 @@ public class DBConnectionPool {
      * Instantiates a new DB connection pool.
      *
      * @param database the database
-     * @param user the user
+     * @param user     the user
      * @param password the password
      * @param poolSize the pool size
      */
-    private DBConnectionPool(String database, String user, String password, int poolSize){
-        try{
+    private DBConnectionPool(String database, String user, String password, int poolSize) {
+        try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             Properties properties = new Properties();
             properties.setProperty("user", user);
             properties.setProperty("password", password);
-            properties.setProperty("useUnicode","true");
+            properties.setProperty("useUnicode", "true");
             properties.setProperty("characterEncoding", "UTF8");
             pool = new ArrayBlockingQueue<>(poolSize);
             for (int i = 0; i < poolSize; i++) {
@@ -107,12 +115,12 @@ public class DBConnectionPool {
      * Gets the single instance of DBConnectionPool.
      *
      * @param database the database
-     * @param user the user
+     * @param user     the user
      * @param password the password
      * @param poolSize the pool size
      * @return single instance of DBConnectionPool
      */
-    public static DBConnectionPool getInstance(String database, String user, String password, int poolSize){
+    public static DBConnectionPool getInstance(String database, String user, String password, int poolSize) {
         lock.lock();
         try {
             if (instance == null) {
@@ -143,7 +151,7 @@ public class DBConnectionPool {
         ProxyConnection connection;
         try {
             connection = pool.take();
-        } catch ( InterruptedException exc) {
+        } catch (InterruptedException exc) {
             throw new ConnectionException(exc);
         }
         return connection;
@@ -169,11 +177,11 @@ public class DBConnectionPool {
      * @param connection the connection
      * @throws ConnectionException the connection exception
      */
-    public void closeConnection(ProxyConnection connection) throws ConnectionException{
+    public void closeConnection(ProxyConnection connection) throws ConnectionException {
         pool.offer(connection);
         try {
             connection.closeConnection();
-        }catch (SQLException exc){
+        } catch (SQLException exc) {
             throw new ConnectionException(exc);
         }
     }

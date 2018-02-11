@@ -10,7 +10,7 @@ import java.util.List;
  * The Class AbstractReviewDAO.
  */
 
-public abstract class AbstractReviewDAO{
+public abstract class AbstractReviewDAO {
     /**
      * Insert.
      *

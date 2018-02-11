@@ -16,7 +16,7 @@ public class Encryptor {
      * @return the string
      * @throws NoSuchAlgorithmException the no such algorithm exception
      */
-    public String encryptPassword(String password) throws NoSuchAlgorithmException{
+    public String encryptPassword(String password) throws NoSuchAlgorithmException {
         StringBuilder code = new StringBuilder();
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         byte bytes[] = password.getBytes();

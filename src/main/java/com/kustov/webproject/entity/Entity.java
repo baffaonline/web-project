@@ -7,15 +7,17 @@ import java.util.Objects;
 /**
  * The Exception DAOException.
  */
-public class Entity implements Serializable, Cloneable{
+public class Entity implements Serializable, Cloneable {
 
-    /** The id. */
+    /**
+     * The id.
+     */
     private int id;
 
     /**
      * Instantiates a new entity.
      */
-    Entity(){
+    Entity() {
     }
 
     /**
@@ -23,7 +25,7 @@ public class Entity implements Serializable, Cloneable{
      *
      * @param id the id
      */
-    Entity(int id){
+    Entity(int id) {
         this.id = id;
     }
 
@@ -32,7 +34,7 @@ public class Entity implements Serializable, Cloneable{
      *
      * @return the ${e.g(1).rsfl()}
      */
-    public int getId(){
+    public int getId() {
         return id;
     }
 
@@ -41,13 +43,10 @@ public class Entity implements Serializable, Cloneable{
      *
      * @param id the sql update ban
      */
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,9 +55,6 @@ public class Entity implements Serializable, Cloneable{
         return id == entity.id;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
 

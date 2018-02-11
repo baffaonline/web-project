@@ -40,15 +40,17 @@ public class LoginCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
-        String login = request.getParameter(PARAM_LOGIN);
-        String password = request.getParameter(PARAM_PASSWORD);
         PropertyManager pageManager = new PropertyManager("pages");
         String pageAuthorization = pageManager.getProperty("path_page_authorization");
+        String login = request.getParameter(PARAM_LOGIN);
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (login == null || !PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    pageManager.getProperty("path_page_default"));
+        }
+        String password = request.getParameter(PARAM_PASSWORD);
         if (LoginCommandValidator.checkLoginAndPassword(login, password)) {
             try {
                 User user = receiver.checkUser(login, password);

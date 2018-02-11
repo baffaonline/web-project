@@ -17,10 +17,14 @@ import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
 
-    /** The connection. */
+    /**
+     * The connection.
+     */
     private Connection connection;
-    
-    /** The Constant LOGGER. */
+
+    /**
+     * The Constant LOGGER.
+     */
     private final static Logger LOGGER = LogManager.getLogger();
 
     /**
@@ -32,26 +36,17 @@ public class ProxyConnection implements Connection {
         this.connection = connection;
     }
 
-    /* (non-Javadoc)
-     * @see java.sql.Wrapper#unwrap(java.lang.Class)
-     */
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
         return connection.unwrap(iface);
     }
 
-    /* (non-Javadoc)
-     * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
-     */
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return connection.isWrapperFor(iface);
     }
 
 
-    /* (non-Javadoc)
-     * @see java.sql.Connection#createStatement()
-     */
     @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();
@@ -117,10 +112,10 @@ public class ProxyConnection implements Connection {
      * @see java.sql.Connection#close()
      */
     @Override
-    public void close(){
+    public void close() {
         try {
             DBConnectionPool.getInstance().releaseConnection(this);
-        }catch (ConnectionException exc){
+        } catch (ConnectionException exc) {
             LOGGER.log(Level.ERROR, exc.getStackTrace());
         }
     }
@@ -130,7 +125,7 @@ public class ProxyConnection implements Connection {
      *
      * @throws SQLException the SQL exception
      */
-    void closeConnection() throws SQLException{
+    void closeConnection() throws SQLException {
         connection.close();
     }
 

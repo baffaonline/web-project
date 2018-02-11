@@ -28,21 +28,27 @@ public class ReviewRatingCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
 
         PropertyManager propertyManager = new PropertyManager("pages");
         String mainPage = propertyManager.getProperty("path_page_default");
-        int filmId = Integer.parseInt(request.getParameter("film_id"));
+
+        User thisUser = (User)request.getSession().getAttribute("user");
+        String filmIdString = request.getParameter("film_id");
+        String userReviewIdString = request.getParameter("user_id");
+        String ratingString = request.getParameter("rating");
+        if (filmIdString == null || userReviewIdString == null || ratingString == null ||
+                PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, mainPage);
+        }
+
+        int filmId = Integer.parseInt(filmIdString);
         String thisPage = propertyManager.getProperty("path_page_film_command") + filmId;
 
-        int userReviewId = Integer.parseInt(request.getParameter("user_id"));
+        int userReviewId = Integer.parseInt(userReviewIdString);
         int userId = ((User) request.getSession().getAttribute("user")).getId();
-        String ratingString = request.getParameter("rating");
 
         int rating = "Yes".equals(ratingString) ? 1 : -1;
         try {

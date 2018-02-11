@@ -192,13 +192,14 @@ public class ReviewDAO extends AbstractReviewDAO {
     /**
      * Find user ratings by review.
      *
-     * @param review the review
+     * @param review     the review
+     * @param connection the connection
      * @return the list
      * @throws DAOException the DAO exception
      */
     private List<ReviewUserRating> findUserRatingsByReview(Review review, Connection connection) throws DAOException {
         List<ReviewUserRating> reviewUserRatings = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_USER_RATINGS_BY_REVIEW)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_USER_RATINGS_BY_REVIEW)) {
             preparedStatement.setInt(1, review.getFilmId());
             preparedStatement.setInt(2, review.getUser().getId());
             ResultSet resultSet = preparedStatement.executeQuery();

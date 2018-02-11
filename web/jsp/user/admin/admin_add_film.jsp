@@ -35,6 +35,7 @@
             <div class="add-film-part">
                 <label class="col-form-label" for="date"><fmt:message key="admin.add.film.date"/></label>
                 <input type="text" class="input-group form-control" name="filmDate" id="date"
+                       pattern="(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])"
                        placeholder="<fmt:message key="admin.add.film.date.input"/>" required>
             </div>
             <div class="add-film-part">
@@ -48,6 +49,7 @@
             <div class="add-film-part">
                 <label for="age" class="col-form-label"><fmt:message key="admin.add.film.age"/></label>
                 <input type="text" class="input-group form-control" id="age" name="ageRestriction"
+                       pattern="\d{1,2}"
                        placeholder="<fmt:message key="admin.add.film.age.input"/>">
             </div>
             <div class="add-film-part">

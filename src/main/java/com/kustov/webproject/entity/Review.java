@@ -11,22 +11,34 @@ import java.util.Objects;
 
 public class Review {
 
-    /** The film id. */
+    /**
+     * The film id.
+     */
     private int filmId;
-    
-    /** The user. */
+
+    /**
+     * The user.
+     */
     private User user;
-    
-    /** The text. */
+
+    /**
+     * The text.
+     */
     private String text;
-    
-    /** The title. */
+
+    /**
+     * The title.
+     */
     private String title;
-    
-    /** The user mark. */
+
+    /**
+     * The user mark.
+     */
     private int userMark;
-    
-    /** The review user ratings. */
+
+    /**
+     * The review user ratings.
+     */
     private List<ReviewUserRating> reviewUserRatings;
 
     /**
@@ -40,11 +52,11 @@ public class Review {
     /**
      * Instantiates a new review.
      *
-     * @param filmId the film id
-     * @param user the user
-     * @param text the text
-     * @param title the title
-     * @param userMark the user mark
+     * @param filmId            the film id
+     * @param user              the user
+     * @param text              the text
+     * @param title             the title
+     * @param userMark          the user mark
      * @param reviewUserRatings the review user ratings
      */
     public Review(int filmId, User user, String text, String title, int userMark,

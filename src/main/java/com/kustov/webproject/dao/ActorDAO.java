@@ -57,6 +57,7 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
     private final static String SQL_INSERT_FILM_TO_ACTOR = "INSERT INTO film_actor (film_act_id, actor_flm_id) " +
             "VALUES (?, ?)";
 
+
     @Override
     public List<Actor> findAll() throws DAOException {
         List<Actor> actors = new ArrayList<>();
@@ -108,7 +109,7 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
      */
     public boolean insertFilmsToActor(int actorId, int filmsId[]) throws DAOException {
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_FILM_TO_ACTOR)){
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT_FILM_TO_ACTOR)) {
             return insertOrDeleteEntities(statement, filmsId, actorId);
         } catch (SQLException | ConnectionException exc) {
             throw new DAOException(exc);
@@ -125,7 +126,7 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
     public List<Actor> findActorsByFilmId(int id) throws DAOException {
         List<Actor> actors = new ArrayList<>();
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ACTORS_BY_FILM_ID)){
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ACTORS_BY_FILM_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -138,11 +139,12 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
         }
     }
 
+
     @Override
     public Actor findById(Integer id) throws DAOException {
         Actor actor = null;
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ACTOR_BY_ID)){
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ACTOR_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -175,11 +177,20 @@ public class ActorDAO extends AbstractEntityDAO<Integer, Actor> {
         return actor;
     }
 
-    static boolean insertOrDeleteEntities(PreparedStatement statement, int infoId[], int entityId) throws SQLException{
+    /**
+     * Insert or delete entities.
+     *
+     * @param statement the statement
+     * @param infoId    the info id
+     * @param entityId  the entity id
+     * @return true, if successful
+     * @throws SQLException the SQL exception
+     */
+    static boolean insertOrDeleteEntities(PreparedStatement statement, int infoId[], int entityId) throws SQLException {
         boolean isAllInserted = true;
         for (int id : infoId) {
-            statement.setInt(1, id);
-            statement.setInt(2, entityId);
+            statement.setInt(1, entityId);
+            statement.setInt(2, id);
             if (statement.executeUpdate() == 0) {
                 isAllInserted = false;
             }

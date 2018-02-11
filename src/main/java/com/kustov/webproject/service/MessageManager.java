@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 
 public class MessageManager {
 
-    /** The locale. */
+    /**
+     * The locale.
+     */
     private static Locale locale;
 
     /**
@@ -19,7 +21,7 @@ public class MessageManager {
      * @param key the key
      * @return the string
      */
-    public String getString(String key){
+    public String getString(String key) {
         ResourceBundle bundle = ResourceBundle.getBundle("message", locale);
         return bundle.getString(key);
     }

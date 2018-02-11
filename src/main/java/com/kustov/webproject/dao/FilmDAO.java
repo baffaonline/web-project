@@ -114,6 +114,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
     private final static Logger LOGGER = LogManager.getLogger();
 
 
+
     @Override
     public Film findById(Integer id) throws DAOException {
         Film film = null;
@@ -153,7 +154,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
     public List<Film> findAll() throws DAOException {
         List<Film> films = new ArrayList<>();
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             Statement statement = connection.createStatement()){
+             Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_FILMS);
             while (resultSet.next()) {
                 Film film = createFilmFromResultSet(resultSet);
@@ -227,7 +228,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
      */
     public boolean deleteFilm(int filmId) throws DAOException {
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_FILM)){
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_FILM)) {
             preparedStatement.setInt(1, filmId);
             return preparedStatement.executeUpdate() != 0;
         } catch (ConnectionException | SQLException exc) {
@@ -252,7 +253,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
                               int filmAgeRestriction, LocalDate filmReleaseDate, String filmPosterPath)
             throws DAOException {
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_FILM)){
+             PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_FILM)) {
             statement.setString(1, filmTitle);
             statement.setInt(2, countryId);
             statement.setString(3, filmDescription);
@@ -306,7 +307,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
      */
     private boolean insertOrDeleteInformationFromFilm(int filmId, int infoId[], String sql) throws DAOException {
         try (Connection connection = DBConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)){
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             return ActorDAO.insertOrDeleteEntities(statement, infoId, filmId);
         } catch (SQLException | ConnectionException exc) {
             throw new DAOException(exc);
@@ -346,7 +347,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
      * @throws DAOException the DAO exception
      */
     private double findFilmRatingById(int id, Connection connection) throws DAOException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_RATING)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT_RATING)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -365,7 +366,7 @@ public class FilmDAO extends AbstractEntityDAO<Integer, Film> {
      * @throws DAOException the DAO exception
      */
     private int findIdByFilm(Film film, Connection connection) throws DAOException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ID_BY_FILM)){
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ID_BY_FILM)) {
             statement.setString(1, film.getTitle());
             statement.setString(2, film.getDescription());
             ResultSet resultSet = statement.executeQuery();

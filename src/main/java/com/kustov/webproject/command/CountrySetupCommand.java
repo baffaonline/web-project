@@ -30,9 +30,6 @@ public class CountrySetupCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;

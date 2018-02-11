@@ -74,7 +74,7 @@
             </div>
             <div class="add-film-part">
                 <label for="age" class="col-form-label"><fmt:message key="admin.edit.film.age"/></label>
-                <input type="text" class="input-group form-control" id="age" name="ageRestriction"
+                <input type="text" class="input-group form-control" id="age" name="ageRestriction" pattern="\d{1,2}"
                        value="${film.ageRestriction}">
             </div>
             <div class="errorDiv">${errorAgeRestriction}</div>

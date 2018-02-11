@@ -108,6 +108,7 @@ public class UserDAO extends AbstractEntityDAO<Integer, User> {
         return users;
     }
 
+
     @Override
     public User findById(Integer id) throws DAOException {
         User user = null;

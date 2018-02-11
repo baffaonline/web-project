@@ -25,7 +25,7 @@ public class DAOException extends Exception {
      * Instantiates a new DAO exception.
      *
      * @param message the message
-     * @param cause the cause
+     * @param cause   the cause
      */
     public DAOException(String message, Throwable cause) {
         super(message, cause);

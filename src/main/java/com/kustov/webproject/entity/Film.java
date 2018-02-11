@@ -8,36 +8,56 @@ import java.util.Objects;
 /**
  * The Class Film.
  */
-public class Film extends Entity{
+public class Film extends Entity {
 
-    /** The title. */
+    /**
+     * The title.
+     */
     private String title;
-    
-    /** The country. */
+
+    /**
+     * The country.
+     */
     private Country country;
-    
-    /** The description. */
+
+    /**
+     * The description.
+     */
     private String description;
-    
-    /** The age restriction. */
+
+    /**
+     * The age restriction.
+     */
     private int ageRestriction;
-    
-    /** The release date. */
+
+    /**
+     * The release date.
+     */
     private LocalDate releaseDate;
-    
-    /** The poster path. */
+
+    /**
+     * The poster path.
+     */
     private String posterPath;
-    
-    /** The rating. */
+
+    /**
+     * The rating.
+     */
     private double rating;
-    
-    /** The actors. */
+
+    /**
+     * The actors.
+     */
     private List<Actor> actors;
-    
-    /** The genres. */
+
+    /**
+     * The genres.
+     */
     private List<Genre> genres;
-    
-    /** The reviews. */
+
+    /**
+     * The reviews.
+     */
     private List<Review> reviews;
 
     /**
@@ -54,17 +74,17 @@ public class Film extends Entity{
     /**
      * Instantiates a new film.
      *
-     * @param id the id
-     * @param title the title
-     * @param country the country
-     * @param description the description
+     * @param id             the id
+     * @param title          the title
+     * @param country        the country
+     * @param description    the description
      * @param ageRestriction the age restriction
-     * @param releaseDate the release date
-     * @param posterPath the poster path
-     * @param rating the rating
-     * @param actors the actors
-     * @param genres the genres
-     * @param reviews the reviews
+     * @param releaseDate    the release date
+     * @param posterPath     the poster path
+     * @param rating         the rating
+     * @param actors         the actors
+     * @param genres         the genres
+     * @param reviews        the reviews
      */
     public Film(int id, String title, Country country, String description, int ageRestriction, LocalDate releaseDate,
                 String posterPath, double rating, List<Actor> actors, List<Genre> genres, List<Review> reviews) {
@@ -261,9 +281,6 @@ public class Film extends Entity{
         this.rating = rating;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.entity.Entity#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -290,6 +307,6 @@ public class Film extends Entity{
 
     @Override
     public String toString() {
-        return "Film " + title  + " from " + country + " with rating " + rating;
+        return "Film " + title + " from " + country + " with rating " + rating;
     }
 }

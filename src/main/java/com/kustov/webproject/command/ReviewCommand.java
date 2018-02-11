@@ -29,9 +29,6 @@ public class ReviewCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
@@ -41,6 +38,10 @@ public class ReviewCommand implements Command {
 
         String pageMain = pageManager.getProperty("path_page_default");
         String markString = request.getParameter("rating");
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (markString == null || PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, pageMain);
+        }
         String title = request.getParameter("title");
         String text = request.getParameter("reviewText");
         int filmId = Integer.parseInt(request.getParameter("filmId"));

@@ -29,9 +29,6 @@ public class UserInformationCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
@@ -40,11 +37,11 @@ public class UserInformationCommand implements Command {
 
         try {
             User thisUser = (User) request.getSession().getAttribute("user");
-            if ("guest".equals(thisUser.getType().getTypeName())) {
+            if (PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())) {
                 return new CommandPair(CommandPair.DispatchType.REDIRECT,
                         propertyManager.getProperty("path_page_default"));
             }
-            if ("admin".equals(option)) {
+            if (PageConstant.ADMIN_STRING.equals(option)) {
                 page = propertyManager.getProperty("path_page_admin_user");
                 int id = Integer.parseInt(request.getParameter("user_id"));
                 User user = receiver.findUserById(id);

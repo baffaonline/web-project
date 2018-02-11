@@ -39,6 +39,10 @@ public class SignUpCommand implements Command {
         String thisPage = pageManager.getProperty("path_page_registration");
 
         String username = request.getParameter("username");
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (username == null || !PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT, pageMain);
+        }
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String name = request.getParameter("firstName");

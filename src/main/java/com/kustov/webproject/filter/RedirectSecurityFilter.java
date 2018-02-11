@@ -17,7 +17,9 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/jsp/*")
 public class RedirectSecurityFilter implements Filter {
 
-    /** The index page. */
+    /**
+     * The index page.
+     */
     private String indexPage;
 
     /**
@@ -34,10 +36,10 @@ public class RedirectSecurityFilter implements Filter {
     /**
      * Do filter.
      *
-     * @param servletRequest the servlet request
+     * @param servletRequest  the servlet request
      * @param servletResponse the servlet response
-     * @param filterChain the filter chain
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param filterChain     the filter chain
+     * @throws IOException      Signals that an I/O exception has occurred.
      * @throws ServletException the servlet exception
      */
     @Override

@@ -12,15 +12,14 @@ public class ArrayConverter {
      * @param array the array
      * @return the int[]
      */
-    public static int[] makeIntArrayFromString(String array[]){
+    public static int[] makeIntArrayFromString(String array[]) {
         int intArray[];
         if (array != null) {
             intArray = new int[array.length];
-            for (int i = 0; i < intArray.length; i++){
+            for (int i = 0; i < intArray.length; i++) {
                 intArray[i] = Integer.parseInt(array[i]);
             }
-        }
-        else {
+        } else {
             intArray = null;
         }
         return intArray;

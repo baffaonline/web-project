@@ -12,10 +12,22 @@ import javafx.util.Pair;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
+/**
+ * The Class ActorSetupCommand.
+ */
 public class ActorSetupCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private ActorReceiver receiver;
 
+    /**
+     * Instantiates a new actor setup command.
+     *
+     * @param receiver the receiver
+     */
     ActorSetupCommand(ActorReceiver receiver) {
         this.receiver = receiver;
     }

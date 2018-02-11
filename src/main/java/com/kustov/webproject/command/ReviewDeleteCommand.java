@@ -1,5 +1,6 @@
 package com.kustov.webproject.command;
 
+import com.kustov.webproject.entity.User;
 import com.kustov.webproject.exception.CommandException;
 import com.kustov.webproject.exception.ServiceException;
 import com.kustov.webproject.logic.ReviewReceiver;
@@ -28,20 +29,26 @@ public class ReviewDeleteCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         String page;
+        PropertyManager propertyManager = new PropertyManager("pages");
+        String defaultPage = propertyManager.getProperty("path_page_default");
         page = request.getHeader("referer").substring(PageConstant.URI_START);
         if ("/".equals(page)) {
-            PropertyManager propertyManager = new PropertyManager("pages");
-            page = propertyManager.getProperty("path_page_default");
+            page = defaultPage;
+        }
+        String filmIdString = request.getParameter("filmId");
+        String userIdString = request.getParameter("userId");
+        User thisUser = (User)request.getSession().getAttribute("user");
+        if (filmIdString == null || userIdString == null ||
+                PageConstant.GUEST_STRING.equals(thisUser.getType().getTypeName())){
+            return new CommandPair(CommandPair.DispatchType.REDIRECT,
+                    defaultPage);
         }
         try {
-            int filmId = Integer.parseInt(request.getParameter("filmId"));
-            int userId = Integer.parseInt(request.getParameter("userId"));
+            int filmId = Integer.parseInt(filmIdString);
+            int userId = Integer.parseInt(userIdString);
             if (!receiver.deleteReview(filmId, userId)) {
                 MessageManager messageManager = new MessageManager();
                 request.setAttribute("errorInDelete", messageManager.getString("command.review.delete.error"));

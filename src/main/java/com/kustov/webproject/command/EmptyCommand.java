@@ -4,6 +4,10 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class EmptyCommand.
+ */
 public class EmptyCommand implements Command {
 
     @Override

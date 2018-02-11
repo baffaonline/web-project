@@ -16,7 +16,9 @@ public abstract class AbstractEntityDAO<K, T extends Entity> implements Abstract
 
     public abstract List<T> findAll() throws DAOException;
 
+
     public abstract K insert(T entity) throws DAOException;
+
 
     public abstract T findById(K id) throws DAOException;
 }

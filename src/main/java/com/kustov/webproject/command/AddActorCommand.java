@@ -15,10 +15,22 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+
+/**
+ * The Class AddActorCommand.
+ */
 public class AddActorCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private ActorReceiver receiver;
 
+    /**
+     * Instantiates a new adds the actor command.
+     *
+     * @param receiver the receiver
+     */
     AddActorCommand(ActorReceiver receiver) {
         this.receiver = receiver;
     }
@@ -59,6 +71,14 @@ public class AddActorCommand implements Command {
         }
     }
 
+    /**
+     * Checks if is all valid.
+     *
+     * @param request the request
+     * @param name    the name
+     * @param surname the surname
+     * @return true, if is all valid
+     */
     private boolean isAllValid(HttpServletRequest request, String name, String surname) {
         SignUpValidator validator = new SignUpValidator();
         MessageManager messageManager = new MessageManager();

@@ -9,7 +9,9 @@ import java.util.ResourceBundle;
 
 public class PropertyManager {
 
-    /** The Review user rating(int user id, int rating). */
+    /**
+     * The Review user rating(int user id, int rating).
+     */
     private ResourceBundle resourceBundle;
 
     /**
@@ -17,7 +19,7 @@ public class PropertyManager {
      *
      * @param filename the filename
      */
-    public PropertyManager(String filename){
+    public PropertyManager(String filename) {
         resourceBundle = ResourceBundle.getBundle(filename);
     }
 
@@ -27,7 +29,7 @@ public class PropertyManager {
      * @param key the key
      * @return the property
      */
-    public String getProperty(String key){
+    public String getProperty(String key) {
         return resourceBundle.getString(key);
     }
 }

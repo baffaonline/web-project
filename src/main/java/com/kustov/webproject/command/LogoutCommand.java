@@ -17,9 +17,7 @@ public class LogoutCommand implements Command {
     LogoutCommand() {
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
+
     @Override
     public CommandPair execute(HttpServletRequest request) {
         PropertyManager propertyManager = new PropertyManager("pages");

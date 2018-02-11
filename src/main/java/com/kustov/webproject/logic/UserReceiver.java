@@ -19,11 +19,11 @@ import java.util.List;
  * The Class UserReceiver.
  */
 public class UserReceiver {
-    
+
     /**
      * Check user.
      *
-     * @param login the login
+     * @param login    the login
      * @param password the password
      * @return the user
      * @throws ServiceException the service exception
@@ -41,18 +41,18 @@ public class UserReceiver {
     /**
      * Adds the user.
      *
-     * @param username the username
-     * @param password the password
-     * @param email the email
-     * @param name the name
-     * @param surname the surname
-     * @param birthday the birthday
+     * @param username  the username
+     * @param password  the password
+     * @param email     the email
+     * @param name      the name
+     * @param surname   the surname
+     * @param birthday  the birthday
      * @param countryId the country id
      * @return the user
      * @throws ServiceException the service exception
      */
     public User addUser(String username, String password, String email, String name, String surname,
-                       String birthday, int countryId) throws ServiceException {
+                        String birthday, int countryId) throws ServiceException {
         UserDAO dao = new UserDAO();
         CountryDAO countryDAO = new CountryDAO();
         try {
@@ -151,16 +151,16 @@ public class UserReceiver {
     /**
      * Update ban.
      *
-     * @param id the id
+     * @param id       the id
      * @param isBanned the is banned
      * @return true, if successful
      * @throws ServiceException the service exception
      */
-    public boolean updateBan(int id, boolean isBanned) throws ServiceException{
+    public boolean updateBan(int id, boolean isBanned) throws ServiceException {
         UserDAO userDAO = new UserDAO();
-        try{
+        try {
             return userDAO.updateBan(id, isBanned);
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }

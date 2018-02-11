@@ -9,10 +9,14 @@ import java.util.Objects;
 
 public class ReviewUserRating {
 
-    /** The user id. */
+    /**
+     * The user id.
+     */
     private int userId;
-    
-    /** The rating. */
+
+    /**
+     * The rating.
+     */
     private int rating;
 
     /**
@@ -68,9 +72,6 @@ public class ReviewUserRating {
         this.rating = rating;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,9 +81,6 @@ public class ReviewUserRating {
                 rating == that.rating;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
 

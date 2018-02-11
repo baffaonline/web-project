@@ -31,14 +31,18 @@ import java.util.Optional;
 @MultipartConfig
 public class Controller extends HttpServlet {
 
-    /** The path page default. */
+    /**
+     * The path page default.
+     */
     private static String pathPageDefault;
 
-    /** The Constant LOGGER. */
+    /**
+     * The Constant LOGGER.
+     */
     private final static Logger LOGGER = LogManager.getLogger();
 
     /**
-     * Inits the.
+     * Inits the servlet.
      *
      * @param config the config
      * @throws ServletException the servlet exception
@@ -53,7 +57,7 @@ public class Controller extends HttpServlet {
     /**
      * Do post.
      *
-     * @param req the req
+     * @param req  the req
      * @param resp the resp
      */
     @Override
@@ -64,7 +68,7 @@ public class Controller extends HttpServlet {
     /**
      * Do get.
      *
-     * @param req the req
+     * @param req  the req
      * @param resp the resp
      */
     @Override
@@ -75,7 +79,7 @@ public class Controller extends HttpServlet {
     /**
      * Command define.
      *
-     * @param req the req
+     * @param req  the req
      * @param resp the resp
      */
     private void commandDefine(HttpServletRequest req, HttpServletResponse resp) {
@@ -93,7 +97,7 @@ public class Controller extends HttpServlet {
                 } else {
                     PropertyManager propertyManager = new PropertyManager("pages");
                     String defaultPage = propertyManager.getProperty("path_page_default");
-                    if (commandPair.getPage().isEmpty()){
+                    if (commandPair.getPage().isEmpty()) {
                         resp.sendRedirect(defaultPage);
                     }
                     String page = commandPair.getPage();
@@ -110,7 +114,7 @@ public class Controller extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         } catch (CommandException | IOException | ServletException exc) {
-            req.getSession().setAttribute("error", exc.getMessage());
+            req.setAttribute("error", exc.getMessage());
             LOGGER.log(Level.ERROR, exc.getMessage());
             System.out.println(exc.getMessage());
             try {

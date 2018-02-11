@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class ActorReceiver {
-    
+
     /**
      * Find actor by id.
      *
@@ -27,11 +27,11 @@ public class ActorReceiver {
      * @return the actor
      * @throws ServiceException the service exception
      */
-    public Actor findActorById(int id) throws ServiceException{
+    public Actor findActorById(int id) throws ServiceException {
         ActorDAO actorDAO = new ActorDAO();
-        try{
+        try {
             Actor actor = actorDAO.findById(id);
-            if (actor == null){
+            if (actor == null) {
                 return null;
             }
             FilmDAO filmDAO = new FilmDAO();
@@ -41,7 +41,7 @@ public class ActorReceiver {
                 actor.setFilms(films);
             }
             return actor;
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }
@@ -49,28 +49,28 @@ public class ActorReceiver {
     /**
      * Adds the actor.
      *
-     * @param name the name
-     * @param surname the surname
+     * @param name      the name
+     * @param surname   the surname
      * @param countryId the country id
      * @param imagePath the image path
-     * @param filmsId the films id
+     * @param filmsId   the films id
      * @return the actor
      * @throws ServiceException the service exception
      */
     public Actor addActor(String name, String surname, int countryId, String imagePath, int filmsId[])
-            throws ServiceException{
+            throws ServiceException {
         ActorDAO actorDAO = new ActorDAO();
         CountryDAO countryDAO = new CountryDAO();
         FilmDAO filmDAO = new FilmDAO();
-        try{
+        try {
             Country country = countryDAO.findById(countryId);
             Actor actor = new Actor(0, name, surname, imagePath, country, null);
             actor.setId(actorDAO.insert(actor));
-            if (filmsId != null && actorDAO.insertFilmsToActor(actor.getId(), filmsId)){
+            if (filmsId != null && actorDAO.insertFilmsToActor(actor.getId(), filmsId)) {
                 actor.setFilms(filmDAO.findFilmsByActorId(actor.getId()));
             }
             return actor;
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }
@@ -81,14 +81,14 @@ public class ActorReceiver {
      * @return the pair
      * @throws ServiceException the service exception
      */
-    public Pair<List<Film>, List<Country>> findInformationForActor() throws ServiceException{
+    public Pair<List<Film>, List<Country>> findInformationForActor() throws ServiceException {
         CountryDAO countryDAO = new CountryDAO();
         FilmDAO filmDAO = new FilmDAO();
-        try{
+        try {
             List<Film> films = filmDAO.findAll();
             List<Country> countries = countryDAO.findAll();
             return new Pair<>(films, countries);
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }

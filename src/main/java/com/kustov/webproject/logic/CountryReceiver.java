@@ -11,19 +11,19 @@ import java.util.List;
 /**
  * The Class CountryReceiver.
  */
-public class CountryReceiver{
-    
+public class CountryReceiver {
+
     /**
      * Find countries.
      *
      * @return the list
      * @throws ServiceException the service exception
      */
-    public List<Country> findCountries() throws ServiceException{
+    public List<Country> findCountries() throws ServiceException {
         CountryDAO dao = new CountryDAO();
         try {
             return dao.findAll();
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }

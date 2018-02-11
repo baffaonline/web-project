@@ -8,19 +8,29 @@ import java.util.regex.Pattern;
  */
 public class SignUpValidator {
 
-    /** The Constant USERNAME_REGEX. */
+    /**
+     * The Constant USERNAME_REGEX.
+     */
     private final static String USERNAME_REGEX = "[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я\\d]+";
 
-    /** The Constant PASSWORD_REGEX. */
+    /**
+     * The Constant PASSWORD_REGEX.
+     */
     private final static String PASSWORD_REGEX = "[a-zA-Zа-яА-Я\\d]+";
 
-    /** The Constant NAME_SURNAME_REGEX. */
+    /**
+     * The Constant NAME_SURNAME_REGEX.
+     */
     private final static String NAME_SURNAME_REGEX = "[А-ЯA-Z][а-яА-Яa-zA-Z]+";
 
-    /** The Constant EMAIL_REGEX. */
+    /**
+     * The Constant EMAIL_REGEX.
+     */
     private final static String EMAIL_REGEX = "\\w+@[a-zA-Z]+[.][a-zA-Z]+";
 
-    /** The Constant DATE_REGEX. */
+    /**
+     * The Constant DATE_REGEX.
+     */
     private final static String DATE_REGEX = "(19|20)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])";
 
     /**
@@ -56,7 +66,7 @@ public class SignUpValidator {
     /**
      * Check name and surname.
      *
-     * @param name the name
+     * @param name    the name
      * @param surname the surname
      * @return true, if successful
      */

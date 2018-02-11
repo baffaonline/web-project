@@ -76,6 +76,7 @@ public class CountryDAO extends AbstractEntityDAO<Integer, Country> {
         return countries;
     }
 
+
     @Override
     public Country findById(Integer id) throws DAOException {
         Country country = null;
@@ -103,7 +104,7 @@ public class CountryDAO extends AbstractEntityDAO<Integer, Country> {
      */
     private int findIdByCountryName(String name, Connection connection)
             throws DAOException {
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ID_BY_COUNTRY_NAME)){
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ID_BY_COUNTRY_NAME)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             return resultSet.getInt(SQLConstant.COUNTRY_ID);

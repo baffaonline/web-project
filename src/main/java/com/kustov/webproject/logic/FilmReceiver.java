@@ -14,7 +14,7 @@ import java.util.List;
  * The Class FilmReceiver.
  */
 public class FilmReceiver {
-    
+
     /**
      * Find films.
      *
@@ -62,14 +62,14 @@ public class FilmReceiver {
     /**
      * Adds the film.
      *
-     * @param filmTitle the film title
-     * @param filePath the file path
-     * @param description the description
-     * @param date the date
-     * @param countryId the country id
+     * @param filmTitle      the film title
+     * @param filePath       the file path
+     * @param description    the description
+     * @param date           the date
+     * @param countryId      the country id
      * @param ageRestriction the age restriction
-     * @param genresId the genres id
-     * @param actorsId the actors id
+     * @param genresId       the genres id
+     * @param actorsId       the actors id
      * @return the film
      * @throws ServiceException the service exception
      */
@@ -100,17 +100,17 @@ public class FilmReceiver {
     /**
      * Edits the film.
      *
-     * @param filmId the film id
-     * @param filmTitle the film title
-     * @param filePath the file path
-     * @param description the description
-     * @param date the date
-     * @param countryId the country id
+     * @param filmId         the film id
+     * @param filmTitle      the film title
+     * @param filePath       the file path
+     * @param description    the description
+     * @param date           the date
+     * @param countryId      the country id
      * @param ageRestriction the age restriction
-     * @param oldGenresId the old genres id
-     * @param oldActorsId the old actors id
-     * @param newGenresId the new genres id
-     * @param newActorsId the new actors id
+     * @param oldGenresId    the old genres id
+     * @param oldActorsId    the old actors id
+     * @param newGenresId    the new genres id
+     * @param newActorsId    the new actors id
      * @return true, if successful
      * @throws ServiceException the service exception
      */
@@ -127,7 +127,7 @@ public class FilmReceiver {
             if (!filePath.isEmpty()) {
                 film = new Film(filmId, filmTitle, country, description, ageRestriction, date, filePath, 0,
                         null, null, null);
-            }else{
+            } else {
                 film = new Film(filmId, filmTitle, country, description, ageRestriction, date,
                         oldFilm.getPosterPath(), 0, null, null, null);
             }
@@ -181,11 +181,11 @@ public class FilmReceiver {
      * @return true, if successful
      * @throws ServiceException the service exception
      */
-    public boolean deleteFilm(int filmId) throws ServiceException{
+    public boolean deleteFilm(int filmId) throws ServiceException {
         FilmDAO filmDAO = new FilmDAO();
-        try{
+        try {
             return filmDAO.deleteFilm(filmId);
-        }catch (DAOException exc){
+        } catch (DAOException exc) {
             throw new ServiceException(exc);
         }
     }

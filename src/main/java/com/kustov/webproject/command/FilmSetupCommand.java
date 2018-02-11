@@ -36,6 +36,7 @@ public class FilmSetupCommand implements Command {
         String page;
         PropertyManager propertyManager = new PropertyManager("pages");
         page = propertyManager.getProperty("path_page_admin_add_film");
+
         try {
             Pair<Film, List<Country>> filmListPair = receiver.findInformationForFilm();
             Film film = filmListPair.getKey();

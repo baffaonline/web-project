@@ -9,7 +9,9 @@ import java.util.Objects;
 
 public class Genre extends Entity {
 
-    /** The name. */
+    /**
+     * The name.
+     */
     private String name;
 
     /**
@@ -21,7 +23,7 @@ public class Genre extends Entity {
     /**
      * Instantiates a new genre.
      *
-     * @param id the id
+     * @param id   the id
      * @param name the name
      */
     public Genre(int id, String name) {
@@ -47,9 +49,6 @@ public class Genre extends Entity {
         this.name = name;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.entity.Entity#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +66,6 @@ public class Genre extends Entity {
 
     @Override
     public String toString() {
-        return name ;
+        return name;
     }
 }

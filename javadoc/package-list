@@ -1,0 +1,12 @@
+com.kustov.webproject.command
+com.kustov.webproject.controller
+com.kustov.webproject.customtag
+com.kustov.webproject.dao
+com.kustov.webproject.entity
+com.kustov.webproject.exception
+com.kustov.webproject.filter
+com.kustov.webproject.logic
+com.kustov.webproject.pool
+com.kustov.webproject.service
+com.kustov.webproject.validator
+test.com.kustov.webproject

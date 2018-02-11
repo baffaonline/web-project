@@ -8,10 +8,22 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+/**
+ * The Class ActorCommand.
+ */
 public class ActorCommand implements Command {
 
+    /**
+     * The receiver.
+     */
     private ActorReceiver receiver;
 
+    /**
+     * Instantiates a new actor command.
+     *
+     * @param receiver the receiver
+     */
     ActorCommand(ActorReceiver receiver) {
         this.receiver = receiver;
     }

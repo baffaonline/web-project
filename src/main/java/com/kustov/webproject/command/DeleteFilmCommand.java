@@ -28,9 +28,6 @@ public class DeleteFilmCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");

@@ -6,6 +6,10 @@ import com.kustov.webproject.service.PropertyManager;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
+
+/**
+ * The Class LocalizationCommand.
+ */
 public class LocalizationCommand implements Command {
 
     @Override

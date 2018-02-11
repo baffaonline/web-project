@@ -10,16 +10,19 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
 
-
 /**
  * The Class HeaderTag.
  */
-public class HeaderTag extends TagSupport{
+public class HeaderTag extends TagSupport {
 
-    /** The user. */
+    /**
+     * The user.
+     */
     private User user;
-    
-    /** The context path. */
+
+    /**
+     * The context path.
+     */
     private String contextPath;
 
     /**
@@ -48,14 +51,14 @@ public class HeaderTag extends TagSupport{
      */
     @Override
     public int doStartTag() throws JspException {
-        try{
-            switch (user.getType().getTypeName()){
-                case "user":{
+        try {
+            switch (user.getType().getTypeName()) {
+                case "user": {
                     JspWriter jspWriter = pageContext.getOut();
                     jspWriter.write("<li class=\"nav-item\">");
                     jspWriter.write("<a class=\"nav-link navigation-bar-item\" href=\"" + contextPath +
                             "/MainController?command=user_information&page=user\">" +
-                                user.getUsername() + "</a>");
+                            user.getUsername() + "</a>");
                     jspWriter.write("</li>");
                     jspWriter.write("<li class=\"nav-item\">");
                     MessageManager messageManager = new MessageManager();
@@ -64,14 +67,15 @@ public class HeaderTag extends TagSupport{
                             messageManager.getString("header.logout") + "</a>");
                     jspWriter.write("</li>");
                     break;
-                }case "admin":{
+                }
+                case "admin": {
                     JspWriter jspWriter = pageContext.getOut();
                     jspWriter.write("<li class=\"nav-item\">");
                     MessageManager messageManager = new MessageManager();
                     PropertyManager propertyManager = new PropertyManager("pages");
                     jspWriter.write("<a class=\"nav-link navigation-bar-item\" href=\"" + contextPath +
                             propertyManager.getProperty("path_page_admin") + "\">" +
-                                user.getUsername() + "(" + messageManager.getString("header.admin") + ")" + "</a>");
+                            user.getUsername() + "(" + messageManager.getString("header.admin") + ")" + "</a>");
                     jspWriter.write("</li>");
                     jspWriter.write("<li class=\"nav-item\">");
                     jspWriter.write("<a class=\"nav-link navigation-bar-item\" href=\"" + contextPath +
@@ -79,7 +83,8 @@ public class HeaderTag extends TagSupport{
                             messageManager.getString("header.logout") + "</a>");
                     jspWriter.write("</li>");
                     break;
-                }case "guest":{
+                }
+                case "guest": {
                     JspWriter jspWriter = pageContext.getOut();
                     jspWriter.write("<li class=\"nav-item\">");
                     MessageManager messageManager = new MessageManager();
@@ -95,7 +100,7 @@ public class HeaderTag extends TagSupport{
                     break;
                 }
             }
-        }catch (IOException exc){
+        } catch (IOException exc) {
             throw new JspException(exc);
         }
         return SKIP_BODY;

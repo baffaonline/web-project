@@ -12,37 +12,59 @@ import java.util.Objects;
 
 public class User extends Entity {
 
-    /** The username. */
+    /**
+     * The username.
+     */
     private String username;
-    
-    /** The password. */
+
+    /**
+     * The password.
+     */
     private String password;
-    
-    /** The email. */
+
+    /**
+     * The email.
+     */
     private String email;
-    
-    /** The name. */
+
+    /**
+     * The name.
+     */
     private String name;
-    
-    /** The surname. */
+
+    /**
+     * The surname.
+     */
     private String surname;
-    
-    /** The birthday. */
+
+    /**
+     * The birthday.
+     */
     private LocalDate birthday;
-    
-    /** The country. */
+
+    /**
+     * The country.
+     */
     private Country country;
-    
-    /** The rating. */
+
+    /**
+     * The rating.
+     */
     private int rating;
-    
-    /** The is banned. */
+
+    /**
+     * The is banned.
+     */
     private boolean isBanned;
-    
-    /** The type. */
+
+    /**
+     * The type.
+     */
     private UserType type;
-    
-    /** The reviews. */
+
+    /**
+     * The reviews.
+     */
     private List<Review> reviews;
 
     /**
@@ -57,18 +79,18 @@ public class User extends Entity {
     /**
      * Instantiates a new user.
      *
-     * @param id the id
+     * @param id       the id
      * @param username the username
      * @param password the password
-     * @param email the email
-     * @param name the name
-     * @param surname the surname
+     * @param email    the email
+     * @param name     the name
+     * @param surname  the surname
      * @param birthday the birthday
-     * @param country the country
-     * @param rating the rating
+     * @param country  the country
+     * @param rating   the rating
      * @param isBanned the is banned
-     * @param type the type
-     * @param reviews the reviews
+     * @param type     the type
+     * @param reviews  the reviews
      */
     public User(int id, String username, String password, String email, String name, String surname, LocalDate birthday,
                 Country country, int rating, boolean isBanned, UserType type, List<Review> reviews) {
@@ -284,9 +306,6 @@ public class User extends Entity {
         this.reviews = reviews;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.entity.Entity#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

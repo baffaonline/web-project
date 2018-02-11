@@ -6,12 +6,20 @@ package com.kustov.webproject.entity;
  */
 public enum UserType {
 
-    /** The user. */
-    USER("user"), /** The admin. */
- ADMIN("admin"), /** The guest. */
- GUEST("guest");
+    /**
+     * The user.
+     */
+    USER("user"), /**
+     * The admin.
+     */
+    ADMIN("admin"), /**
+     * The guest.
+     */
+    GUEST("guest");
 
-    /** The type name. */
+    /**
+     * The type name.
+     */
     private String typeName;
 
     /**

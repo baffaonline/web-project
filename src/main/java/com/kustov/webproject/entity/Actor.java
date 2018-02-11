@@ -151,9 +151,6 @@ public class Actor extends Entity {
         this.imagePath = imagePath;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.entity.Entity#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

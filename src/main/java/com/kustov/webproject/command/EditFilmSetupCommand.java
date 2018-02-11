@@ -30,13 +30,11 @@ public class EditFilmSetupCommand implements Command {
         this.receiver = receiver;
     }
 
-    /* (non-Javadoc)
-     * @see main.java.com.kustov.webproject.command.Command#execute(HttpServletRequest)
-     */
     @Override
     public CommandPair execute(HttpServletRequest request) throws CommandException {
         PropertyManager propertyManager = new PropertyManager("pages");
         String page = propertyManager.getProperty("path_page_admin_edit_film");
+
         String filmId = request.getParameter("filmId");
         User thisUser = (User) request.getSession().getAttribute("user");
         if (filmId == null || !"admin".equals(thisUser.getType().getTypeName())) {

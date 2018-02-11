@@ -17,14 +17,14 @@ import java.util.Locale;
  */
 @WebFilter(urlPatterns = "/index.jsp")
 public class InitialFilter implements Filter {
-    
+
     /**
      * Do filter.
      *
-     * @param servletRequest the servlet request
+     * @param servletRequest  the servlet request
      * @param servletResponse the servlet response
-     * @param filterChain the filter chain
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param filterChain     the filter chain
+     * @throws IOException      Signals that an I/O exception has occurred.
      * @throws ServletException the servlet exception
      */
     @Override
@@ -32,14 +32,14 @@ public class InitialFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        if (user == null){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
             user = new User();
             session.setAttribute("user", user);
             session.setAttribute("isUpdated", false);
         }
-        String locale = (String)session.getAttribute("locale");
-        if (locale == null){
+        String locale = (String) session.getAttribute("locale");
+        if (locale == null) {
             locale = "en";
             session.setAttribute("locale", locale);
             MessageManager.setLocale(new Locale(locale));

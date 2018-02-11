@@ -9,6 +9,7 @@ import com.kustov.webproject.service.PropertyManager;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
  * The Class BanCommand.
  */

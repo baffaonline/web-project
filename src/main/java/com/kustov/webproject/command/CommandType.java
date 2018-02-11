@@ -3,6 +3,9 @@ package com.kustov.webproject.command;
 import com.kustov.webproject.logic.*;
 
 
+/**
+ * The Enum CommandType.
+ */
 public enum CommandType {
 
     /**
